@@ -6,12 +6,15 @@ A beautiful and responsive portfolio website built with Flutter web. This portfo
 
 - **Responsive Design**: Works seamlessly on desktop, tablet, and mobile devices
 - **Modern UI**: Clean, professional design with smooth animations
-- **Three Main Sections**:
+- **Five Main Sections**:
   - **About**: Hero section with personal introduction and call-to-action buttons
   - **Working Experience**: Professional timeline with detailed achievements
   - **Projects**: Featured projects showcase with technology tags and links
+  - **Education & Certifications**: Academic background and professional certifications
+  - **Skills & Languages**: Technical expertise and language proficiencies
 - **Contact Form**: Integrated contact form with social media links
 - **Smooth Navigation**: Animated scroll-to-section navigation
+- **Auto-deployment**: GitHub Actions workflow for automatic deployment to GitHub Pages
 
 ## Getting Started
 
@@ -47,6 +50,64 @@ flutter build web
 ```
 
 The built files will be available in the `build/web` directory.
+
+## GitHub Pages Deployment
+
+This repository is configured for automatic deployment to GitHub Pages using GitHub Actions.
+
+### Automatic Deployment
+
+Every push to the `main` branch will automatically:
+1. Build the Flutter web application
+2. Deploy it to GitHub Pages
+3. Make it available at `https://[username].github.io/portfolio/`
+
+### Manual Setup
+
+To enable GitHub Pages for your repository:
+
+1. Go to your repository settings
+2. Navigate to "Pages" section
+3. Under "Source", select "GitHub Actions"
+4. The workflow will automatically deploy on the next push to main
+
+### Custom Domain (Optional)
+
+To use a custom domain:
+1. Add your domain to the `cname` field in `.github/workflows/deploy.yml`
+2. Configure your domain's DNS to point to GitHub Pages
+3. Add a CNAME file to the `web` directory with your domain
+
+## Customization
+
+### Personalizing Content
+
+Update the following sections with your information:
+
+1. **About Section** (`lib/widgets/about_section.dart`):
+   - Name and title
+   - Personal description
+   - Profile image
+
+2. **Experience Section** (`lib/widgets/experience_section.dart`):
+   - Work experience details
+   - Company names and dates
+   - Achievements and responsibilities
+
+3. **Projects Section** (`lib/widgets/projects_section.dart`):
+   - Project names and descriptions
+   - Technology stacks
+   - Demo and GitHub links
+
+4. **Education & Certifications** (`lib/widgets/academic_certificates_section.dart`):
+   - Educational background
+   - Degrees and institutions
+   - Professional certifications
+
+5. **Skills & Languages** (`lib/widgets/skills_languages_section.dart`):
+   - Technical skills and proficiency levels
+   - Programming languages
+   - Spoken languages
 
 ## Project Structure
 

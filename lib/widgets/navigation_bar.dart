@@ -4,12 +4,16 @@ class CustomNavigationBar extends StatelessWidget {
   final VoidCallback onAboutPressed;
   final VoidCallback onExperiencePressed;
   final VoidCallback onProjectsPressed;
+  final VoidCallback onAcademicPressed;
+  final VoidCallback onSkillsPressed;
 
   const CustomNavigationBar({
     Key? key,
     required this.onAboutPressed,
     required this.onExperiencePressed,
     required this.onProjectsPressed,
+    required this.onAcademicPressed,
+    required this.onSkillsPressed,
   }) : super(key: key);
 
   @override
@@ -48,6 +52,10 @@ class CustomNavigationBar extends StatelessWidget {
               _buildNavItem('Experience', onExperiencePressed),
               const SizedBox(width: 30),
               _buildNavItem('Projects', onProjectsPressed),
+              const SizedBox(width: 30),
+              _buildNavItem('Education', onAcademicPressed),
+              const SizedBox(width: 30),
+              _buildNavItem('Skills', onSkillsPressed),
               const SizedBox(width: 30),
               _buildContactButton(),
             ],
