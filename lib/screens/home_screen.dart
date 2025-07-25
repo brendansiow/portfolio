@@ -3,6 +3,8 @@ import '../widgets/navigation_bar.dart';
 import '../widgets/about_section.dart';
 import '../widgets/experience_section.dart';
 import '../widgets/projects_section.dart';
+import '../widgets/academic_certificates_section.dart';
+import '../widgets/skills_languages_section.dart';
 import '../widgets/footer_section.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -17,6 +19,8 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalKey _aboutKey = GlobalKey();
   final GlobalKey _experienceKey = GlobalKey();
   final GlobalKey _projectsKey = GlobalKey();
+  final GlobalKey _academicKey = GlobalKey();
+  final GlobalKey _skillsKey = GlobalKey();
 
   void _scrollToSection(GlobalKey key) {
     final context = key.currentContext;
@@ -39,6 +43,8 @@ class _HomeScreenState extends State<HomeScreen> {
             onAboutPressed: () => _scrollToSection(_aboutKey),
             onExperiencePressed: () => _scrollToSection(_experienceKey),
             onProjectsPressed: () => _scrollToSection(_projectsKey),
+            onAcademicPressed: () => _scrollToSection(_academicKey),
+            onSkillsPressed: () => _scrollToSection(_skillsKey),
           ),
           Expanded(
             child: SingleChildScrollView(
@@ -48,6 +54,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   AboutSection(key: _aboutKey),
                   ExperienceSection(key: _experienceKey),
                   ProjectsSection(key: _projectsKey),
+                  AcademicCertificatesSection(key: _academicKey),
+                  SkillsLanguagesSection(key: _skillsKey),
                   const FooterSection(),
                 ],
               ),
