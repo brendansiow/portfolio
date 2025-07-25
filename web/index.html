@@ -6,11 +6,10 @@
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="Professional Portfolio - Software Developer">
-
-  <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="Portfolio">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Portfolio</title>
   <link rel="manifest" href="manifest.json">
@@ -18,19 +17,20 @@
   <style>
     body {
       margin: 0;
+      padding: 0;
       font-family: "Roboto", "Noto", sans-serif;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       color: white;
       height: 100vh;
-      overflow: hidden;
     }
     
     #loading {
-      position: absolute;
+      position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       text-align: center;
+      z-index: 1000;
     }
     
     .loading-spinner {
@@ -48,6 +48,7 @@
       100% { transform: rotate(360deg); }
     }
     
+    /* Ensure Flutter glass pane doesn't interfere */
     flt-glass-pane {
       position: absolute;
       top: 0;
@@ -65,19 +66,25 @@
   
   <script src="flutter.js" defer></script>
   <script>
+    // Ensure service worker registration
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('flutter-first-frame', function () {
+        navigator.serviceWorker.register('flutter_service_worker.js');
+      });
+    }
+    
     window.addEventListener('load', function(ev) {
       var loading = document.getElementById('loading');
       
-      // Hide loading screen once Flutter app starts
-      if (loading) {
-        setTimeout(function() {
-          if (loading && loading.style.display !== 'none') {
-            loading.style.display = 'none';
-          }
-        }, 5000); // Fallback timeout
-      }
+      // Set a fallback timeout in case Flutter doesn't load
+      var fallbackTimeout = setTimeout(function() {
+        console.warn('Flutter loading timeout - hiding loading screen');
+        if (loading && loading.style.display !== 'none') {
+          loading.style.display = 'none';
+        }
+      }, 10000);
       
-      // Initialize Flutter
+      // Initialize Flutter app
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
           serviceWorkerVersion: window.serviceWorkerVersion || null,
@@ -85,10 +92,21 @@
       }).then(function(engineInitializer) {
         return engineInitializer.initializeEngine();
       }).then(function(appRunner) {
+        // Clear the fallback timeout
+        clearTimeout(fallbackTimeout);
+        // Hide loading screen
         if (loading) {
           loading.style.display = 'none';
         }
+        // Run the Flutter app
         return appRunner.runApp();
+      }).catch(function(error) {
+        console.error('Flutter initialization error:', error);
+        // Clear the fallback timeout and hide loading screen even on error
+        clearTimeout(fallbackTimeout);
+        if (loading) {
+          loading.innerHTML = '<div style="color: #ff6b6b;">Error loading portfolio. Please refresh the page.</div>';
+        }
       });
     });
   </script>
