@@ -60,23 +60,10 @@ This repository is configured for automatic deployment to GitHub Pages using Git
 Every push to the `main` branch will automatically:
 1. Build the Flutter web application
 2. Deploy it to GitHub Pages
-3. Make it available at `https://[username].github.io/portfolio/`
+3. Create a GitHub release with the deployment URL
+4. Make it available at `https://brendansiow.github.io/portfolio/`
 
-### Manual Setup
-
-To enable GitHub Pages for your repository:
-
-1. Go to your repository settings
-2. Navigate to "Pages" section
-3. Under "Source", select "GitHub Actions"
-4. The workflow will automatically deploy on the next push to main
-
-### Custom Domain (Optional)
-
-To use a custom domain:
-1. Add your domain to the `cname` field in `.github/workflows/deploy.yml`
-2. Configure your domain's DNS to point to GitHub Pages
-3. Add a CNAME file to the `web` directory with your domain
+For detailed deployment information, troubleshooting, and configuration, see [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ## Customization
 
