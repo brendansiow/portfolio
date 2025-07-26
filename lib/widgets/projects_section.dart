@@ -146,8 +146,8 @@ class ProjectsSection extends StatelessWidget {
           margin: const EdgeInsets.only(bottom: 30),
           child: _buildProjectCard(
             context,
-            project['title']!,
-            project['description']!,
+            '${project['title']!}',
+            '${project['description']!}',
             project['technologies']! as List<String>,
             isDark,
           ),
