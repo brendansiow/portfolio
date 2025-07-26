@@ -93,58 +93,7 @@ class FooterSection extends StatelessWidget {
                         _buildSocialButton(Icons.article, 'Medium'),
                       ],
                     ),
-                    const SizedBox(height: 40),
-                    // Quick Contact Form
-                    Container(
-                      padding: const EdgeInsets.all(25),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Quick Message',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                          const SizedBox(height: 20),
-                          _buildTextField('Your Name'),
-                          const SizedBox(height: 15),
-                          _buildTextField('Your Email'),
-                          const SizedBox(height: 15),
-                          _buildTextField('Message', maxLines: 3),
-                          const SizedBox(height: 20),
-                          SizedBox(
-                            width: double.infinity,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                // Handle form submission
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.white,
-                                foregroundColor: const Color(0xFF2E3BA2),
-                                padding: const EdgeInsets.symmetric(vertical: 15),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                              ),
-                              child: const Text(
-                                'Send Message',
-                                style: TextStyle(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+
                   ],
                 ),
               ),
@@ -163,7 +112,7 @@ class FooterSection extends StatelessWidget {
               ),
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const Text(
                   '© 2024 John Doe. All rights reserved.',
@@ -171,31 +120,6 @@ class FooterSection extends StatelessWidget {
                     fontSize: 14,
                     color: Colors.white70,
                   ),
-                ),
-                Row(
-                  children: [
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        'Privacy Policy',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.white70,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 20),
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        'Terms of Service',
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.white70,
-                        ),
-                      ),
-                    ),
-                  ],
                 ),
               ],
             ),
@@ -245,50 +169,6 @@ class FooterSection extends StatelessWidget {
           icon,
           color: Colors.white,
           size: 20,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTextField(String hint, {int maxLines = 1}) {
-    return TextField(
-      maxLines: maxLines,
-      style: const TextStyle(
-        color: Colors.white,
-        fontSize: 14,
-      ),
-      decoration: InputDecoration(
-        hintText: hint,
-        hintStyle: TextStyle(
-          color: Colors.white.withOpacity(0.7),
-          fontSize: 14,
-        ),
-        filled: true,
-        fillColor: Colors.white.withOpacity(0.1),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(
-            color: Colors.white.withOpacity(0.3),
-            width: 1,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(
-            color: Colors.white.withOpacity(0.3),
-            width: 1,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: const BorderSide(
-            color: Colors.white,
-            width: 1,
-          ),
-        ),
-        contentPadding: const EdgeInsets.symmetric(
-          horizontal: 15,
-          vertical: 12,
         ),
       ),
     );
