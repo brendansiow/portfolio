@@ -94,6 +94,8 @@ class ExperienceSection extends StatelessWidget {
         ],
       ),
     );
+  }
+
   Widget _buildExperienceItem(
     BuildContext context,
     String title,

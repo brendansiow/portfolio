@@ -171,6 +171,10 @@ class SkillsLanguagesSection extends StatelessWidget {
           ],
           isDark,
         ),
+      ],
+    );
+  }
+
   Widget _buildSkillCategory(
     BuildContext context,
     String title,

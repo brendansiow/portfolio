@@ -147,6 +147,10 @@ class AcademicCertificatesSection extends StatelessWidget {
           'Comprehensive certification covering MongoDB development and administration.',
           isDark,
         ),
+      ],
+    );
+  }
+
   Widget _buildSectionHeader(BuildContext context, String title) {
     return Text(
       title,
