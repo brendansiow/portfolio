@@ -33,29 +33,33 @@ jobs:
       - name: Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.24.5'
+          flutter-version: '3.22.3'
           channel: 'stable'
 
       - name: Install dependencies
-        run: flutter pub get
+        run: |
+          flutter pub get
+          flutter pub deps
 
       - name: Enable web support
         run: flutter config --enable-web
 
       - name: Build web app
-        run: flutter build web --release --base-href=/portfolio/
+        run: |
+          flutter doctor -v
+          flutter build web --release --base-href=/portfolio/ --verbose
 
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v4
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v2
         with:
           path: ./build/web
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v3
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
