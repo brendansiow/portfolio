@@ -35,11 +35,18 @@ jobs:
         with:
           flutter-version: '3.22.3'
           channel: 'stable'
+          cache: true
+          cache-key: flutter-3.22.3
 
       - name: Install dependencies
         run: |
           flutter pub get
           flutter pub deps
+          
+      - name: Clean and prepare build
+        run: |
+          flutter clean
+          flutter pub get
 
       - name: Enable web support
         run: flutter config --enable-web
@@ -47,7 +54,12 @@ jobs:
       - name: Build web app
         run: |
           flutter doctor -v
-          flutter build web --release --base-href=/portfolio/ --verbose
+          flutter build web --release --base-href=/portfolio/ --verbose --dart-define=FLUTTER_WEB_USE_SKIA=true
+          
+      - name: Verify build output
+        run: |
+          ls -la build/web/
+          test -f build/web/index.html || (echo "index.html not found in build output" && exit 1)
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
