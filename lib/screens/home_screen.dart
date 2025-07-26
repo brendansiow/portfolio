@@ -8,7 +8,9 @@ import '../widgets/skills_languages_section.dart';
 import '../widgets/footer_section.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+  final VoidCallback onThemeToggle;
+  
+  const HomeScreen({Key? key, required this.onThemeToggle}) : super(key: key);
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -36,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: Column(
         children: [
           CustomNavigationBar(
@@ -45,6 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
             onProjectsPressed: () => _scrollToSection(_projectsKey),
             onAcademicPressed: () => _scrollToSection(_academicKey),
             onSkillsPressed: () => _scrollToSection(_skillsKey),
+            onThemeToggle: widget.onThemeToggle,
           ),
           Expanded(
             child: SingleChildScrollView(

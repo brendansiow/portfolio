@@ -1,38 +1,48 @@
 import 'package:flutter/material.dart';
+import '../utils/responsive_helper.dart';
+import '../utils/app_theme.dart';
 
 class ExperienceSection extends StatelessWidget {
   const ExperienceSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 100),
-      color: const Color(0xFFF8F9FA),
+      padding: EdgeInsets.symmetric(
+        horizontal: ResponsiveHelper.getHorizontalPadding(context),
+        vertical: ResponsiveHelper.getVerticalPadding(context),
+      ),
+      color: AppTheme.getSurfaceColor(context),
       child: Column(
         children: [
           // Section Title
-          const Text(
+          Text(
             'Working Experience',
             style: TextStyle(
-              fontSize: 42,
+              fontSize: ResponsiveHelper.getFontSize(context, 42),
               fontWeight: FontWeight.bold,
-              color: Color(0xFF2E3BA2),
+              color: Theme.of(context).primaryColor,
             ),
+            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 20),
-          const Text(
+          Text(
             'My professional journey and key achievements',
             style: TextStyle(
-              fontSize: 18,
-              color: Color(0xFF666666),
+              fontSize: ResponsiveHelper.getFontSize(context, 18),
+              color: AppTheme.getTextColor(context).withOpacity(0.7),
             ),
+            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 60),
           // Experience Timeline
           Column(
             children: [
               _buildExperienceItem(
+                context,
                 'Senior Full Stack Developer',
                 'TechCorp Solutions',
                 '2022 - Present',
@@ -45,185 +55,283 @@ class ExperienceSection extends StatelessWidget {
                   'Collaborated with product teams to define technical requirements',
                 ],
                 true,
+                isDark,
               ),
               _buildExperienceItem(
+                context,
                 'Full Stack Developer',
-                'StartupXYZ',
+                'StartupTech Inc.',
                 '2020 - 2022',
-                'Developed and maintained multiple client projects using modern web technologies. '
-                'Built responsive web applications and RESTful APIs.',
+                'Developed and maintained multiple web applications using modern technologies. '
+                'Worked closely with design team to implement pixel-perfect UIs.',
                 [
-                  'Built 10+ responsive web applications using React and Vue.js',
-                  'Developed RESTful APIs using Node.js and Express',
-                  'Implemented real-time features using Socket.io',
-                  'Optimized database queries improving performance by 30%',
+                  'Built responsive web applications using React and Vue.js',
+                  'Developed RESTful APIs with Node.js and Express',
+                  'Integrated third-party services and payment gateways',
+                  'Optimized database queries improving response time by 30%',
                 ],
                 false,
+                isDark,
               ),
               _buildExperienceItem(
-                'Junior Web Developer',
-                'WebStudio Inc',
+                context,
+                'Frontend Developer',
+                'WebSolutions Ltd.',
                 '2019 - 2020',
-                'Started my professional journey building websites and learning modern development practices. '
-                'Gained experience in front-end and back-end technologies.',
+                'Focused on creating interactive and user-friendly web interfaces. '
+                'Collaborated with UX designers to implement modern design patterns.',
                 [
-                  'Created responsive websites using HTML, CSS, and JavaScript',
-                  'Learned React.js and contributed to team projects',
-                  'Participated in daily standups and agile development',
-                  'Assisted in bug fixes and feature implementations',
+                  'Developed responsive websites using HTML5, CSS3, and JavaScript',
+                  'Implemented modern frontend frameworks and libraries',
+                  'Ensured cross-browser compatibility and performance optimization',
+                  'Participated in agile development processes',
                 ],
                 false,
+                isDark,
               ),
             ],
           ),
         ],
       ),
     );
-  }
-
   Widget _buildExperienceItem(
+    BuildContext context,
     String title,
     String company,
     String duration,
     String description,
     List<String> achievements,
     bool isLatest,
+    bool isDark,
   ) {
     return Container(
       margin: const EdgeInsets.only(bottom: 50),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Timeline
-          Column(
-            children: [
-              Container(
-                width: 20,
-                height: 20,
-                decoration: BoxDecoration(
-                  color: isLatest ? const Color(0xFF2E3BA2) : const Color(0xFF888888),
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: Colors.white,
-                    width: 3,
-                  ),
+      child: ResponsiveHelper.isMobile(context)
+          ? _buildMobileExperienceItem(context, title, company, duration, description, achievements, isLatest, isDark)
+          : _buildDesktopExperienceItem(context, title, company, duration, description, achievements, isLatest, isDark),
+    );
+  }
+
+  Widget _buildDesktopExperienceItem(
+    BuildContext context,
+    String title,
+    String company,
+    String duration,
+    String description,
+    List<String> achievements,
+    bool isLatest,
+    bool isDark,
+  ) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Timeline
+        Column(
+          children: [
+            Container(
+              width: 20,
+              height: 20,
+              decoration: BoxDecoration(
+                color: isLatest ? Theme.of(context).primaryColor : Colors.grey,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: AppTheme.getSurfaceColor(context),
+                  width: 3,
                 ),
               ),
-              Container(
-                width: 2,
-                height: 150,
-                color: const Color(0xFFE0E0E0),
-              ),
-            ],
+            ),
+            Container(
+              width: 2,
+              height: 150,
+              color: AppTheme.getTextColor(context).withOpacity(0.2),
+            ),
+          ],
+        ),
+        const SizedBox(width: 30),
+        // Content
+        Expanded(
+          child: Container(
+            padding: const EdgeInsets.all(30),
+            decoration: AppTheme.glassDecoration(isDark),
+            child: _buildExperienceContent(context, title, company, duration, description, achievements, isDark),
           ),
-          const SizedBox(width: 30),
-          // Content
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.all(30),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(15),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.1),
-                    spreadRadius: 1,
-                    blurRadius: 10,
-                    offset: const Offset(0, 5),
-                  ),
-                ],
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            title,
-                            style: const TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF2E3BA2),
-                            ),
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            company,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: Color(0xFF333333),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 15,
-                          vertical: 8,
-                        ),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF2E3BA2).withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        child: Text(
-                          duration,
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xFF2E3BA2),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 15),
-                  Text(
-                    description,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Color(0xFF666666),
-                      height: 1.5,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: achievements
-                        .map((achievement) => Padding(
-                              padding: const EdgeInsets.only(bottom: 8),
-                              child: Row(
-                                children: [
-                                  const Icon(
-                                    Icons.check_circle,
-                                    color: Color(0xFF4CAF50),
-                                    size: 18,
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Expanded(
-                                    child: Text(
-                                      achievement,
-                                      style: const TextStyle(
-                                        fontSize: 15,
-                                        color: Color(0xFF555555),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ))
-                        .toList(),
-                  ),
-                ],
-              ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMobileExperienceItem(
+    BuildContext context,
+    String title,
+    String company,
+    String duration,
+    String description,
+    List<String> achievements,
+    bool isLatest,
+    bool isDark,
+  ) {
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: AppTheme.glassDecoration(isDark),
+      child: Column(
+        children: [
+          // Timeline indicator
+          Container(
+            width: 15,
+            height: 15,
+            decoration: BoxDecoration(
+              color: isLatest ? Theme.of(context).primaryColor : Colors.grey,
+              shape: BoxShape.circle,
             ),
           ),
+          const SizedBox(height: 20),
+          _buildExperienceContent(context, title, company, duration, description, achievements, isDark),
         ],
       ),
+    );
+  }
+
+  Widget _buildExperienceContent(
+    BuildContext context,
+    String title,
+    String company,
+    String duration,
+    String description,
+    List<String> achievements,
+    bool isDark,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ResponsiveHelper.isMobile(context)
+            ? _buildMobileHeader(context, title, company, duration)
+            : _buildDesktopHeader(context, title, company, duration),
+        const SizedBox(height: 15),
+        Text(
+          description,
+          style: TextStyle(
+            fontSize: ResponsiveHelper.getFontSize(context, 16),
+            color: AppTheme.getTextColor(context).withOpacity(0.8),
+            height: 1.5,
+          ),
+        ),
+        const SizedBox(height: 20),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: achievements
+              .map((achievement) => Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.check_circle,
+                          color: const Color(0xFF4CAF50),
+                          size: ResponsiveHelper.getFontSize(context, 18),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text(
+                            achievement,
+                            style: TextStyle(
+                              fontSize: ResponsiveHelper.getFontSize(context, 15),
+                              color: AppTheme.getTextColor(context).withOpacity(0.8),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ))
+              .toList(),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDesktopHeader(BuildContext context, String title, String company, String duration) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: ResponsiveHelper.getFontSize(context, 22),
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).primaryColor,
+              ),
+            ),
+            const SizedBox(height: 5),
+            Text(
+              company,
+              style: TextStyle(
+                fontSize: ResponsiveHelper.getFontSize(context, 18),
+                fontWeight: FontWeight.w600,
+                color: AppTheme.getTextColor(context),
+              ),
+            ),
+          ],
+        ),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Text(
+            duration,
+            style: TextStyle(
+              fontSize: ResponsiveHelper.getFontSize(context, 14),
+              fontWeight: FontWeight.w600,
+              color: Theme.of(context).primaryColor,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMobileHeader(BuildContext context, String title, String company, String duration) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          title,
+          style: TextStyle(
+            fontSize: ResponsiveHelper.getFontSize(context, 22),
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).primaryColor,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 5),
+        Text(
+          company,
+          style: TextStyle(
+            fontSize: ResponsiveHelper.getFontSize(context, 18),
+            fontWeight: FontWeight.w600,
+            color: AppTheme.getTextColor(context),
+          ),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 10),
+        Container(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 8),
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Text(
+            duration,
+            style: TextStyle(
+              fontSize: ResponsiveHelper.getFontSize(context, 14),
+              fontWeight: FontWeight.w600,
+              color: Theme.of(context).primaryColor,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
