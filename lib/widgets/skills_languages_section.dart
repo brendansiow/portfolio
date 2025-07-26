@@ -1,42 +1,51 @@
 import 'package:flutter/material.dart';
+import '../utils/responsive_helper.dart';
+import '../utils/app_theme.dart';
 
 class SkillsLanguagesSection extends StatelessWidget {
   const SkillsLanguagesSection({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 100),
-      color: Colors.white,
+      padding: EdgeInsets.symmetric(
+        horizontal: ResponsiveHelper.getHorizontalPadding(context),
+        vertical: ResponsiveHelper.getVerticalPadding(context),
+      ),
+      color: Theme.of(context).scaffoldBackgroundColor,
       child: Column(
         children: [
           // Section Title
-          const Text(
+          Text(
             'Skills & Languages',
             style: TextStyle(
-              fontSize: 42,
+              fontSize: ResponsiveHelper.getFontSize(context, 42),
               fontWeight: FontWeight.bold,
-              color: Color(0xFF2E3BA2),
+              color: Theme.of(context).primaryColor,
             ),
+            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 20),
-          const Text(
+          Text(
             'Technical expertise and language proficiencies',
             style: TextStyle(
-              fontSize: 18,
-              color: Color(0xFF666666),
+              fontSize: ResponsiveHelper.getFontSize(context, 18),
+              color: AppTheme.getTextColor(context).withOpacity(0.7),
             ),
+            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 60),
           // Content
           Column(
             children: [
               // Technical Skills
-              _buildSkillsSection(),
+              _buildSkillsSection(context, isDark),
               const SizedBox(height: 80),
               // Languages
-              _buildLanguagesSection(),
+              _buildLanguagesSection(context, isDark),
             ],
           ),
         ],
@@ -44,258 +53,162 @@ class SkillsLanguagesSection extends StatelessWidget {
     );
   }
 
-  Widget _buildSkillsSection() {
+  Widget _buildSkillsSection(BuildContext context, bool isDark) {
     return Column(
       children: [
         // Skills Header
-        Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: const Color(0xFF2E3BA2).withOpacity(0.1),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Icon(
-                Icons.code,
-                size: 28,
-                color: Color(0xFF2E3BA2),
-              ),
-            ),
-            const SizedBox(width: 20),
-            const Text(
-              'Technical Skills',
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF2E3BA2),
-              ),
-            ),
-          ],
+        Text(
+          'Technical Skills',
+          style: TextStyle(
+            fontSize: ResponsiveHelper.getFontSize(context, 28),
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).primaryColor,
+          ),
+          textAlign: TextAlign.center,
         ),
         const SizedBox(height: 40),
         // Skills Grid
-        GridView.count(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          crossAxisCount: 3,
-          crossAxisSpacing: 30,
-          mainAxisSpacing: 30,
-          childAspectRatio: 1.0,
-          children: [
-            _buildSkillCategory(
-              'Frontend Development',
-              Icons.web,
-              [
-                SkillItem('React.js', 0.9),
-                SkillItem('Vue.js', 0.85),
-                SkillItem('Angular', 0.8),
-                SkillItem('Flutter', 0.9),
-                SkillItem('TypeScript', 0.85),
-                SkillItem('HTML/CSS', 0.95),
-              ],
-            ),
-            _buildSkillCategory(
-              'Backend Development',
-              Icons.storage,
-              [
-                SkillItem('Node.js', 0.9),
-                SkillItem('Python', 0.85),
-                SkillItem('Java', 0.8),
-                SkillItem('Express.js', 0.9),
-                SkillItem('Django', 0.75),
-                SkillItem('GraphQL', 0.8),
-              ],
-            ),
-            _buildSkillCategory(
-              'Database & Cloud',
-              Icons.cloud,
-              [
-                SkillItem('MongoDB', 0.9),
-                SkillItem('PostgreSQL', 0.85),
-                SkillItem('AWS', 0.9),
-                SkillItem('Google Cloud', 0.8),
-                SkillItem('Docker', 0.85),
-                SkillItem('Kubernetes', 0.75),
-              ],
-            ),
-            _buildSkillCategory(
-              'Mobile Development',
-              Icons.phone_android,
-              [
-                SkillItem('Flutter', 0.9),
-                SkillItem('React Native', 0.8),
-                SkillItem('Dart', 0.9),
-                SkillItem('Swift', 0.7),
-                SkillItem('Kotlin', 0.75),
-                SkillItem('iOS/Android', 0.85),
-              ],
-            ),
-            _buildSkillCategory(
-              'DevOps & Tools',
-              Icons.build,
-              [
-                SkillItem('Git', 0.95),
-                SkillItem('CI/CD', 0.85),
-                SkillItem('Jenkins', 0.8),
-                SkillItem('Terraform', 0.75),
-                SkillItem('Monitoring', 0.8),
-                SkillItem('Testing', 0.9),
-              ],
-            ),
-            _buildSkillCategory(
-              'Design & UX',
-              Icons.design_services,
-              [
-                SkillItem('UI/UX Design', 0.8),
-                SkillItem('Figma', 0.85),
-                SkillItem('Adobe XD', 0.75),
-                SkillItem('Prototyping', 0.8),
-                SkillItem('Responsive Design', 0.9),
-                SkillItem('Material Design', 0.85),
-              ],
-            ),
-          ],
+        ResponsiveHelper.isMobile(context)
+            ? _buildMobileSkillsGrid(context, isDark)
+            : _buildDesktopSkillsGrid(context, isDark),
+      ],
+    );
+  }
+
+  Widget _buildDesktopSkillsGrid(BuildContext context, bool isDark) {
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // Frontend Skills
+        Expanded(
+          child: _buildSkillCategory(
+            context,
+            'Frontend Development',
+            [
+              {'name': 'React.js', 'level': 0.9},
+              {'name': 'Vue.js', 'level': 0.85},
+              {'name': 'Flutter', 'level': 0.95},
+              {'name': 'TypeScript', 'level': 0.8},
+              {'name': 'HTML5/CSS3', 'level': 0.9},
+            ],
+            isDark,
+          ),
+        ),
+        const SizedBox(width: 30),
+        // Backend Skills
+        Expanded(
+          child: _buildSkillCategory(
+            context,
+            'Backend Development',
+            [
+              {'name': 'Node.js', 'level': 0.9},
+              {'name': 'Python', 'level': 0.85},
+              {'name': 'Java', 'level': 0.8},
+              {'name': 'MongoDB', 'level': 0.85},
+              {'name': 'PostgreSQL', 'level': 0.8},
+            ],
+            isDark,
+          ),
+        ),
+        const SizedBox(width: 30),
+        // Tools & Others
+        Expanded(
+          child: _buildSkillCategory(
+            context,
+            'Tools & Platforms',
+            [
+              {'name': 'AWS', 'level': 0.85},
+              {'name': 'Docker', 'level': 0.8},
+              {'name': 'Git', 'level': 0.95},
+              {'name': 'Firebase', 'level': 0.9},
+              {'name': 'Linux', 'level': 0.8},
+            ],
+            isDark,
+          ),
         ),
       ],
     );
   }
 
-  Widget _buildLanguagesSection() {
+  Widget _buildMobileSkillsGrid(BuildContext context, bool isDark) {
     return Column(
       children: [
-        // Languages Header
-        Row(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: const Color(0xFF2E3BA2).withOpacity(0.1),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Icon(
-                Icons.language,
-                size: 28,
-                color: Color(0xFF2E3BA2),
-              ),
-            ),
-            const SizedBox(width: 20),
-            const Text(
-              'Languages',
-              style: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF2E3BA2),
-              ),
-            ),
+        _buildSkillCategory(
+          context,
+          'Frontend Development',
+          [
+            {'name': 'React.js', 'level': 0.9},
+            {'name': 'Vue.js', 'level': 0.85},
+            {'name': 'Flutter', 'level': 0.95},
+            {'name': 'TypeScript', 'level': 0.8},
+            {'name': 'HTML5/CSS3', 'level': 0.9},
           ],
+          isDark,
         ),
         const SizedBox(height: 40),
-        // Languages Row
-        Row(
-          children: [
-            Expanded(
-              child: _buildLanguageItem(
-                'English',
-                'Native',
-                0.95,
-                '🇺🇸',
-              ),
-            ),
-            const SizedBox(width: 30),
-            Expanded(
-              child: _buildLanguageItem(
-                'Spanish',
-                'Fluent',
-                0.85,
-                '🇪🇸',
-              ),
-            ),
-            const SizedBox(width: 30),
-            Expanded(
-              child: _buildLanguageItem(
-                'French',
-                'Intermediate',
-                0.65,
-                '🇫🇷',
-              ),
-            ),
-            const SizedBox(width: 30),
-            Expanded(
-              child: _buildLanguageItem(
-                'Mandarin',
-                'Basic',
-                0.4,
-                '🇨🇳',
-              ),
-            ),
+        _buildSkillCategory(
+          context,
+          'Backend Development',
+          [
+            {'name': 'Node.js', 'level': 0.9},
+            {'name': 'Python', 'level': 0.85},
+            {'name': 'Java', 'level': 0.8},
+            {'name': 'MongoDB', 'level': 0.85},
+            {'name': 'PostgreSQL', 'level': 0.8},
           ],
+          isDark,
         ),
-      ],
-    );
-  }
-
-  Widget _buildSkillCategory(String title, IconData icon, List<SkillItem> skills) {
+        const SizedBox(height: 40),
+        _buildSkillCategory(
+          context,
+          'Tools & Platforms',
+          [
+            {'name': 'AWS', 'level': 0.85},
+            {'name': 'Docker', 'level': 0.8},
+            {'name': 'Git', 'level': 0.95},
+            {'name': 'Firebase', 'level': 0.9},
+            {'name': 'Linux', 'level': 0.8},
+          ],
+          isDark,
+        ),
+  Widget _buildSkillCategory(
+    BuildContext context,
+    String title,
+    List<Map<String, dynamic>> skills,
+    bool isDark,
+  ) {
     return Container(
-      padding: const EdgeInsets.all(25),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-        border: Border.all(
-          color: const Color(0xFF2E3BA2).withOpacity(0.1),
-          width: 1,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 2,
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
+      padding: EdgeInsets.all(ResponsiveHelper.isMobile(context) ? 20 : 25),
+      decoration: AppTheme.glassDecoration(isDark),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Category Header
-          Row(
-            children: [
-              Icon(
-                icon,
-                size: 24,
-                color: const Color(0xFF2E3BA2),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  title,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFF333333),
-                  ),
-                ),
-              ),
-            ],
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: ResponsiveHelper.getFontSize(context, 18),
+              fontWeight: FontWeight.bold,
+              color: Theme.of(context).primaryColor,
+            ),
+            textAlign: ResponsiveHelper.isMobile(context) ? TextAlign.center : TextAlign.left,
           ),
           const SizedBox(height: 20),
           // Skills List
-          Expanded(
-            child: Column(
-              children: skills
-                  .map((skill) => Padding(
-                        padding: const EdgeInsets.only(bottom: 12),
-                        child: _buildSkillBar(skill.name, skill.proficiency),
-                      ))
-                  .toList(),
-            ),
+          Column(
+            children: skills
+                .map((skill) => Padding(
+                      padding: const EdgeInsets.only(bottom: 12),
+                      child: _buildSkillBar(context, skill['name']!, skill['level']!, isDark),
+                    ))
+                .toList(),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildSkillBar(String skillName, double proficiency) {
+  Widget _buildSkillBar(BuildContext context, String skillName, double proficiency, bool isDark) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -304,17 +217,17 @@ class SkillsLanguagesSection extends StatelessWidget {
           children: [
             Text(
               skillName,
-              style: const TextStyle(
-                fontSize: 12,
+              style: TextStyle(
+                fontSize: ResponsiveHelper.getFontSize(context, 12),
                 fontWeight: FontWeight.w500,
-                color: Color(0xFF333333),
+                color: AppTheme.getTextColor(context),
               ),
             ),
             Text(
               '${(proficiency * 100).toInt()}%',
-              style: const TextStyle(
-                fontSize: 11,
-                color: Color(0xFF666666),
+              style: TextStyle(
+                fontSize: ResponsiveHelper.getFontSize(context, 11),
+                color: AppTheme.getTextColor(context).withOpacity(0.7),
               ),
             ),
           ],
@@ -323,7 +236,7 @@ class SkillsLanguagesSection extends StatelessWidget {
         Container(
           height: 6,
           decoration: BoxDecoration(
-            color: Colors.grey.withOpacity(0.2),
+            color: AppTheme.getTextColor(context).withOpacity(0.2),
             borderRadius: BorderRadius.circular(3),
           ),
           child: FractionallySizedBox(
@@ -333,8 +246,8 @@ class SkillsLanguagesSection extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: LinearGradient(
                   colors: [
-                    const Color(0xFF2E3BA2),
-                    const Color(0xFF667eea),
+                    Theme.of(context).primaryColor,
+                    Theme.of(context).primaryColor.withOpacity(0.7),
                   ],
                 ),
                 borderRadius: BorderRadius.circular(3),
@@ -346,47 +259,113 @@ class SkillsLanguagesSection extends StatelessWidget {
     );
   }
 
-  Widget _buildLanguageItem(String language, String level, double proficiency, String flag) {
-    return Container(
-      padding: const EdgeInsets.all(25),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
-        border: Border.all(
-          color: const Color(0xFF2E3BA2).withOpacity(0.1),
-          width: 1,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 2,
-            blurRadius: 8,
-            offset: const Offset(0, 4),
+  Widget _buildLanguagesSection(BuildContext context, bool isDark) {
+    return Column(
+      children: [
+        // Languages Header
+        Text(
+          'Languages',
+          style: TextStyle(
+            fontSize: ResponsiveHelper.getFontSize(context, 28),
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).primaryColor,
           ),
-        ],
-      ),
+          textAlign: TextAlign.center,
+        ),
+        const SizedBox(height: 40),
+        // Languages
+        ResponsiveHelper.isMobile(context)
+            ? _buildMobileLanguages(context, isDark)
+            : _buildDesktopLanguages(context, isDark),
+      ],
+    );
+  }
+
+  Widget _buildDesktopLanguages(BuildContext context, bool isDark) {
+    return Row(
+      children: [
+        Expanded(
+          child: _buildLanguageItem(context, 'English', 'Native', 0.95, '🇺🇸', isDark),
+        ),
+        const SizedBox(width: 30),
+        Expanded(
+          child: _buildLanguageItem(context, 'Spanish', 'Fluent', 0.85, '🇪🇸', isDark),
+        ),
+        const SizedBox(width: 30),
+        Expanded(
+          child: _buildLanguageItem(context, 'French', 'Intermediate', 0.65, '🇫🇷', isDark),
+        ),
+        const SizedBox(width: 30),
+        Expanded(
+          child: _buildLanguageItem(context, 'Mandarin', 'Basic', 0.4, '🇨🇳', isDark),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildMobileLanguages(BuildContext context, bool isDark) {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: _buildLanguageItem(context, 'English', 'Native', 0.95, '🇺🇸', isDark),
+            ),
+            const SizedBox(width: 20),
+            Expanded(
+              child: _buildLanguageItem(context, 'Spanish', 'Fluent', 0.85, '🇪🇸', isDark),
+            ),
+          ],
+        ),
+        const SizedBox(height: 20),
+        Row(
+          children: [
+            Expanded(
+              child: _buildLanguageItem(context, 'French', 'Intermediate', 0.65, '🇫🇷', isDark),
+            ),
+            const SizedBox(width: 20),
+            Expanded(
+              child: _buildLanguageItem(context, 'Mandarin', 'Basic', 0.4, '🇨🇳', isDark),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildLanguageItem(
+    BuildContext context,
+    String language,
+    String level,
+    double proficiency,
+    String flag,
+    bool isDark,
+  ) {
+    return Container(
+      padding: EdgeInsets.all(ResponsiveHelper.isMobile(context) ? 20 : 25),
+      decoration: AppTheme.glassDecoration(isDark),
       child: Column(
         children: [
           // Flag and Language Name
           Text(
             flag,
-            style: const TextStyle(fontSize: 40),
+            style: TextStyle(fontSize: ResponsiveHelper.getFontSize(context, 40)),
           ),
           const SizedBox(height: 15),
           Text(
             language,
-            style: const TextStyle(
-              fontSize: 20,
+            style: TextStyle(
+              fontSize: ResponsiveHelper.getFontSize(context, 20),
               fontWeight: FontWeight.bold,
-              color: Color(0xFF333333),
+              color: AppTheme.getTextColor(context),
             ),
           ),
           const SizedBox(height: 8),
           Text(
             level,
-            style: const TextStyle(
-              fontSize: 14,
-              color: Color(0xFF666666),
+            style: TextStyle(
+              fontSize: ResponsiveHelper.getFontSize(context, 14),
+              color: AppTheme.getTextColor(context).withOpacity(0.7),
             ),
           ),
           const SizedBox(height: 15),
@@ -394,7 +373,7 @@ class SkillsLanguagesSection extends StatelessWidget {
           Container(
             height: 8,
             decoration: BoxDecoration(
-              color: Colors.grey.withOpacity(0.2),
+              color: AppTheme.getTextColor(context).withOpacity(0.2),
               borderRadius: BorderRadius.circular(4),
             ),
             child: FractionallySizedBox(
@@ -402,10 +381,10 @@ class SkillsLanguagesSection extends StatelessWidget {
               widthFactor: proficiency,
               child: Container(
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(
+                  gradient: LinearGradient(
                     colors: [
-                      Color(0xFF2E3BA2),
-                      Color(0xFF667eea),
+                      Theme.of(context).primaryColor,
+                      Theme.of(context).primaryColor.withOpacity(0.7),
                     ],
                   ),
                   borderRadius: BorderRadius.circular(4),
@@ -416,21 +395,14 @@ class SkillsLanguagesSection extends StatelessWidget {
           const SizedBox(height: 8),
           Text(
             '${(proficiency * 100).toInt()}%',
-            style: const TextStyle(
-              fontSize: 12,
+            style: TextStyle(
+              fontSize: ResponsiveHelper.getFontSize(context, 12),
               fontWeight: FontWeight.w600,
-              color: Color(0xFF2E3BA2),
+              color: Theme.of(context).primaryColor,
             ),
           ),
         ],
       ),
     );
   }
-}
-
-class SkillItem {
-  final String name;
-  final double proficiency;
-
-  SkillItem(this.name, this.proficiency);
 }
