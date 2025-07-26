@@ -152,6 +152,10 @@ class ProjectsSection extends StatelessWidget {
             isDark,
           ),
         )
+      ).toList(),
+    );
+  }
+
   Widget _buildProjectCard(
     BuildContext context,
     String title,
