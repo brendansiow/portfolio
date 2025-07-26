@@ -1,10 +1,21 @@
-<script>
+<script lang="ts">
   import { onMount } from 'svelte';
   import { Code, Database, Settings, Globe } from 'lucide-svelte';
 
-  let isVisible = false;
+  let isVisible: boolean = false;
 
-  const skillCategories = [
+  type Skill = {
+    name: string;
+    level: number;
+  };
+
+  type SkillCategory = {
+    title: string;
+    icon: typeof Code;
+    skills: Skill[];
+  };
+
+  const skillCategories: SkillCategory[] = [
     {
       title: 'Frontend Development',
       icon: Code,
@@ -40,7 +51,13 @@
     }
   ];
 
-  const languages = [
+  type Language = {
+    name: string;
+    level: number;
+    flag: string;
+  };
+
+  const languages: Language[] = [
     { name: 'English', level: 100, flag: '🇺🇸' },
     { name: 'Spanish', level: 85, flag: '🇪🇸' },
     { name: 'French', level: 70, flag: '🇫🇷' },

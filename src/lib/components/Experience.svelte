@@ -1,7 +1,16 @@
-<script>
+<script lang="ts">
   import { CheckCircle, Building, Calendar } from 'lucide-svelte';
 
-  const experiences = [
+  type Experience = {
+    title: string;
+    company: string;
+    duration: string;
+    description: string;
+    achievements: string[];
+    isLatest: boolean;
+  };
+
+  const experiences: Experience[] = [
     {
       title: 'Senior Full Stack Developer',
       company: 'TechCorp Solutions',

@@ -1,13 +1,13 @@
-<script>
+<script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { Sun, Moon, Menu, X, User, Briefcase, Code, GraduationCap, Star, Mail } from 'lucide-svelte';
 
-  export let darkMode = false;
+  export let darkMode: boolean = false;
 
   const dispatch = createEventDispatcher();
-  let mobileMenuOpen = false;
+  let mobileMenuOpen: boolean = false;
 
-  function scrollToSection(sectionId) {
+  function scrollToSection(sectionId: string): void {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -15,15 +15,21 @@
     mobileMenuOpen = false;
   }
 
-  function handleThemeToggle() {
+  function handleThemeToggle(): void {
     dispatch('theme-toggle');
   }
 
-  function handleContactClick() {
+  function handleContactClick(): void {
     scrollToSection('contact');
   }
 
-  const navItems = [
+  type NavItem = {
+    label: string;
+    id: string;
+    icon: typeof User;
+  };
+
+  const navItems: NavItem[] = [
     { label: 'About', id: 'about', icon: User },
     { label: 'Experience', id: 'experience', icon: Briefcase },
     { label: 'Projects', id: 'projects', icon: Code },

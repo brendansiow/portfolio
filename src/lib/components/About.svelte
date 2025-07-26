@@ -1,14 +1,14 @@
-<script>
+<script lang="ts">
   import { Download, ArrowRight, User } from 'lucide-svelte';
 
-  function scrollToProjects() {
+  function scrollToProjects(): void {
     const element = document.getElementById('projects');
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   }
 
-  function downloadCV() {
+  function downloadCV(): void {
     // Add download CV functionality here
     console.log('Download CV clicked');
   }

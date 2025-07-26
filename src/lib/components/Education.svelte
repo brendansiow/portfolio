@@ -1,7 +1,16 @@
-<script>
+<script lang="ts">
   import { GraduationCap, Award, Calendar, MapPin } from 'lucide-svelte';
 
-  const education = [
+  type Education = {
+    degree: string;
+    institution: string;
+    period: string;
+    description: string;
+    gpa: string;
+    location: string;
+  };
+
+  const education: Education[] = [
     {
       degree: 'Bachelor of Computer Science',
       institution: 'University of Technology',
@@ -20,7 +29,15 @@
     }
   ];
 
-  const certifications = [
+  type Certification = {
+    name: string;
+    issuer: string;
+    date: string;
+    description: string;
+    credentialId: string;
+  };
+
+  const certifications: Certification[] = [
     {
       name: 'AWS Certified Solutions Architect',
       issuer: 'Amazon Web Services',

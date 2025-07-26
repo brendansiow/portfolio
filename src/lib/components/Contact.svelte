@@ -1,25 +1,29 @@
-<script>
+<script lang="ts">
   import { Mail, Phone, MapPin, Github, Linkedin, Twitter, Send } from 'lucide-svelte';
 
-  let form = {
+  type Form = {
+    name: string;
+    email: string;
+    message: string;
+  };
+
+  let form: Form = {
     name: '',
     email: '',
     message: ''
   };
 
-  let isSubmitting = false;
-  let submitStatus = null;
+  let isSubmitting: boolean = false;
+  let submitStatus: string | null = null;
 
-  async function handleSubmit(event) {
+  async function handleSubmit(event: Event): Promise<void> {
     event.preventDefault();
     isSubmitting = true;
-    
     // Simulate form submission
     setTimeout(() => {
       isSubmitting = false;
       submitStatus = 'success';
       form = { name: '', email: '', message: '' };
-      
       // Reset status after 3 seconds
       setTimeout(() => {
         submitStatus = null;
@@ -27,7 +31,14 @@
     }, 1000);
   }
 
-  const contactInfo = [
+  type ContactInfo = {
+    icon: typeof Mail;
+    label: string;
+    value: string;
+    href: string;
+  };
+
+  const contactInfo: ContactInfo[] = [
     {
       icon: Mail,
       label: 'Email',
@@ -48,7 +59,14 @@
     }
   ];
 
-  const socialLinks = [
+  type SocialLink = {
+    icon: typeof Github;
+    label: string;
+    href: string;
+    color: string;
+  };
+
+  const socialLinks: SocialLink[] = [
     {
       icon: Github,
       label: 'GitHub',

@@ -1,7 +1,16 @@
-<script>
+<script lang="ts">
   import { ExternalLink, Github, Monitor } from 'lucide-svelte';
 
-  const projects = [
+  type Project = {
+    title: string;
+    description: string;
+    technologies: string[];
+    liveUrl: string;
+    githubUrl: string;
+    gradient: string;
+  };
+
+  const projects: Project[] = [
     {
       title: 'E-Commerce Platform',
       description: 'A full-stack e-commerce solution built with React, Node.js, and MongoDB. Features include user authentication, payment integration, and admin dashboard.',
