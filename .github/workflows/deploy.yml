@@ -1,5 +1,5 @@
 ---
-name: Deploy Flutter Web to GitHub Pages
+name: Deploy SvelteKit to GitHub Pages
 
 "on":
   push:
@@ -30,20 +30,19 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Flutter
-        uses: subosito/flutter-action@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          flutter-version: '3.24.5'
-          channel: 'stable'
+          node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: flutter pub get
+        run: npm ci
 
-      - name: Enable web support
-        run: flutter config --enable-web
-
-      - name: Build web app
-        run: flutter build web --release --base-href=/portfolio/
+      - name: Build SvelteKit app
+        run: npm run build
+        env:
+          NODE_ENV: production
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -51,7 +50,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./build/web
+          path: ./build
 
       - name: Deploy to GitHub Pages
         id: deployment
@@ -63,15 +62,24 @@ jobs:
           tag_name: deploy-${{ github.run_number }}
           name: Portfolio Deployment ${{ github.run_number }}
           body: |
-            🚀 **Portfolio Successfully Deployed**
+            🚀 **SvelteKit Portfolio Successfully Deployed**
 
             **GitHub Pages URL:** ${{ steps.deployment.outputs.page_url }}
 
             **Deployment Details:**
+            - Framework: SvelteKit with Static Site Generation
             - Branch: ${{ github.ref_name }}
             - Commit: ${{ github.sha }}
             - Run ID: ${{ github.run_id }}
             - Deployment Time: ${{ github.event.head_commit.timestamp }}
+
+            **Features:**
+            - ✅ Responsive design with mobile/desktop layouts
+            - ✅ Dark/light theme toggle
+            - ✅ Glass morphism effects
+            - ✅ Smooth scrolling navigation
+            - ✅ Static site generation for optimal performance
+            - ✅ TailwindCSS for styling
 
             This release was automatically created when the portfolio was
             deployed to GitHub Pages.
