@@ -13,7 +13,7 @@
 </script>
 
 <!-- Background with animated gradient -->
-<div class="min-h-screen animated-gradient">
+<div class="min-h-screen animated-gradient dark:animated-gradient-dark">
 	<!-- Navigation -->
 	<Navigation />
 	
