@@ -33,7 +33,7 @@
 			</div>
 
 			<!-- Desktop Navigation -->
-			<div class="hidden md:block">
+			<div class="desktop-nav">
 				<div class="ml-10 flex items-baseline space-x-4">
 					{#each navItems as item}
 						<button
@@ -47,7 +47,7 @@
 			</div>
 
 			<!-- Mobile menu button -->
-			<div class="md:hidden">
+			<div class="mobile-menu-button">
 				<button
 					onclick={() => (isMenuOpen = !isMenuOpen)}
 					class="text-white hover:text-blue-300 p-2 rounded-md"
@@ -63,7 +63,7 @@
 
 		<!-- Mobile Navigation -->
 		{#if isMenuOpen}
-			<div class="md:hidden pb-4">
+			<div class="mobile-nav pb-4">
 				<div class="px-2 pt-2 pb-3 space-y-1">
 					{#each navItems as item}
 						<button
@@ -78,3 +78,30 @@
 		{/if}
 	</div>
 </nav>
+
+<style>
+	/* Responsive navigation styles */
+	@media (min-width: 1024px) {
+		.desktop-nav {
+			display: block;
+		}
+		.mobile-menu-button {
+			display: none;
+		}
+		.mobile-nav {
+			display: none;
+		}
+	}
+
+	@media (max-width: 1023px) {
+		.desktop-nav {
+			display: none;
+		}
+		.mobile-menu-button {
+			display: block;
+		}
+		.mobile-nav {
+			display: block;
+		}
+	}
+</style>
