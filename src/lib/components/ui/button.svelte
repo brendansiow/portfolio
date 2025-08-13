@@ -41,6 +41,8 @@
 		disabled?: boolean;
 		onclick?: (event: MouseEvent) => void;
 		children?: import('svelte').Snippet;
+		// Allow any HTML attributes
+		[key: string]: any;
 	}
 
 	let {

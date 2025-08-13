@@ -89,7 +89,7 @@
 											target="_blank" 
 											rel="noopener noreferrer"
 											class="ml-4 p-2 text-blue-400 hover:text-blue-300 transition-colors"
-											aria-label="View {cert.title} certificate"
+											aria-label="View {cert.name} certificate"
 										>
 											<ExternalLink class="w-5 h-5" />
 										</a>
