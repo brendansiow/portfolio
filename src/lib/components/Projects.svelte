@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Project } from '$lib/types';
-	import { ExternalLink, Github, Building } from 'lucide-svelte';
+	import { ArrowUpRight, Github, Sparkles } from 'lucide-svelte';
 	import Card from '$lib/components/ui/card.svelte';
 	import CardContent from '$lib/components/ui/card-content.svelte';
 	import Badge from '$lib/components/ui/badge.svelte';
@@ -12,145 +12,178 @@
 
 	let { data }: Props = $props();
 
-	const featuredProjects = $derived(data.filter(project => project.featured));
-	const otherProjects = $derived(data.filter(project => !project.featured));
+	const featuredProjects = $derived(data.filter((project) => project.featured));
+	const moreProjects = $derived(data.filter((project) => !project.featured));
 </script>
 
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-	<div class="text-center mb-16">
-		<h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Featured Projects</h2>
-		<div class="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-600 mx-auto"></div>
+<div class="section-shell">
+	<div class="mb-10 text-center">
+		<p class="section-kicker">Selected Work</p>
+		<h2 class="section-title mt-2 text-slate-900 dark:text-slate-100">Selected product work</h2>
+		<p
+			class="mx-auto mt-4 max-w-2xl text-sm leading-7 text-slate-600 dark:text-slate-300 md:text-base"
+		>
+			A few representative projects across platform engineering, payments, and fintech delivery.
+		</p>
 	</div>
 
-	<!-- Featured Projects -->
-	<div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8 mb-16">
-		{#each featuredProjects as project}
-			<Card class="glass border-white/30 group hover:bg-white/15 transition-all duration-300">
-				<CardContent class="p-6 md:p-8">
-					{#snippet children()}
-						<!-- Project Image -->
-						{#if project.imageUrl}
-							<div class="mb-6 rounded-lg overflow-hidden">
-								<img 
-									src={project.imageUrl} 
-									alt={project.title}
-									class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-								/>
+	<!-- Featured projects bento -->
+	<div class="grid gap-4 md:grid-cols-3">
+		{#each featuredProjects as project, index (project.id)}
+			<Card
+				class="glass-strong h-full overflow-hidden rounded-[1.75rem] border-white/30 {index === 0
+					? 'md:col-span-2 md:row-span-2'
+					: 'md:row-span-1'}"
+			>
+				<CardContent class="flex h-full flex-col p-0">
+					<div class="border-b border-white/25 p-5 dark:border-slate-700/40 md:p-6">
+						<div class="flex items-start justify-between gap-4">
+							<div class="flex items-start gap-3">
+								{#if project.logoUrl}
+									<div
+										class="hidden h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-white/40 bg-white/70 p-2 shadow-sm md:flex dark:border-slate-700/50 dark:bg-slate-900/60"
+									>
+										<img
+											src={project.logoUrl}
+											alt={project.title}
+											class="h-full w-full object-contain"
+										/>
+									</div>
+								{/if}
+								<div>
+									<div class="mb-2 flex items-center gap-2">
+										<Badge variant="secondary">Featured</Badge>
+										{#if index === 0}
+											<Badge variant="outline">Primary</Badge>
+										{/if}
+									</div>
+									<h3
+										class="text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-100 md:text-2xl"
+									>
+										{project.title}
+									</h3>
+								</div>
 							</div>
-						{:else}
-							<div class="mb-6 h-48 bg-gradient-to-br from-blue-400/20 to-purple-600/20 rounded-lg flex items-center justify-center">
-								<Building class="w-16 h-16 text-white/50" />
+							<div
+								class="hidden rounded-2xl border border-white/40 bg-white/35 p-2.5 text-slate-700 shadow-[0_8px_24px_rgba(15,23,42,0.06)] backdrop-blur md:block dark:border-slate-700/50 dark:bg-slate-900/45 dark:text-slate-100"
+							>
+								<Sparkles class="h-4 w-4" />
 							</div>
-						{/if}
+						</div>
+						<p class="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300 md:text-base">
+							{project.description}
+						</p>
+					</div>
 
-						<!-- Project Info -->
-						<h3 class="text-xl md:text-2xl font-bold text-white mb-3">{project.title}</h3>
-						<p class="text-white/80 mb-6 leading-relaxed">{project.description}</p>
-
-						<!-- Technologies -->
-						<div class="mb-6">
-							<div class="flex flex-wrap gap-2">
-								{#each project.technologies as tech}
-									<Badge variant="secondary" class="bg-white/10 border-white/20 text-white/90">
-										{tech}
-									</Badge>
+					<div class="flex flex-1 flex-col gap-4 p-5 md:p-6">
+						<div
+							class="rounded-[1.5rem] border border-white/30 bg-white/40 p-4 dark:border-slate-700/45 dark:bg-slate-900/40"
+						>
+							<div class="flex items-center gap-3">
+								{#if project.logoUrl}
+									<div
+										class="flex h-9 w-9 items-center justify-center overflow-hidden rounded-2xl border border-white/40 bg-white/75 p-1.5 dark:border-slate-700/50 dark:bg-slate-950/60"
+									>
+										<img
+											src={project.logoUrl}
+											alt={project.title}
+											class="h-full w-full object-contain"
+										/>
+									</div>
+								{/if}
+								<div>
+									<p class="text-xs font-medium text-slate-500 dark:text-slate-400">
+										Project context
+									</p>
+									<p class="mt-0.5 text-xs text-slate-700 dark:text-slate-200">
+										Production-facing engineering with real users and delivery constraints.
+									</p>
+								</div>
+							</div>
+							<p class="mt-3 text-xs font-medium text-slate-500 dark:text-slate-400">Tech stack</p>
+							<div class="mt-2 flex flex-wrap gap-2">
+								{#each project.technologies as tech (tech)}
+									<Badge variant="outline">{tech}</Badge>
 								{/each}
 							</div>
 						</div>
 
-						<!-- Project Links -->
-						<div class="flex space-x-4">
+						<div class="mt-auto flex flex-wrap gap-3">
 							{#if project.liveUrl}
-								<Button
-									href={project.liveUrl}
-									target="_blank"
-									rel="noopener noreferrer"
-									class="bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
-								>
+								<Button href={project.liveUrl} target="_blank" rel="noopener noreferrer">
 									{#snippet children()}
-										<ExternalLink class="w-4 h-4 mr-2" />
-										Live Demo
+										View product
+										<ArrowUpRight class="ml-2 h-4 w-4" />
 									{/snippet}
 								</Button>
 							{/if}
-
 							{#if project.githubUrl}
 								<Button
 									variant="outline"
 									href={project.githubUrl}
 									target="_blank"
 									rel="noopener noreferrer"
-									class="border-white/30 text-white hover:bg-white/10"
 								>
 									{#snippet children()}
-										<Github class="w-4 h-4 mr-2" />
-										Code
+										<Github class="mr-2 h-4 w-4" />
+										Source
 									{/snippet}
 								</Button>
 							{/if}
 						</div>
-					{/snippet}
+					</div>
 				</CardContent>
 			</Card>
 		{/each}
 	</div>
 
-	<!-- Other Projects -->
-	{#if otherProjects.length > 0}
-		<div class="text-center mb-12">
-			<h3 class="text-2xl md:text-3xl font-bold text-white mb-4">Other Projects</h3>
-			<div class="w-16 h-0.5 bg-gradient-to-r from-blue-400 to-purple-600 mx-auto"></div>
-		</div>
-
-		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-			{#each otherProjects as project}
-				<div class="glass p-6 rounded-xl group hover:bg-white/15 transition-all duration-300">
-					<h4 class="text-lg font-bold text-white mb-3">{project.title}</h4>
-					<p class="text-white/80 mb-4 text-sm leading-relaxed">{project.description}</p>
-
-					<!-- Technologies -->
-					<div class="mb-4">
-						<div class="flex flex-wrap gap-1">
-							{#each project.technologies.slice(0, 3) as tech}
-								<Badge variant="secondary" class="bg-white/10 border-white/20 text-white/90 text-xs">
-									{tech}
-								</Badge>
+	{#if moreProjects.length > 0}
+		<div class="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+			{#each moreProjects as project (project.id)}
+				<Card class="glass rounded-[1.5rem] border-white/30">
+					<CardContent class="flex h-full flex-col p-5 pt-5">
+						<div class="flex items-start justify-between gap-4">
+							<h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">
+								{project.title}
+							</h3>
+							<div
+								class="rounded-xl bg-white/45 p-2 text-slate-700 dark:bg-slate-800/60 dark:text-slate-100"
+							>
+								<ArrowUpRight class="h-4 w-4" />
+							</div>
+						</div>
+						<p class="mt-2 flex-1 text-sm leading-7 text-slate-600 dark:text-slate-300">
+							{project.description}
+						</p>
+						<div class="mt-4 flex flex-wrap gap-2">
+							{#each project.technologies as tech (tech)}
+								<Badge>{tech}</Badge>
 							{/each}
-							{#if project.technologies.length > 3}
-								<span class="px-2 py-1 text-white/70 text-xs">+{project.technologies.length - 3} more</span>
+						</div>
+						<div class="mt-4 flex gap-3">
+							{#if project.liveUrl}
+								<a
+									href={project.liveUrl}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="text-sm font-medium text-slate-700 hover:text-slate-900 dark:text-slate-200 dark:hover:text-white"
+								>
+									View product
+								</a>
+							{/if}
+							{#if project.githubUrl}
+								<a
+									href={project.githubUrl}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="text-sm font-medium text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
+								>
+									GitHub
+								</a>
 							{/if}
 						</div>
-					</div>
-
-					<!-- Project Links -->
-					<div class="flex space-x-3">
-						{#if project.liveUrl}
-							<a 
-								href={project.liveUrl} 
-								target="_blank" 
-								rel="noopener noreferrer"
-								class="text-blue-400 hover:text-blue-300 transition-colors"
-								aria-label="View live demo of {project.title}"
-							>
-								<ExternalLink class="w-5 h-5" />
-							</a>
-						{/if}
-
-						{#if project.githubUrl}
-							<a 
-								href={project.githubUrl} 
-								target="_blank" 
-								rel="noopener noreferrer"
-								class="text-white/70 hover:text-white transition-colors"
-								aria-label="View source code for {project.title} on GitHub"
-							>
-								<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-									<path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-								</svg>
-							</a>
-						{/if}
-					</div>
-				</div>
+					</CardContent>
+				</Card>
 			{/each}
 		</div>
 	{/if}

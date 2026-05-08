@@ -12,55 +12,37 @@
 	import DownloadButton from '$lib/components/DownloadButton.svelte';
 </script>
 
-<!-- Background with animated gradient -->
-<div class="min-h-screen animated-gradient dark:animated-gradient-dark">
-	<!-- Navigation -->
-	<Navigation />
-	
-	<!-- Portfolio Content -->
-	<div id="portfolio-content">
-		<!-- Hero Section -->
-		<section id="hero">
-			<Hero data={portfolioData.personalInfo} />
-		</section>
-		
-		<!-- About Section -->
-		<section id="about" class="py-20">
-			<About data={portfolioData.personalInfo} />
-		</section>
-		
-		<!-- Experience Section -->
-		<section id="experience" class="py-20">
-			<Experience data={portfolioData.workExperience} />
-		</section>
-		
-		<!-- Projects Section -->
-		<section id="projects" class="py-20">
-			<Projects data={portfolioData.projects} />
-		</section>
-		
-		<!-- Education & Certificates Section -->
-		<section id="education" class="py-20">
-			<Education 
-				education={portfolioData.education} 
-				certificates={portfolioData.certificates} 
-			/>
-		</section>
-		
-		<!-- Skills Section -->
-		<section id="skills" class="py-20">
-			<Skills data={portfolioData.skills} />
-		</section>
-		
-		<!-- Contact Section -->
-		<section id="contact" class="py-20">
-			<Contact data={portfolioData.personalInfo} />
-		</section>
-	</div>
-	
-	<!-- Footer -->
-	<Footer />
-	
-	<!-- Download Resume Button -->
-	<DownloadButton />
+<Navigation />
+
+<div id="portfolio-content" class="pb-24 pt-6 md:pb-28 md:pt-8">
+	<section id="hero" class="pt-16">
+		<Hero data={portfolioData.personalInfo} />
+	</section>
+
+	<section id="about" class="pt-20">
+		<About data={portfolioData.personalInfo} />
+	</section>
+
+	<section id="experience" class="pt-20">
+		<Experience data={portfolioData.workExperience} />
+	</section>
+
+	<section id="projects" class="pt-20">
+		<Projects data={portfolioData.projects} />
+	</section>
+
+	<section id="education" class="pt-20">
+		<Education education={portfolioData.education} certificates={portfolioData.certificates} />
+	</section>
+
+	<section id="skills" class="pt-20">
+		<Skills data={portfolioData.skills} />
+	</section>
+
+	<section id="contact" class="pt-20">
+		<Contact data={portfolioData.personalInfo} />
+	</section>
 </div>
+
+<Footer />
+<DownloadButton />

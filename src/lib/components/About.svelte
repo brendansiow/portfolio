@@ -1,6 +1,15 @@
 <script lang="ts">
 	import type { PersonalInfo } from '$lib/types';
-	import { Mail, Phone, MapPin, CheckCircle, Building, Code, Heart } from 'lucide-svelte';
+	import {
+		Mail,
+		Phone,
+		MapPin,
+		CheckCircle,
+		Building,
+		Code,
+		Heart,
+		ArrowUpRight
+	} from 'lucide-svelte';
 	import Card from '$lib/components/ui/card.svelte';
 	import CardContent from '$lib/components/ui/card-content.svelte';
 
@@ -9,109 +18,80 @@
 	}
 
 	let { data }: Props = $props();
+
+	const stats = [
+		{ value: '8+', label: 'Years shipping', icon: CheckCircle },
+		{ value: '3', label: 'Product environments', icon: Building },
+		{ value: '20+', label: 'Technologies', icon: Code },
+		{ value: '32', label: 'GitHub repos', icon: Heart }
+	];
 </script>
 
-<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-	<div class="text-center mb-16">
-		<h2 class="text-4xl md:text-5xl font-bold text-white mb-4">About Me</h2>
-		<div class="w-24 h-1 bg-gradient-to-r from-blue-400 to-purple-600 mx-auto"></div>
+<div class="section-shell">
+	<div class="mb-10 text-center">
+		<p class="section-kicker">About</p>
+		<h2 class="section-title mt-2 text-slate-900 dark:text-slate-100">
+			Backend-first, product-aware, delivery-minded
+		</h2>
 	</div>
 
-	<div class="grid md:grid-cols-2 gap-12 items-center">
-		<!-- Text Content -->
-		<Card class="glass border-white/30">
-			<CardContent class="p-8">
-				{#snippet children()}
-					<h3 class="text-2xl font-bold text-white mb-6">Who I Am</h3>
-					<p class="text-white/80 text-lg leading-relaxed mb-6">
+	<div class="grid gap-4 md:grid-cols-3">
+		<!-- Large bio card -->
+		<Card class="glass-strong col-span-1 row-span-2 rounded-[2rem] border-white/30 md:col-span-2">
+			<CardContent class="flex h-full flex-col justify-between p-7 pt-7">
+				<div>
+					<h3
+						class="text-xl font-semibold tracking-tight text-slate-900 dark:text-slate-100 md:text-2xl"
+					>
+						Who I Am
+					</h3>
+					<p class="mt-4 text-sm leading-7 text-slate-600 dark:text-slate-300 md:text-base">
 						{data.bio}
 					</p>
-					
-					<div class="space-y-4">
-						<div class="flex items-center text-white/70">
-							<Mail class="w-5 h-5 mr-3 text-blue-400" />
-							<span>{data.email}</span>
-						</div>
-						
-						<div class="flex items-center text-white/70">
-							<Phone class="w-5 h-5 mr-3 text-blue-400" />
-							<span>{data.phone}</span>
-						</div>
-						
-						<div class="flex items-center text-white/70">
-							<MapPin class="w-5 h-5 mr-3 text-blue-400" />
-							<span>{data.location}</span>
-						</div>
+				</div>
+
+				<div class="mt-6 grid gap-3 sm:grid-cols-2">
+					<a
+						href={`mailto:${data.email}`}
+						class="glass flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-slate-700 transition hover:bg-white/60 dark:text-slate-200"
+					>
+						<Mail class="h-4 w-4" />
+						{data.email}
+					</a>
+					<a
+						href={`tel:${data.phone}`}
+						class="glass flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-slate-700 transition hover:bg-white/60 dark:text-slate-200"
+					>
+						<Phone class="h-4 w-4" />
+						{data.phone}
+					</a>
+					<div
+						class="glass flex items-center gap-3 rounded-2xl px-4 py-3 text-sm text-slate-700 dark:text-slate-200 sm:col-span-2"
+					>
+						<MapPin class="h-4 w-4" />
+						{data.location}
 					</div>
-				{/snippet}
+				</div>
 			</CardContent>
 		</Card>
 
-		<!-- Stats/Highlights -->
-		<div class="space-y-6">
-			<Card class="glass border-white/30">
-				<CardContent class="p-6">
-					{#snippet children()}
-						<div class="flex items-center justify-between">
-							<div>
-								<h4 class="text-3xl font-bold text-white">5+</h4>
-								<p class="text-white/70">Years Experience</p>
-							</div>
-							<div class="w-12 h-12 bg-gradient-to-br from-blue-400 to-purple-600 rounded-lg flex items-center justify-center">
-								<CheckCircle class="w-6 h-6 text-white" />
-							</div>
+		<!-- Stat cards in a mini bento -->
+		<div class="col-span-1 grid grid-cols-2 gap-3 md:grid-cols-1 md:grid-rows-2">
+			{#each stats as stat (stat.label)}
+				<Card class="glass flex items-center rounded-[1.5rem] border-white/30">
+					<CardContent class="flex w-full items-center justify-between p-5 pt-5">
+						<div>
+							<p class="text-2xl font-bold text-slate-900 dark:text-slate-100">{stat.value}</p>
+							<p class="mt-1 text-xs text-slate-600 dark:text-slate-300">{stat.label}</p>
 						</div>
-					{/snippet}
-				</CardContent>
-			</Card>
-
-			<Card class="glass border-white/30">
-				<CardContent class="p-6">
-					{#snippet children()}
-						<div class="flex items-center justify-between">
-							<div>
-								<h4 class="text-3xl font-bold text-white">50+</h4>
-								<p class="text-white/70">Projects Completed</p>
-							</div>
-							<div class="w-12 h-12 bg-gradient-to-br from-green-400 to-blue-600 rounded-lg flex items-center justify-center">
-								<Building class="w-6 h-6 text-white" />
-							</div>
+						<div
+							class="rounded-xl bg-white/50 p-2 text-slate-700 dark:bg-slate-800/60 dark:text-slate-100"
+						>
+							<stat.icon class="h-4 w-4" />
 						</div>
-					{/snippet}
-				</CardContent>
-			</Card>
-
-			<Card class="glass border-white/30">
-				<CardContent class="p-6">
-					{#snippet children()}
-						<div class="flex items-center justify-between">
-							<div>
-								<h4 class="text-3xl font-bold text-white">10+</h4>
-								<p class="text-white/70">Technologies Mastered</p>
-							</div>
-							<div class="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-600 rounded-lg flex items-center justify-center">
-								<Code class="w-6 h-6 text-white" />
-							</div>
-						</div>
-					{/snippet}
-				</CardContent>
-			</Card>
-
-			<Card class="glass border-white/30">
-				<CardContent class="p-6">
-					{#snippet children()}
-						<div class="flex items-center justify-between">
-							<div>
-								<h4 class="text-3xl font-bold text-white">24/7</h4>
-								<p class="text-white/70">Passion for Coding</p>
-							</div>
-							<div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-red-600 rounded-lg flex items-center justify-center">
-								<Heart class="w-6 h-6 text-white" />
-							</div>
-						</div>
-					{/snippet}
-				</CardContent>
-			</Card>
+					</CardContent>
+				</Card>
+			{/each}
 		</div>
 	</div>
 </div>

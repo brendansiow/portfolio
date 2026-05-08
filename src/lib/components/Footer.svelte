@@ -1,40 +1,34 @@
 <script lang="ts">
 	import { Mail, MapPin, Github, Linkedin, ArrowUp } from 'lucide-svelte';
-	
+	import { portfolioData } from '$lib/data';
+
 	const currentYear = new Date().getFullYear();
+	const { personalInfo } = portfolioData;
 </script>
 
-<footer class="glass border-t border-white/10 mt-20">
-	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-		<div class="grid md:grid-cols-3 gap-8">
-			<!-- Brand Section -->
+<footer class="section-shell mt-20 pb-10">
+	<div class="glass rounded-[1.75rem] border-white/30 px-6 py-8 md:px-8">
+		<div class="grid gap-8 md:grid-cols-3">
 			<div>
-				<h3 class="text-2xl font-bold text-white mb-4">Portfolio</h3>
-				<p class="text-white/70 mb-4">
-					Passionate developer creating innovative web solutions with modern technologies.
+				<h3 class="text-xl font-semibold text-slate-900 dark:text-slate-100">Portfolio</h3>
+				<p class="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+					Intentional products, clean interfaces, and engineering that scales with your roadmap.
 				</p>
-				<p class="text-white/50 text-sm">
-					Built with ❤️ using SvelteKit & TailwindCSS
+				<p class="mt-3 text-xs text-slate-500 dark:text-slate-400">
+					Built with SvelteKit and Tailwind CSS.
 				</p>
 			</div>
 
-			<!-- Quick Links -->
 			<div>
-				<h4 class="text-lg font-semibold text-white mb-4">Quick Links</h4>
-				<div class="space-y-2">
-					{#each [
-						{ href: '#about', label: 'About' },
-						{ href: '#experience', label: 'Experience' },
-						{ href: '#projects', label: 'Projects' },
-						{ href: '#skills', label: 'Skills' },
-						{ href: '#contact', label: 'Contact' }
-					] as link}
+				<h4 class="text-base font-semibold text-slate-900 dark:text-slate-100">Quick Links</h4>
+				<div class="mt-4 space-y-2">
+					{#each [{ href: '#about', label: 'About' }, { href: '#experience', label: 'Experience' }, { href: '#projects', label: 'Projects' }, { href: '#skills', label: 'Skills' }, { href: '#contact', label: 'Contact' }] as link}
 						<button
 							onclick={() => {
 								const element = document.querySelector(link.href);
 								element?.scrollIntoView({ behavior: 'smooth' });
 							}}
-							class="block text-white/70 hover:text-white transition-colors"
+							class="block text-sm text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100"
 						>
 							{link.label}
 						</button>
@@ -42,60 +36,59 @@
 				</div>
 			</div>
 
-			<!-- Contact Info -->
 			<div>
-				<h4 class="text-lg font-semibold text-white mb-4">Get In Touch</h4>
-				<div class="space-y-3">
-					<div class="flex items-center text-white/70">
-						<Mail class="w-4 h-4 mr-2" />
-						<span class="text-sm">your.email@example.com</span>
+				<h4 class="text-base font-semibold text-slate-900 dark:text-slate-100">Get In Touch</h4>
+				<div class="mt-4 space-y-3">
+					<div class="flex items-center text-sm text-slate-600 dark:text-slate-300">
+						<Mail class="mr-2 h-4 w-4" />
+						<span class="text-sm">{personalInfo.email}</span>
 					</div>
-					
-					<div class="flex items-center text-white/70">
-						<MapPin class="w-4 h-4 mr-2" />
-						<span class="text-sm">Your City, Country</span>
+
+					<div class="flex items-center text-sm text-slate-600 dark:text-slate-300">
+						<MapPin class="mr-2 h-4 w-4" />
+						<span class="text-sm">{personalInfo.location}</span>
 					</div>
 				</div>
 
-				<!-- Social Links -->
-				<div class="flex space-x-4 mt-6">
-					<a 
-						href="https://github.com/yourusername" 
-						target="_blank" 
+				<div class="mt-5 flex space-x-3">
+					<a
+						href={personalInfo.github}
+						target="_blank"
 						rel="noopener noreferrer"
-						class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-all duration-300"
+						class="flex h-8 w-8 items-center justify-center rounded-full bg-white/40 text-slate-700 transition hover:bg-white/60 dark:bg-slate-800/60 dark:text-slate-100"
 						aria-label="Visit GitHub profile"
 					>
-						<Github class="w-4 h-4" />
+						<Github class="h-4 w-4" />
 					</a>
-					
-					<a 
-						href="https://linkedin.com/in/yourprofile" 
-						target="_blank" 
+
+					<a
+						href={personalInfo.linkedin}
+						target="_blank"
 						rel="noopener noreferrer"
-						class="w-8 h-8 bg-white/10 rounded-lg flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-all duration-300"
+						class="flex h-8 w-8 items-center justify-center rounded-full bg-white/40 text-slate-700 transition hover:bg-white/60 dark:bg-slate-800/60 dark:text-slate-100"
 						aria-label="Visit LinkedIn profile"
 					>
-						<Linkedin class="w-4 h-4" />
+						<Linkedin class="h-4 w-4" />
 					</a>
 				</div>
 			</div>
 		</div>
 
-		<!-- Bottom Bar -->
-		<div class="border-t border-white/10 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-			<p class="text-white/60 text-sm">
+		<div
+			class="mt-8 flex flex-col items-center justify-between border-t border-white/25 pt-6 dark:border-slate-700/40 md:flex-row"
+		>
+			<p class="text-xs text-slate-500 dark:text-slate-400">
 				© {currentYear} Portfolio. All rights reserved.
 			</p>
-			
-			<div class="flex items-center space-x-4 mt-4 md:mt-0">
+
+			<div class="mt-4 flex items-center space-x-4 md:mt-0">
 				<button
 					onclick={() => {
 						window.scrollTo({ top: 0, behavior: 'smooth' });
 					}}
-					class="flex items-center text-white/70 hover:text-white transition-colors text-sm"
+					class="flex items-center text-sm text-slate-600 transition hover:text-slate-900 dark:text-slate-300 dark:hover:text-slate-100"
 				>
-					<ArrowUp class="w-4 h-4 mr-1" />
+					<ArrowUp class="mr-1 h-4 w-4" />
 					Back to top
 				</button>
 			</div>

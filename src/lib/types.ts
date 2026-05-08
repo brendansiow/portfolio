@@ -19,6 +19,8 @@ export interface WorkExperience {
   location: string;
   description: string[];
   technologies: string[];
+  companyUrl?: string;
+  companyLogo?: string;
 }
 
 export interface Project {
@@ -29,6 +31,7 @@ export interface Project {
   githubUrl?: string;
   liveUrl?: string;
   imageUrl?: string;
+  logoUrl?: string;
   featured: boolean;
 }
 

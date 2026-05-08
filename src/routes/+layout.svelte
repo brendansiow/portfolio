@@ -12,8 +12,16 @@
 	<meta name="description" content="A portfolio showcasing web development skills and projects" />
 </svelte:head>
 
-<ThemeToggle />
+<div class="relative min-h-screen overflow-x-clip">
+	<div class="mesh-gradient" aria-hidden="true">
+		<div class="mesh-blob mesh-blob-1"></div>
+		<div class="mesh-blob mesh-blob-2"></div>
+		<div class="mesh-blob mesh-blob-3"></div>
+		<div class="mesh-blob mesh-blob-4"></div>
+	</div>
 
-<main class="min-h-screen">
-	{@render children?.()}
-</main>
+	<ThemeToggle />
+	<main>
+		{@render children?.()}
+	</main>
+</div>

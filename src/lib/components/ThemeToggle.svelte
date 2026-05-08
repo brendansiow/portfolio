@@ -13,7 +13,7 @@
 	variant="ghost"
 	size="icon"
 	onclick={theme.toggle}
-	class="fixed top-4 right-4 z-50 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-slate-700"
+	class="glass fixed right-5 top-5 z-50 border-white/25 text-slate-700 hover:bg-white/50 dark:border-slate-700/40 dark:text-slate-200 dark:hover:bg-slate-800/50"
 	aria-label="Toggle theme"
 >
 	{#if $theme === 'light'}
