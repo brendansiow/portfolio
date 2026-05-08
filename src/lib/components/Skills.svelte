@@ -110,7 +110,7 @@
 								class="inline-flex items-center gap-1.5 rounded-full border border-white/30 bg-white/40 px-3 py-1.5 text-xs font-medium text-slate-700 dark:border-slate-700/40 dark:bg-slate-800/50 dark:text-slate-200"
 							>
 								{#if skillIcon}
-									<img src={skillIcon} alt={skill} class="h-3.5 w-3.5 object-contain" />
+									<img src={skillIcon} alt={skill} class="h-5 w-5 object-contain" />
 								{/if}
 								{skill}
 							</span>

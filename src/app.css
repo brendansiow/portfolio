@@ -12,6 +12,7 @@
 	--shadow-soft: 0 8px 32px rgba(15, 23, 42, 0.06);
 	--shadow-deep: 0 16px 48px rgba(15, 23, 42, 0.1);
 	--highlight: inset 0 0.5px 0 rgba(255, 255, 255, 0.25);
+	--blob-opacity: 0.75;
 }
 
 .dark {
@@ -25,6 +26,7 @@
 	--shadow-soft: 0 8px 32px rgba(2, 6, 23, 0.35);
 	--shadow-deep: 0 16px 48px rgba(2, 6, 23, 0.45);
 	--highlight: inset 0 0.5px 0 rgba(255, 255, 255, 0.08);
+	--blob-opacity: 0.55;
 }
 
 * {
@@ -58,14 +60,14 @@ body {
 	position: absolute;
 	border-radius: 50%;
 	filter: blur(100px);
-	opacity: 0.55;
+	opacity: var(--blob-opacity);
 	will-change: transform;
 }
 
 .mesh-blob-1 {
 	width: 600px;
 	height: 600px;
-	background: radial-gradient(circle, rgba(96, 165, 250, 0.55), transparent 70%);
+	background: radial-gradient(circle, rgba(96, 165, 250, 0.7), transparent 70%);
 	top: -10%;
 	left: -5%;
 	animation: blob-float-1 18s ease-in-out infinite;
@@ -74,7 +76,7 @@ body {
 .mesh-blob-2 {
 	width: 500px;
 	height: 500px;
-	background: radial-gradient(circle, rgba(167, 139, 250, 0.45), transparent 70%);
+	background: radial-gradient(circle, rgba(167, 139, 250, 0.6), transparent 70%);
 	top: 10%;
 	right: -8%;
 	animation: blob-float-2 22s ease-in-out infinite;
@@ -83,7 +85,7 @@ body {
 .mesh-blob-3 {
 	width: 450px;
 	height: 450px;
-	background: radial-gradient(circle, rgba(34, 211, 238, 0.4), transparent 70%);
+	background: radial-gradient(circle, rgba(34, 211, 238, 0.55), transparent 70%);
 	bottom: 20%;
 	left: 20%;
 	animation: blob-float-3 20s ease-in-out infinite;
@@ -92,7 +94,7 @@ body {
 .mesh-blob-4 {
 	width: 550px;
 	height: 550px;
-	background: radial-gradient(circle, rgba(244, 114, 182, 0.35), transparent 70%);
+	background: radial-gradient(circle, rgba(244, 114, 182, 0.5), transparent 70%);
 	bottom: -5%;
 	right: 10%;
 	animation: blob-float-4 25s ease-in-out infinite;
