@@ -19,6 +19,54 @@
 		'DevOps & Tools': Settings,
 		Languages: Code
 	};
+
+	// Devicon CDN mapping for skill icons
+	function getSkillIcon(skill: string): string | null {
+		const map: Record<string, string> = {
+			SvelteKit: 'svelte',
+			React: 'react',
+			Angular: 'angularjs',
+			'Next.js': 'nextjs',
+			Flutter: 'flutter',
+			Ionic: 'ionic',
+			HTML: 'html5',
+			CSS: 'css3',
+			JavaScript: 'javascript',
+			TypeScript: 'typescript',
+			Golang: 'go',
+			Go: 'go',
+			Java: 'java',
+			'Spring Boot': 'spring',
+			PHP: 'php',
+			gRPC: 'grpc',
+			SQL: 'mysql',
+			DBMS: 'postgresql',
+			'Hibernate ORM': 'hibernate',
+			OpenSearch: 'elasticsearch',
+			Git: 'git',
+			Kubernetes: 'kubernetes',
+			'CI/CD': 'githubactions',
+			Jenkins: 'jenkins',
+			Firebase: 'firebase',
+			Containerization: 'docker'
+		};
+		const slug = map[skill];
+		if (!slug) return null;
+		return `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${slug}/${slug}-original.svg`;
+	}
+
+	function getCategoryIcon(category: string): string | null {
+		const map: Record<string, string> = {
+			Frontend: 'javascript',
+			Backend: 'go',
+			Database: 'postgresql',
+			'DevOps & Tools': 'docker',
+			Languages: 'typescript'
+		};
+		const slug = map[category];
+		if (!slug) return null;
+		return `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${slug}/${slug}-original.svg`;
+	}
 </script>
 
 <div class="section-shell">
@@ -32,6 +80,7 @@
 	<div class="grid auto-rows-[minmax(180px,auto)] gap-4 md:grid-cols-3">
 		{#each data as skillCategory (skillCategory.category)}
 			{@const Icon = iconMap[skillCategory.category] ?? Code}
+			{@const catIcon = getCategoryIcon(skillCategory.category)}
 			<Card
 				class="glass flex flex-col rounded-[1.75rem] border-white/30 {skillCategory.category ===
 					'Frontend' || skillCategory.category === 'Backend'
@@ -41,9 +90,13 @@
 				<CardContent class="flex h-full flex-col p-5 pt-5">
 					<div class="mb-4 flex items-center gap-3">
 						<div
-							class="flex h-10 w-10 items-center justify-center rounded-full bg-white/50 dark:bg-slate-800/60"
+							class="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-white/50 dark:bg-slate-800/60"
 						>
-							<Icon class="h-5 w-5 text-slate-700 dark:text-slate-100" />
+							{#if catIcon}
+								<img src={catIcon} alt={skillCategory.category} class="h-6 w-6 object-contain" />
+							{:else}
+								<Icon class="h-5 w-5 text-slate-700 dark:text-slate-100" />
+							{/if}
 						</div>
 						<h3 class="text-base font-semibold text-slate-900 dark:text-slate-100">
 							{skillCategory.category}
@@ -52,10 +105,15 @@
 
 					<div class="flex flex-wrap gap-2">
 						{#each skillCategory.skills as skill (skill)}
+							{@const skillIcon = getSkillIcon(skill)}
 							<span
-								class="rounded-full border border-white/30 bg-white/40 px-3 py-1.5 text-xs font-medium text-slate-700 dark:border-slate-700/40 dark:bg-slate-800/50 dark:text-slate-200"
-								>{skill}</span
+								class="inline-flex items-center gap-1.5 rounded-full border border-white/30 bg-white/40 px-3 py-1.5 text-xs font-medium text-slate-700 dark:border-slate-700/40 dark:bg-slate-800/50 dark:text-slate-200"
 							>
+								{#if skillIcon}
+									<img src={skillIcon} alt={skill} class="h-3.5 w-3.5 object-contain" />
+								{/if}
+								{skill}
+							</span>
 						{/each}
 					</div>
 				</CardContent>

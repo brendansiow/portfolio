@@ -32,6 +32,8 @@ export interface Project {
   liveUrl?: string;
   imageUrl?: string;
   logoUrl?: string;
+  storeUrl?: string;
+  appStoreUrl?: string;
   featured: boolean;
 }
 

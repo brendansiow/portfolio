@@ -70,7 +70,8 @@ export const portfolioData: PortfolioData = {
 		{
 			id: '1',
 			title: 'Data Registry & Data Access Manager',
-			description: 'MB.OS platform work centered on data governance, discoverability, legal metadata, and controlled access. I contributed on the backend side, including search, performance, and compliance-oriented API design.',
+			description:
+				'MB.OS platform work centered on data governance, discoverability, legal metadata, and controlled access. I contributed on the backend side, including search, performance, and compliance-oriented API design.',
 			technologies: ['Golang', 'OpenSearch', 'SQL', 'Kubernetes', 'APIs', 'MB.OS'],
 			liveUrl: 'https://www.mercedes-benz.io/',
 			logoUrl: 'https://logo.clearbit.com/mercedes-benz.io',
@@ -79,52 +80,51 @@ export const portfolioData: PortfolioData = {
 		{
 			id: '2',
 			title: 'Revenue Monster Payment Platform',
-			description: 'Worked on the payment gateway and surrounding merchant tooling, covering portal enhancements, reporting flows, Open API support, low-code checkout integration, and payment method expansion across cards, wallets, Apple Pay, and Google Pay.',
+			description:
+				'Worked on the payment gateway and surrounding merchant tooling, covering portal enhancements, reporting flows, Open API support, low-code checkout integration, and payment method expansion across cards, wallets, Apple Pay, and Google Pay.',
 			technologies: ['Golang', 'Echo', 'Next.js', 'Payment Gateway', 'Apple Pay', 'Google Pay'],
 			liveUrl: 'https://www.revenuemonster.my/',
+			storeUrl: 'https://play.google.com/store/apps/details?id=my.revenuemonster.merchant',
 			logoUrl: 'https://logo.clearbit.com/revenuemonster.my',
 			featured: true
 		},
 		{
 			id: '3',
 			title: 'iFAST Global Markets (IGM)',
-			description: 'Regional investment app delivery involving Flutter implementation, backend coordination, CI/CD, stakeholder collaboration, and release operations across mobile platforms.',
+			description:
+				'Regional investment app delivery involving Flutter implementation, backend coordination, CI/CD, stakeholder collaboration, and release operations across mobile platforms.',
 			technologies: ['Flutter', 'Spring Boot', 'Hibernate', 'Jenkins', 'CI/CD', 'Mobile Delivery'],
 			liveUrl: 'https://www.ifastcapital.com.my/myifast/what-we-offer',
+			storeUrl: 'https://play.google.com/store/apps/details?id=com.igmnew',
 			logoUrl: 'https://logo.clearbit.com/ifastcapital.com.my',
 			featured: true
 		},
 		{
 			id: '4',
 			title: 'FSMOne',
-			description: 'Supported modernization and migration work for a regional wealth product, including mobile UI implementation, state management, and legacy logic transition.',
+			description:
+				'Supported modernization and migration work for a regional wealth product, including mobile UI implementation, state management, and legacy logic transition.',
 			technologies: ['Flutter', 'Provider', 'Mobile UI', 'Product Migration'],
 			liveUrl: 'https://www.ifastcapital.com.my/myifast/what-we-offer',
+			storeUrl: 'https://play.google.com/store/apps/details?id=com.ifast.fsm',
 			logoUrl: 'https://logo.clearbit.com/ifastcapital.com.my',
 			featured: false
 		},
 		{
 			id: '5',
 			title: 'Project Management System',
-			description: 'An internal intranet application built with Angular and Java Spring to support project operations with structured state and enterprise UI workflows.',
+			description:
+				'An internal intranet application built with Angular and Java Spring to support project operations with structured state and enterprise UI workflows.',
 			technologies: ['Angular 8', 'Java Spring', 'Ng-Zorro', 'NGXS'],
 			featured: false
 		},
 		{
 			id: '6',
 			title: 'Personal Portfolio',
-			description: 'A SvelteKit-based personal site built to present experience, selected work, and technical strengths in a cleaner and more deliberate format.',
+			description:
+				'A SvelteKit-based personal site built to present experience, selected work, and technical strengths in a cleaner and more deliberate format.',
 			technologies: ['SvelteKit', 'TypeScript', 'Tailwind CSS', 'UI Design'],
 			githubUrl: 'https://github.com/brendansiow/portfolio',
-			logoUrl: 'https://logo.clearbit.com/github.com',
-			featured: false
-		},
-		{
-			id: '7',
-			title: 'Todo App API',
-			description: 'A public Go-based API project that reflects my preference for straightforward backend services and practical implementation.',
-			technologies: ['Go', 'REST API'],
-			githubUrl: 'https://github.com/brendansiow/todo-app',
 			logoUrl: 'https://logo.clearbit.com/github.com',
 			featured: false
 		}

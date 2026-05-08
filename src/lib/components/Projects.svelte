@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Project } from '$lib/types';
-	import { ArrowUpRight, Github, Sparkles } from 'lucide-svelte';
+	import { ArrowUpRight, Github, Sparkles, Smartphone } from 'lucide-svelte';
 	import Card from '$lib/components/ui/card.svelte';
 	import CardContent from '$lib/components/ui/card-content.svelte';
 	import Badge from '$lib/components/ui/badge.svelte';
@@ -117,6 +117,19 @@
 									{/snippet}
 								</Button>
 							{/if}
+							{#if project.storeUrl}
+								<Button
+									variant="outline"
+									href={project.storeUrl}
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									{#snippet children()}
+										<Smartphone class="mr-2 h-4 w-4" />
+										Play Store
+									{/snippet}
+								</Button>
+							{/if}
 							{#if project.githubUrl}
 								<Button
 									variant="outline"
@@ -160,7 +173,7 @@
 								<Badge>{tech}</Badge>
 							{/each}
 						</div>
-						<div class="mt-4 flex gap-3">
+						<div class="mt-4 flex flex-wrap gap-3">
 							{#if project.liveUrl}
 								<a
 									href={project.liveUrl}
@@ -169,6 +182,17 @@
 									class="text-sm font-medium text-slate-700 hover:text-slate-900 dark:text-slate-200 dark:hover:text-white"
 								>
 									View product
+								</a>
+							{/if}
+							{#if project.storeUrl}
+								<a
+									href={project.storeUrl}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="inline-flex items-center gap-1 text-sm font-medium text-slate-700 hover:text-slate-900 dark:text-slate-200 dark:hover:text-white"
+								>
+									<Smartphone class="h-3.5 w-3.5" />
+									Play Store
 								</a>
 							{/if}
 							{#if project.githubUrl}
