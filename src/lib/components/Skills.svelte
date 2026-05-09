@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Skill } from '$lib/types';
-	import { Monitor, Server, Database, Settings, Code } from 'lucide-svelte';
+	import { Monitor, Server, Database, Settings, Code, Globe } from 'lucide-svelte';
 	import Card from '$lib/components/ui/card.svelte';
 	import CardContent from '$lib/components/ui/card-content.svelte';
 
@@ -17,7 +17,7 @@
 		Backend: Server,
 		Database: Database,
 		'DevOps & Tools': Settings,
-		Languages: Code
+		Languages: Globe
 	};
 
 	// Devicon CDN mapping for skill icons
@@ -60,8 +60,7 @@
 			Frontend: 'javascript',
 			Backend: 'go',
 			Database: 'postgresql',
-			'DevOps & Tools': 'docker',
-			Languages: 'typescript'
+			'DevOps & Tools': 'docker'
 		};
 		const slug = map[category];
 		if (!slug) return null;

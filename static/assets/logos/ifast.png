@@ -1,0 +1,89 @@
+
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>
+        iFAST Capital | Wealth management solutions for the brave new world
+    </title>
+    
+            <base href="/myifast/">
+
+        
+    <!-- Google Tag Manager (Self-Hosted) -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+        j=d.createElement(s);j.async=true;j.src='/myifast/ext/gtm/ifast-gtm.js';
+        f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-TSK6XMC');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Processing Date: 1778326927483  -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="icon" type="image/x-icon" href="assets-core/ico/favicon-ifast.ico" id="favicon">
+
+    
+            <meta name="description" content="By leveraging on iFAST's platform, advisers can deliver higher value to clients and investors."/>
+        
+    <meta name="keywords" content="investment, unit trust, bonds, managed portfolio, financial planning"/>
+
+    <!-- Open Graph Protocol -->
+    
+            <meta property="og:title" content="iFAST Capital | Wealth management solutions for the brave new world"/>
+        
+            <meta property="og:description" content="By leveraging on iFAST's platform, advisers can deliver higher value to clients and investors."/>
+        
+            <meta property="og:image" content="https://www.ifastcapital.com.my/myifast/assets/images/unfurl/ifast.png"/>
+        
+    <meta property="og:email" content="ifastadmin.my@ifastfinancial.com"/>
+    <meta property="og:phone_number" content="60321490660"/>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="iFAST Capital | Wealth management solutions for the brave new world"/>
+    
+            <meta property="og:url" content="https://www.ifastcapital.com.my/myifast"/>
+        
+
+    <!-- Twitter Protocol -->
+    
+            <meta name="twitter:title" content="iFAST Capital | Wealth management solutions for the brave new world"/>
+        
+            <meta name="twitter:description" content="By leveraging on iFAST's platform, advisers can deliver higher value to clients and investors."/>
+        
+    <meta name="twitter:card" content="summary_large_image" />
+    
+            <meta property="twitter:image" content="https://www.ifastcapital.com.my/myifast/assets/images/unfurl/ifast.png"/>
+        
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                console.info('Installing Service Worker.');
+                navigator.serviceWorker.register('sw.js').then(function(registration) {
+                    console.info('Service Worker registered: ', registration.scope);
+                }), function(err) {
+                    console.info('Failure in registering Service Worker: ', err);
+                }
+            });
+        }
+    </script>
+
+    <!-- SystemJS setup -->
+    <script src="https://cdn.jsdelivr.net/npm/systemjs@6.14.1/dist/system.min.js" integrity="sha384-hgayf8RkgYU59oNjqbe0Xn/1CytyLcnq9ieockIdFjRx0XSZEDg/XLNL4YkphxJq" crossorigin="anonymous"></script>
+    <script type="systemjs-importmap" src="/myifast/assets/systemjs/import-map.json"></script>
+
+    <link rel="stylesheet" href="styles.8c50dab15afc1b24efe9.css">
+</head>
+<body dir="ltr" role="application">
+
+
+  <ANALYTICSBODY></ANALYTICSBODY>
+
+  <app-root id="app-root"></app-root>
+  <div id="print-root" class="d-none d-print-block"></div>
+<script type="text/javascript" src="runtime.db7dd12df8cf46cf56d8.js"></script><script type="text/javascript" src="es2015-polyfills.9441646ebff024a905eb.js" nomodule></script><script type="text/javascript" src="polyfills.53d0827a10eb4dd0b4b5.js"></script><script type="text/javascript" src="scripts.5c4cbbac5690d62cb2b2.js"></script><script type="text/javascript" src="main.097eb5854332b56e54f3.js"></script><!-- V: Tue May 05 2026 20:33:19 GMT+0800 (Singapore Standard Time) -->
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="/myifast/ext/gtm/ifast-gtm-ns.html"
+                  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+</body>
+</html>
