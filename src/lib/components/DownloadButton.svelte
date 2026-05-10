@@ -2,21 +2,12 @@
 	import { onMount } from 'svelte';
 	import Button from '$lib/components/ui/button.svelte';
 	import { Download } from 'lucide-svelte';
+	import { toPng } from 'html-to-image';
+	import { jsPDF } from 'jspdf';
 
-	let html2pdf = $state<any>(null);
 	let isGenerating = $state(false);
 
-	onMount(async () => {
-		const { default: html2pdfLib } = await import('html2pdf.js');
-		html2pdf = html2pdfLib;
-	});
-
 	async function downloadResume() {
-		if (!html2pdf) {
-			alert('PDF generator still loading. Please try again in a moment.');
-			return;
-		}
-
 		isGenerating = true;
 
 		try {
@@ -27,73 +18,108 @@
 
 			const clonedElement = element.cloneNode(true) as HTMLElement;
 
-			clonedElement
-				.querySelectorAll('nav, .fixed, button, [role="button"]')
-				.forEach((el) => el.remove());
+			// Strip interactive elements
+			clonedElement.querySelectorAll('nav, .fixed, button, [role="button"]').forEach((el) => el.remove());
+
+			// Inline computed styles and strip classes to avoid oklch parsing issues
+			const originalElements = element.querySelectorAll('*');
+			const cloneElements = clonedElement.querySelectorAll('*');
+			cloneElements.forEach((cloneEl, i) => {
+				const origEl = originalElements[i];
+				if (!origEl) return;
+				const computed = window.getComputedStyle(origEl);
+				const style = (cloneEl as HTMLElement).style;
+
+				// Inline key layout and visual properties
+				const props = [
+					'color',
+					'backgroundColor',
+					'backgroundImage',
+					'border',
+					'borderTop',
+					'borderRight',
+					'borderBottom',
+					'borderLeft',
+					'borderRadius',
+					'padding',
+					'margin',
+					'fontFamily',
+					'fontSize',
+					'fontWeight',
+					'lineHeight',
+					'textAlign',
+					'display',
+					'flexDirection',
+					'alignItems',
+					'justifyContent',
+					'gap',
+					'width',
+					'maxWidth',
+					'position',
+					'top',
+					'left',
+					'right',
+					'bottom',
+					'boxShadow'
+				];
+				props.forEach((prop) => {
+					const val = computed.getPropertyValue(prop);
+					if (val) {
+						try {
+							style.setProperty(prop, val, 'important');
+						} catch {
+							// ignore unsupported props
+						}
+					}
+				});
+
+				style.transform = 'none';
+				style.animation = 'none';
+				style.backdropFilter = 'none';
+				style.backgroundAttachment = 'scroll';
+				style.transition = 'none';
+
+				// Remove class names so html-to-image doesn't re-apply oklch styles
+				cloneEl.removeAttribute('class');
+			});
 
 			clonedElement.style.position = 'relative';
-			clonedElement.style.width = '100%';
-			clonedElement.style.maxWidth = '210mm';
+			clonedElement.style.width = '794px';
 			clonedElement.style.margin = '0';
 			clonedElement.style.padding = '20px';
 			clonedElement.style.background = 'white';
-			clonedElement.style.color = 'black';
-
-			const allElements = clonedElement.querySelectorAll('*');
-			allElements.forEach((el: any) => {
-				if (el.style) {
-					el.style.position = el.style.position === 'fixed' ? 'static' : el.style.position;
-					el.style.transform = 'none';
-					el.style.animation = 'none';
-					el.style.backdropFilter = 'none';
-					el.style.backgroundAttachment = 'scroll';
-
-					if (
-						el.style.color &&
-						(el.style.color.includes('white') || el.style.color.includes('transparent'))
-					) {
-						el.style.color = 'black';
-					}
-				}
-			});
+			clonedElement.style.color = '#0f172a';
+			clonedElement.style.fontFamily = "'Plus Jakarta Sans', sans-serif";
+			clonedElement.className = '';
 
 			document.body.appendChild(clonedElement);
 
-			const options = {
-				margin: [10, 10, 10, 10],
-				filename: 'resume.pdf',
-				image: {
-					type: 'jpeg',
-					quality: 0.95
-				},
-				html2canvas: {
-					scale: 1,
-					useCORS: true,
-					allowTaint: false,
-					letterRendering: true,
-					width: 794,
-					height: undefined,
-					scrollX: 0,
-					scrollY: 0
-				},
-				jsPDF: {
-					unit: 'mm',
-					format: 'a4',
-					orientation: 'portrait',
-					putOnlyUsedFonts: true,
-					floatPrecision: 16
-				},
-				pagebreak: {
-					mode: ['avoid-all', 'css', 'legacy'],
-					before: '.page-break-before',
-					after: '.page-break-after',
-					avoid: ['img', 'table', 'tr', 'td', 'th']
+			// Capture as PNG using html-to-image (supports modern CSS natively)
+			const dataUrl = await toPng(clonedElement, {
+				pixelRatio: 2,
+				width: 794,
+				style: {
+					margin: '0',
+					padding: '20px'
 				}
-			};
-
-			await html2pdf().set(options).from(clonedElement).save();
+			});
 
 			document.body.removeChild(clonedElement);
+
+			// Create PDF from image
+			const img = new Image();
+			img.src = dataUrl;
+			await new Promise((resolve) => (img.onload = resolve));
+
+			const pdf = new jsPDF({
+				unit: 'px',
+				format: [794, img.height * (794 / img.width)],
+				orientation: 'portrait',
+				putOnlyUsedFonts: true
+			});
+
+			pdf.addImage(dataUrl, 'PNG', 0, 0, 794, img.height * (794 / img.width));
+			pdf.save('brendan-siow-resume.pdf');
 		} catch (error) {
 			console.error('Error generating PDF:', error);
 			alert('Failed to generate PDF. Please try again.');
@@ -106,7 +132,7 @@
 <div class="fixed bottom-5 right-5 z-50">
 	<Button
 		onclick={downloadResume}
-		disabled={isGenerating || !html2pdf}
+		disabled={isGenerating}
 		class="glass h-11 w-11 rounded-full border-white/25 p-0 text-slate-700 transition hover:bg-white/60 dark:border-slate-700/40 dark:text-slate-100 dark:hover:bg-slate-800/60"
 		aria-label="Download Resume as PDF"
 		title={isGenerating ? 'Generating PDF...' : 'Download resume'}

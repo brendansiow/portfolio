@@ -55,7 +55,7 @@ export const portfolioData: PortfolioData = {
 			duration: '2019 - 2023',
 			location: 'Malaysia',
 			companyUrl: 'https://www.ifastcapital.com.my/myifast/what-we-offer',
-			companyLogo: 'assets/logos/ifast.png',
+			companyLogo: 'assets/logos/ifast.svg',
 			description: [
 				'Delivered fintech products across Flutter, React Native, React, Angular, and Java Spring Boot stacks.',
 				'Worked on regional investment apps, backend APIs, CI/CD pipelines, and mobile release processes.',
@@ -96,7 +96,7 @@ export const portfolioData: PortfolioData = {
 			technologies: ['Flutter', 'Spring Boot', 'Hibernate', 'Jenkins', 'CI/CD', 'Mobile Delivery'],
 			liveUrl: 'https://www.ifastcapital.com.my/myifast/what-we-offer',
 			storeUrl: 'https://play.google.com/store/apps/details?id=com.igmnew',
-			logoUrl: 'assets/logos/ifast.png',
+			logoUrl: 'assets/logos/ifast.svg',
 			featured: true
 		},
 		{
@@ -107,7 +107,7 @@ export const portfolioData: PortfolioData = {
 			technologies: ['Flutter', 'Provider', 'Mobile UI', 'Product Migration'],
 			liveUrl: 'https://www.ifastcapital.com.my/myifast/what-we-offer',
 			storeUrl: 'https://play.google.com/store/apps/details?id=com.ifast.fsm',
-			logoUrl: 'assets/logos/ifast.png',
+			logoUrl: 'assets/logos/ifast.svg',
 			featured: false
 		},
 		{
