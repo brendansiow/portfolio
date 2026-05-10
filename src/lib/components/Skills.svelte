@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Skill } from '$lib/types';
-	import { Monitor, Server, Database, Settings, Code, Globe } from 'lucide-svelte';
+	import { Monitor, Server, Database, Settings, Globe } from 'lucide-svelte';
 	import Card from '$lib/components/ui/card.svelte';
 	import CardContent from '$lib/components/ui/card-content.svelte';
 
@@ -20,51 +20,47 @@
 		Languages: Globe
 	};
 
-	// Devicon CDN mapping for skill icons
+	// Local skill icon paths
 	function getSkillIcon(skill: string): string | null {
 		const map: Record<string, string> = {
-			SvelteKit: 'svelte',
-			React: 'react',
-			Angular: 'angularjs',
-			'Next.js': 'nextjs',
-			Flutter: 'flutter',
-			Ionic: 'ionic',
-			HTML: 'html5',
-			CSS: 'css3',
-			JavaScript: 'javascript',
-			TypeScript: 'typescript',
-			Golang: 'go',
-			Go: 'go',
-			Java: 'java',
-			'Spring Boot': 'spring',
-			PHP: 'php',
-			gRPC: 'grpc',
-			SQL: 'mysql',
-			DBMS: 'postgresql',
-			'Hibernate ORM': 'hibernate',
-			OpenSearch: 'elasticsearch',
-			Git: 'git',
-			Kubernetes: 'kubernetes',
-			'CI/CD': 'githubactions',
-			Jenkins: 'jenkins',
-			Firebase: 'firebase',
-			Containerization: 'docker'
+			SvelteKit: 'assets/skills/svelte.svg',
+			React: 'assets/skills/react.svg',
+			Angular: 'assets/skills/angular.svg',
+			'Next.js': 'assets/skills/nextjs.svg',
+			Flutter: 'assets/skills/flutter.svg',
+			Ionic: 'assets/skills/ionic.svg',
+			HTML: 'assets/skills/html5.svg',
+			CSS: 'assets/skills/css3.svg',
+			JavaScript: 'assets/skills/javascript.svg',
+			TypeScript: 'assets/skills/typescript.svg',
+			Golang: 'assets/skills/go.svg',
+			Go: 'assets/skills/go.svg',
+			Java: 'assets/skills/java.svg',
+			'Spring Boot': 'assets/skills/spring.svg',
+			PHP: 'assets/skills/php.svg',
+			gRPC: 'assets/skills/grpc.svg',
+			SQL: 'assets/skills/mysql.svg',
+			DBMS: 'assets/skills/postgresql.svg',
+			'Hibernate ORM': 'assets/skills/hibernate.svg',
+			OpenSearch: 'assets/skills/elasticsearch.svg',
+			Git: 'assets/skills/git.svg',
+			Kubernetes: 'assets/skills/kubernetes.svg',
+			'CI/CD': 'assets/skills/githubactions.svg',
+			Jenkins: 'assets/skills/jenkins.svg',
+			Firebase: 'assets/skills/firebase.svg',
+			Containerization: 'assets/skills/docker.svg'
 		};
-		const slug = map[skill];
-		if (!slug) return null;
-		return `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${slug}/${slug}-original.svg`;
+		return map[skill] ?? null;
 	}
 
 	function getCategoryIcon(category: string): string | null {
 		const map: Record<string, string> = {
-			Frontend: 'javascript',
-			Backend: 'go',
-			Database: 'postgresql',
-			'DevOps & Tools': 'docker'
+			Frontend: 'assets/skills/javascript.svg',
+			Backend: 'assets/skills/go.svg',
+			Database: 'assets/skills/postgresql.svg',
+			'DevOps & Tools': 'assets/skills/docker.svg'
 		};
-		const slug = map[category];
-		if (!slug) return null;
-		return `https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/${slug}/${slug}-original.svg`;
+		return map[category] ?? null;
 	}
 </script>
 
@@ -78,7 +74,7 @@
 
 	<div class="grid auto-rows-[minmax(180px,auto)] gap-4 md:grid-cols-3">
 		{#each data as skillCategory (skillCategory.category)}
-			{@const Icon = iconMap[skillCategory.category] ?? Code}
+			{@const Icon = iconMap[skillCategory.category] ?? Globe}
 			{@const catIcon = getCategoryIcon(skillCategory.category)}
 			<Card
 				class="glass flex flex-col rounded-[1.75rem] border-white/30 {skillCategory.category ===

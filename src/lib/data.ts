@@ -22,7 +22,7 @@ export const portfolioData: PortfolioData = {
 			duration: 'Jun 2024 - Present',
 			location: 'Malaysia · global engineering collaboration',
 			companyUrl: 'https://www.mercedes-benz.io/',
-			companyLogo: '/assets/logos/mercedes-benz.svg',
+			companyLogo: 'assets/logos/mercedes-benz.svg',
 			description: [
 				'Build and maintain scalable Golang services with proper unit and integration testing.',
 				'Contribute to Data Registry and Data Access Manager within MB.OS, improving how internal data is documented, governed, and accessed.',
@@ -39,7 +39,7 @@ export const portfolioData: PortfolioData = {
 			duration: 'Sep 2023 - May 2024',
 			location: 'Malaysia',
 			companyUrl: 'https://www.revenuemonster.my/',
-			companyLogo: '/assets/logos/revenue-monster.svg',
+			companyLogo: 'assets/logos/revenue-monster.svg',
 			description: [
 				'Built and enhanced payment platform features using Golang and Echo, with selected Next.js frontend work.',
 				'Maintained merchant-facing and admin-facing portals, reporting flows, Open API support, and integration documentation.',
@@ -55,7 +55,7 @@ export const portfolioData: PortfolioData = {
 			duration: '2019 - 2023',
 			location: 'Malaysia',
 			companyUrl: 'https://www.ifastcapital.com.my/myifast/what-we-offer',
-			companyLogo: '/assets/logos/ifast.png',
+			companyLogo: 'assets/logos/ifast.png',
 			description: [
 				'Delivered fintech products across Flutter, React Native, React, Angular, and Java Spring Boot stacks.',
 				'Worked on regional investment apps, backend APIs, CI/CD pipelines, and mobile release processes.',
@@ -74,7 +74,7 @@ export const portfolioData: PortfolioData = {
 				'MB.OS platform work centered on data governance, discoverability, legal metadata, and controlled access. I contributed on the backend side, including search, performance, and compliance-oriented API design.',
 			technologies: ['Golang', 'OpenSearch', 'SQL', 'Kubernetes', 'APIs', 'MB.OS'],
 			liveUrl: 'https://www.mercedes-benz.io/',
-			logoUrl: '/assets/logos/mercedes-benz.svg',
+			logoUrl: 'assets/logos/mercedes-benz.svg',
 			featured: true
 		},
 		{
@@ -85,7 +85,7 @@ export const portfolioData: PortfolioData = {
 			technologies: ['Golang', 'Echo', 'Next.js', 'Payment Gateway', 'Apple Pay', 'Google Pay'],
 			liveUrl: 'https://www.revenuemonster.my/',
 			storeUrl: 'https://play.google.com/store/apps/details?id=my.revenuemonster.merchant',
-			logoUrl: '/assets/logos/revenue-monster.svg',
+			logoUrl: 'assets/logos/revenue-monster.svg',
 			featured: true
 		},
 		{
@@ -96,7 +96,7 @@ export const portfolioData: PortfolioData = {
 			technologies: ['Flutter', 'Spring Boot', 'Hibernate', 'Jenkins', 'CI/CD', 'Mobile Delivery'],
 			liveUrl: 'https://www.ifastcapital.com.my/myifast/what-we-offer',
 			storeUrl: 'https://play.google.com/store/apps/details?id=com.igmnew',
-			logoUrl: '/assets/logos/ifast.png',
+			logoUrl: 'assets/logos/ifast.png',
 			featured: true
 		},
 		{
@@ -107,7 +107,7 @@ export const portfolioData: PortfolioData = {
 			technologies: ['Flutter', 'Provider', 'Mobile UI', 'Product Migration'],
 			liveUrl: 'https://www.ifastcapital.com.my/myifast/what-we-offer',
 			storeUrl: 'https://play.google.com/store/apps/details?id=com.ifast.fsm',
-			logoUrl: '/assets/logos/ifast.png',
+			logoUrl: 'assets/logos/ifast.png',
 			featured: false
 		},
 		{
@@ -125,7 +125,7 @@ export const portfolioData: PortfolioData = {
 				'A SvelteKit-based personal site built to present experience, selected work, and technical strengths in a cleaner and more deliberate format.',
 			technologies: ['SvelteKit', 'TypeScript', 'Tailwind CSS', 'UI Design'],
 			githubUrl: 'https://github.com/brendansiow/portfolio',
-			logoUrl: '/assets/logos/github.svg',
+			logoUrl: 'assets/logos/github.svg',
 			featured: false
 		}
 	],
