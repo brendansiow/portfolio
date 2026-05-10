@@ -9,7 +9,8 @@
 		Mail,
 		Menu,
 		X,
-		ArrowUp
+		ArrowUp,
+		Flame
 	} from 'lucide-svelte';
 
 	let isMenuOpen = $state(false);
@@ -19,6 +20,7 @@
 		{ href: '#about', label: 'About', icon: User },
 		{ href: '#experience', label: 'Exp', icon: Briefcase },
 		{ href: '#projects', label: 'Work', icon: FolderGit },
+		{ href: '#activity', label: 'Activity', icon: Flame },
 		{ href: '#education', label: 'Edu', icon: GraduationCap },
 		{ href: '#skills', label: 'Skills', icon: Wrench },
 		{ href: '#contact', label: 'Contact', icon: Mail }

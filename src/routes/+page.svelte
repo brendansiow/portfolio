@@ -10,6 +10,7 @@
 	import Navigation from '$lib/components/Navigation.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import DownloadButton from '$lib/components/DownloadButton.svelte';
+	import Activity from '$lib/components/Activity.svelte';
 </script>
 
 <Navigation />
@@ -29,6 +30,10 @@
 
 	<section id="projects" class="pt-20">
 		<Projects data={portfolioData.projects} />
+	</section>
+
+	<section id="activity" class="pt-20">
+		<Activity />
 	</section>
 
 	<section id="education" class="pt-20">
