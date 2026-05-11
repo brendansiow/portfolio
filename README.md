@@ -8,8 +8,6 @@ Building reliable backend systems and product experiences that hold up in produc
 
 Senior software engineer with 5+ years shipping production systems across payments, fintech, and automotive platforms. Currently at Mercedes-Benz Tech Innovation building MB.OS data services. Previously delivered payment gateways at Revenue Monster and mobile investment apps at iFAST Capital.
 
-Comfortable across Golang services, cloud infrastructure, mobile platforms, and supporting web stacks — with a preference for clean architecture, reliable execution, and products that feel solid in production.
-
 ## 🚀 Selected Work
 
 | Project | Stack | Context |
