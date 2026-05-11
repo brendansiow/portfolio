@@ -175,35 +175,46 @@
 						</div>
 						<div class="mt-4 flex flex-wrap gap-3">
 							{#if project.liveUrl}
-								<a
+								<Button
+									variant="outline"
+									size="sm"
 									href={project.liveUrl}
 									target="_blank"
 									rel="noopener noreferrer"
-									class="text-sm font-medium text-slate-700 hover:text-slate-900 dark:text-slate-200 dark:hover:text-white"
 								>
-									View product
-								</a>
+									{#snippet children()}
+										View product
+										<ArrowUpRight class="ml-1.5 h-3.5 w-3.5" />
+									{/snippet}
+								</Button>
 							{/if}
 							{#if project.storeUrl}
-								<a
+								<Button
+									variant="outline"
+									size="sm"
 									href={project.storeUrl}
 									target="_blank"
 									rel="noopener noreferrer"
-									class="inline-flex items-center gap-1 text-sm font-medium text-slate-700 hover:text-slate-900 dark:text-slate-200 dark:hover:text-white"
 								>
-									<Smartphone class="h-3.5 w-3.5" />
-									Play Store
-								</a>
+									{#snippet children()}
+										<Smartphone class="mr-1.5 h-3.5 w-3.5" />
+										Play Store
+									{/snippet}
+								</Button>
 							{/if}
 							{#if project.githubUrl}
-								<a
+								<Button
+									variant="outline"
+									size="sm"
 									href={project.githubUrl}
 									target="_blank"
 									rel="noopener noreferrer"
-									class="text-sm font-medium text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white"
 								>
-									GitHub
-								</a>
+									{#snippet children()}
+										<Github class="mr-1.5 h-3.5 w-3.5" />
+										GitHub
+									{/snippet}
+								</Button>
 							{/if}
 						</div>
 					</CardContent>
