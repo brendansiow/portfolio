@@ -5,14 +5,14 @@
 	--bg: #eef4fb;
 	--bg-secondary: #e5edf8;
 	--text: #0f172a;
-	--text-muted: #475569;
-	--stroke: rgba(148, 163, 184, 0.45);
-	--glass: rgba(255, 255, 255, 0.32);
-	--glass-strong: rgba(255, 255, 255, 0.48);
-	--shadow-soft: 0 8px 32px rgba(15, 23, 42, 0.1);
-	--shadow-deep: 0 16px 48px rgba(15, 23, 42, 0.14);
-	--highlight: inset 0 1px 0 rgba(255, 255, 255, 0.55);
-	--blob-opacity: 0.9;
+	--text-muted: #334155;
+	--stroke: rgba(148, 163, 184, 0.5);
+	--glass: rgba(255, 255, 255, 0.78);
+	--glass-strong: rgba(255, 255, 255, 0.9);
+	--shadow-soft: 0 8px 32px rgba(15, 23, 42, 0.08);
+	--shadow-deep: 0 16px 48px rgba(15, 23, 42, 0.12);
+	--highlight: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+	--blob-opacity: 0.6;
 }
 
 .dark {
@@ -180,6 +180,25 @@ body {
 	box-shadow: var(--highlight), var(--shadow-deep);
 	backdrop-filter: blur(28px) saturate(190%) brightness(1.05);
 	-webkit-backdrop-filter: blur(28px) saturate(190%) brightness(1.05);
+}
+
+/* Light mode: force all text inside glass cards to near-black for readability */
+.glass,
+.glass-strong {
+	color: var(--text);
+}
+
+.glass :is(h1, h2, h3, h4, h5, h6, p, li, span, a:not([href])),
+.glass-strong :is(h1, h2, h3, h4, h5, h6, p, li, span, a:not([href])) {
+	color: inherit;
+}
+
+/* Muted text inside glass should still be readable */
+.glass .text-slate-500,
+.glass .text-slate-600,
+.glass-strong .text-slate-500,
+.glass-strong .text-slate-600 {
+	color: var(--text-muted) !important;
 }
 
 .section-shell {
