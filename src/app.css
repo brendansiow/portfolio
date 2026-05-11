@@ -6,12 +6,12 @@
 	--bg-secondary: #e5edf8;
 	--text: #0f172a;
 	--text-muted: #475569;
-	--stroke: rgba(255, 255, 255, 0.14);
-	--glass: rgba(255, 255, 255, 0.55);
-	--glass-strong: rgba(255, 255, 255, 0.72);
+	--stroke: rgba(148, 163, 184, 0.35);
+	--glass: rgba(255, 255, 255, 0.72);
+	--glass-strong: rgba(255, 255, 255, 0.88);
 	--shadow-soft: 0 8px 32px rgba(15, 23, 42, 0.06);
 	--shadow-deep: 0 16px 48px rgba(15, 23, 42, 0.1);
-	--highlight: inset 0 0.5px 0 rgba(255, 255, 255, 0.25);
+	--highlight: inset 0 0.5px 0 rgba(255, 255, 255, 0.45);
 	--blob-opacity: 0.75;
 }
 
