@@ -11,7 +11,7 @@
 
 <div
 	class={cn(
-		'rounded-[2rem] border border-white/30 bg-white/50 text-slate-800 shadow-[0_8px_32px_rgba(15,23,42,0.08)] backdrop-blur-lg dark:border-slate-700/40 dark:bg-slate-900/50 dark:text-slate-100',
+		'rounded-[2rem] border border-white/20 bg-white/15 text-slate-800 shadow-[0_8px_32px_rgba(15,23,42,0.06)] backdrop-blur-2xl dark:border-slate-700/30 dark:bg-slate-900/40 dark:text-slate-100',
 		className
 	)}
 	{...restProps}

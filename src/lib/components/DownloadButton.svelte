@@ -30,38 +30,61 @@
 				const computed = window.getComputedStyle(origEl);
 				const style = (cloneEl as HTMLElement).style;
 
-				// Inline key layout and visual properties
-				const props = [
-					'color',
-					'backgroundColor',
-					'backgroundImage',
-					'border',
-					'borderTop',
-					'borderRight',
-					'borderBottom',
-					'borderLeft',
-					'borderRadius',
-					'padding',
-					'margin',
-					'fontFamily',
-					'fontSize',
-					'fontWeight',
-					'lineHeight',
-					'textAlign',
-					'display',
-					'flexDirection',
-					'alignItems',
-					'justifyContent',
-					'gap',
-					'width',
-					'maxWidth',
-					'position',
-					'top',
-					'left',
-					'right',
-					'bottom',
-					'boxShadow'
-				];
+			// Inline key layout and visual properties
+			const props = [
+				'color',
+				'backgroundColor',
+				'backgroundImage',
+				'border',
+				'borderTop',
+				'borderRight',
+				'borderBottom',
+				'borderLeft',
+				'borderRadius',
+				'padding',
+				'paddingTop',
+				'paddingRight',
+				'paddingBottom',
+				'paddingLeft',
+				'margin',
+				'marginTop',
+				'marginRight',
+				'marginBottom',
+				'marginLeft',
+				'fontFamily',
+				'fontSize',
+				'fontWeight',
+				'lineHeight',
+				'textAlign',
+				'display',
+				'flexDirection',
+				'flexWrap',
+				'alignItems',
+				'justifyContent',
+				'gap',
+				'width',
+				'maxWidth',
+				'minHeight',
+				'height',
+				'position',
+				'top',
+				'left',
+				'right',
+				'bottom',
+				'boxShadow',
+				'gridTemplateColumns',
+				'gridTemplateRows',
+				'gridColumn',
+				'gridRow',
+				'objectFit',
+				'objectPosition',
+				'overflow',
+				'verticalAlign',
+				'opacity',
+				'borderWidth',
+				'borderColor',
+				'borderStyle'
+			];
 				props.forEach((prop) => {
 					const val = computed.getPropertyValue(prop);
 					if (val) {
@@ -92,6 +115,12 @@
 			clonedElement.style.fontFamily = "'Plus Jakarta Sans', sans-serif";
 			clonedElement.className = '';
 
+			// Force light mode BEFORE capturing styles and image
+			const wasDark = document.documentElement.classList.contains('dark');
+			if (wasDark) {
+				document.documentElement.classList.remove('dark');
+			}
+
 			document.body.appendChild(clonedElement);
 
 			// Capture as PNG using html-to-image (supports modern CSS natively)
@@ -103,6 +132,11 @@
 					padding: '20px'
 				}
 			});
+
+			// Restore dark mode
+			if (wasDark) {
+				document.documentElement.classList.add('dark');
+			}
 
 			document.body.removeChild(clonedElement);
 

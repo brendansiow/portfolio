@@ -5,14 +5,14 @@
 	--bg: #eef4fb;
 	--bg-secondary: #e5edf8;
 	--text: #0f172a;
-	--text-muted: #334155;
-	--stroke: rgba(148, 163, 184, 0.5);
-	--glass: rgba(255, 255, 255, 0.78);
-	--glass-strong: rgba(255, 255, 255, 0.9);
-	--shadow-soft: 0 8px 32px rgba(15, 23, 42, 0.08);
-	--shadow-deep: 0 16px 48px rgba(15, 23, 42, 0.12);
-	--highlight: inset 0 1px 0 rgba(255, 255, 255, 0.6);
-	--blob-opacity: 0.6;
+	--text-muted: #475569;
+	--stroke: rgba(255, 255, 255, 0.35);
+	--glass: rgba(255, 255, 255, 0.15);
+	--glass-strong: rgba(255, 255, 255, 0.22);
+	--shadow-soft: 0 8px 32px rgba(15, 23, 42, 0.06);
+	--shadow-deep: 0 16px 48px rgba(15, 23, 42, 0.1);
+	--highlight: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+	--blob-opacity: 0.7;
 }
 
 .dark {
@@ -21,12 +21,12 @@
 	--text: #e2e8f0;
 	--text-muted: #94a3b8;
 	--stroke: rgba(148, 163, 184, 0.12);
-	--glass: rgba(15, 23, 42, 0.55);
-	--glass-strong: rgba(15, 23, 42, 0.72);
-	--shadow-soft: 0 8px 32px rgba(2, 6, 23, 0.35);
-	--shadow-deep: 0 16px 48px rgba(2, 6, 23, 0.45);
-	--highlight: inset 0 0.5px 0 rgba(255, 255, 255, 0.08);
-	--blob-opacity: 0.55;
+	--glass: rgba(15, 23, 42, 0.35);
+	--glass-strong: rgba(15, 23, 42, 0.5);
+	--shadow-soft: 0 8px 32px rgba(2, 6, 23, 0.25);
+	--shadow-deep: 0 16px 48px rgba(2, 6, 23, 0.35);
+	--highlight: inset 0 0.5px 0 rgba(255, 255, 255, 0.12);
+	--blob-opacity: 0.65;
 }
 
 * {
@@ -170,35 +170,16 @@ body {
 	background: var(--glass);
 	border: 0.5px solid var(--stroke);
 	box-shadow: var(--highlight), var(--shadow-soft);
-	backdrop-filter: blur(20px) saturate(180%) brightness(1.03);
-	-webkit-backdrop-filter: blur(20px) saturate(180%) brightness(1.03);
+	backdrop-filter: blur(40px) saturate(180%) brightness(1.05);
+	-webkit-backdrop-filter: blur(40px) saturate(180%) brightness(1.05);
 }
 
 .glass-strong {
 	background: var(--glass-strong);
 	border: 0.5px solid var(--stroke);
 	box-shadow: var(--highlight), var(--shadow-deep);
-	backdrop-filter: blur(28px) saturate(190%) brightness(1.05);
-	-webkit-backdrop-filter: blur(28px) saturate(190%) brightness(1.05);
-}
-
-/* Light mode: force all text inside glass cards to near-black for readability */
-.glass,
-.glass-strong {
-	color: var(--text);
-}
-
-.glass :is(h1, h2, h3, h4, h5, h6, p, li, span, a:not([href])),
-.glass-strong :is(h1, h2, h3, h4, h5, h6, p, li, span, a:not([href])) {
-	color: inherit;
-}
-
-/* Muted text inside glass should still be readable */
-.glass .text-slate-500,
-.glass .text-slate-600,
-.glass-strong .text-slate-500,
-.glass-strong .text-slate-600 {
-	color: var(--text-muted) !important;
+	backdrop-filter: blur(48px) saturate(190%) brightness(1.08);
+	-webkit-backdrop-filter: blur(48px) saturate(190%) brightness(1.08);
 }
 
 .section-shell {
