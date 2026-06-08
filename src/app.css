@@ -1,18 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 @import 'tailwindcss';
 
+/* Tailwind v4: enable class-based dark mode (our theme toggles .dark on html) */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
 	--bg: #eef4fb;
 	--bg-secondary: #e5edf8;
 	--text: #0f172a;
 	--text-muted: #475569;
-	--stroke: rgba(255, 255, 255, 0.35);
-	--glass: rgba(255, 255, 255, 0.15);
-	--glass-strong: rgba(255, 255, 255, 0.22);
-	--shadow-soft: 0 8px 32px rgba(15, 23, 42, 0.06);
-	--shadow-deep: 0 16px 48px rgba(15, 23, 42, 0.1);
-	--highlight: inset 0 1px 0 rgba(255, 255, 255, 0.5);
-	--blob-opacity: 0.7;
+	--shadow-soft: 0 8px 32px rgba(15, 23, 42, 0.05);
+	--shadow-deep: 0 16px 48px rgba(15, 23, 42, 0.08);
+	--blob-opacity: 0.65;
 }
 
 .dark {
@@ -20,13 +19,9 @@
 	--bg-secondary: #121c2f;
 	--text: #e2e8f0;
 	--text-muted: #94a3b8;
-	--stroke: rgba(148, 163, 184, 0.12);
-	--glass: rgba(15, 23, 42, 0.35);
-	--glass-strong: rgba(15, 23, 42, 0.5);
-	--shadow-soft: 0 8px 32px rgba(2, 6, 23, 0.25);
-	--shadow-deep: 0 16px 48px rgba(2, 6, 23, 0.35);
-	--highlight: inset 0 0.5px 0 rgba(255, 255, 255, 0.12);
-	--blob-opacity: 0.65;
+	--shadow-soft: 0 8px 32px rgba(2, 6, 23, 0.2);
+	--shadow-deep: 0 16px 48px rgba(2, 6, 23, 0.3);
+	--blob-opacity: 0.45;
 }
 
 * {
@@ -64,10 +59,11 @@ body {
 	will-change: transform;
 }
 
+/* Softer blobs for better glass harmony */
 .mesh-blob-1 {
 	width: 600px;
 	height: 600px;
-	background: radial-gradient(circle, rgba(96, 165, 250, 0.7), transparent 70%);
+	background: radial-gradient(circle, rgba(96, 165, 250, 0.6), transparent 70%);
 	top: -10%;
 	left: -5%;
 	animation: blob-float-1 18s ease-in-out infinite;
@@ -76,7 +72,7 @@ body {
 .mesh-blob-2 {
 	width: 500px;
 	height: 500px;
-	background: radial-gradient(circle, rgba(167, 139, 250, 0.6), transparent 70%);
+	background: radial-gradient(circle, rgba(167, 139, 250, 0.5), transparent 70%);
 	top: 10%;
 	right: -8%;
 	animation: blob-float-2 22s ease-in-out infinite;
@@ -85,7 +81,7 @@ body {
 .mesh-blob-3 {
 	width: 450px;
 	height: 450px;
-	background: radial-gradient(circle, rgba(34, 211, 238, 0.55), transparent 70%);
+	background: radial-gradient(circle, rgba(34, 211, 238, 0.45), transparent 70%);
 	bottom: 20%;
 	left: 20%;
 	animation: blob-float-3 20s ease-in-out infinite;
@@ -94,7 +90,7 @@ body {
 .mesh-blob-4 {
 	width: 550px;
 	height: 550px;
-	background: radial-gradient(circle, rgba(244, 114, 182, 0.5), transparent 70%);
+	background: radial-gradient(circle, rgba(244, 114, 182, 0.4), transparent 70%);
 	bottom: -5%;
 	right: 10%;
 	animation: blob-float-4 25s ease-in-out infinite;
@@ -159,27 +155,81 @@ body {
 	}
 	body {
 		background:
-			radial-gradient(800px 500px at -10% -10%, rgba(96, 165, 250, 0.22), transparent 55%),
-			radial-gradient(600px 400px at 100% 0%, rgba(167, 139, 250, 0.15), transparent 58%),
-			radial-gradient(500px 350px at 70% 100%, rgba(34, 211, 238, 0.12), transparent 62%),
+			radial-gradient(800px 500px at -10% -10%, rgba(96, 165, 250, 0.18), transparent 55%),
+			radial-gradient(600px 400px at 100% 0%, rgba(167, 139, 250, 0.12), transparent 58%),
+			radial-gradient(500px 350px at 70% 100%, rgba(34, 211, 238, 0.1), transparent 62%),
 			linear-gradient(180deg, var(--bg) 0%, var(--bg-secondary) 100%);
 	}
 }
 
+/* ── Apple-style glass (Liquid Glass inspired) ──
+   Key principles:
+   1. Gradient backgrounds (not flat) — more opaque at top, less at bottom
+   2. Moderate blur (20-24px) — blurs mesh into soft color wash
+   3. Cool-tinted (not pure white) — harmonizes with blue mesh gradient
+   4. Inner highlight + subtle border for depth
+*/
+
 .glass {
-	background: var(--glass);
-	border: 0.5px solid var(--stroke);
-	box-shadow: var(--highlight), var(--shadow-soft);
-	backdrop-filter: blur(40px) saturate(180%) brightness(1.05);
-	-webkit-backdrop-filter: blur(40px) saturate(180%) brightness(1.05);
+	/* Translucent with visible mesh shapes behind */
+	background:
+		linear-gradient(
+			180deg,
+			rgba(240, 248, 255, 0.32) 0%,
+			rgba(230, 242, 255, 0.12) 100%
+		);
+	border: 0.5px solid rgba(160, 200, 255, 0.38);
+	box-shadow:
+		inset 0 1px 0 rgba(255, 255, 255, 0.65),
+		var(--shadow-soft);
+	backdrop-filter: blur(12px) saturate(160%);
+	-webkit-backdrop-filter: blur(12px) saturate(160%);
 }
 
 .glass-strong {
-	background: var(--glass-strong);
-	border: 0.5px solid var(--stroke);
-	box-shadow: var(--highlight), var(--shadow-deep);
-	backdrop-filter: blur(48px) saturate(190%) brightness(1.08);
-	-webkit-backdrop-filter: blur(48px) saturate(190%) brightness(1.08);
+	background:
+		linear-gradient(
+			180deg,
+			rgba(240, 248, 255, 0.48) 0%,
+			rgba(230, 242, 255, 0.2) 100%
+		);
+	border: 0.5px solid rgba(160, 200, 255, 0.45);
+	box-shadow:
+		inset 0 1px 0 rgba(255, 255, 255, 0.75),
+		var(--shadow-deep);
+	backdrop-filter: blur(16px) saturate(170%);
+	-webkit-backdrop-filter: blur(16px) saturate(170%);
+}
+
+/* Dark mode glass — dark blue-tinted */
+.dark .glass {
+	background:
+		linear-gradient(
+			180deg,
+			rgba(25, 35, 55, 0.4) 0%,
+			rgba(15, 23, 40, 0.18) 100%
+		);
+	border: 0.5px solid rgba(100, 140, 200, 0.14);
+	box-shadow:
+		inset 0 1px 0 rgba(255, 255, 255, 0.06),
+		var(--shadow-soft);
+	backdrop-filter: blur(12px) saturate(160%);
+	-webkit-backdrop-filter: blur(12px) saturate(160%);
+}
+
+.dark .glass-strong {
+	background:
+		linear-gradient(
+			180deg,
+			rgba(30, 42, 65, 0.52) 0%,
+			rgba(18, 28, 48, 0.24) 100%
+		);
+	border: 0.5px solid rgba(100, 140, 200, 0.18);
+	box-shadow:
+		inset 0 1px 0 rgba(255, 255, 255, 0.08),
+		var(--shadow-deep);
+	backdrop-filter: blur(16px) saturate(170%);
+	-webkit-backdrop-filter: blur(16px) saturate(170%);
 }
 
 .section-shell {
@@ -188,6 +238,7 @@ body {
 }
 
 .section-title {
+	color: var(--text);
 	font-size: clamp(1.6rem, 2.8vw, 2.55rem);
 	font-weight: 700;
 	letter-spacing: -0.03em;
