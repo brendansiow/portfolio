@@ -22,7 +22,7 @@
 				html2canvas: {
 					scale: 2,
 					useCORS: true,
-					backgroundColor: '#0b1220',
+					backgroundColor: '#ffffff',
 					logging: false
 				},
 				jsPDF: {

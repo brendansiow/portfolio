@@ -1,138 +1,142 @@
 <script lang="ts">
 	import { portfolioData } from '$lib/data.js';
 
-	const { personalInfo, workExperience, projects, education, skills } = portfolioData;
-	const featuredProjects = projects.filter((p) => p.featured);
+	const { personalInfo, workExperience, education, skills } = portfolioData;
+
+	// Flatten all technical skills (exclude Languages)
+	const techSkills = skills
+		.filter((s) => s.category !== 'Languages')
+		.flatMap((s) => s.skills);
+	const languages = skills.find((s) => s.category === 'Languages')?.skills || [];
 </script>
 
 <div id="resume-pdf" class="resume-pdf">
-	<!-- Header -->
-	<header class="pdf-header">
-		<div class="pdf-header-inner">
-			<div class="pdf-profile">
-				<img
-					src={personalInfo.profileImage}
-					alt={personalInfo.name}
-					class="pdf-avatar"
-					crossorigin="anonymous"
-				/>
-				<div class="pdf-name-block">
-					<h1 class="pdf-name">{personalInfo.name}</h1>
-					<p class="pdf-title">{personalInfo.title}</p>
-					<div class="pdf-contact-row">
-						<span class="pdf-contact-item">{personalInfo.location}</span>
-						<span class="pdf-contact-sep">·</span>
-						<span class="pdf-contact-item">{personalInfo.email}</span>
-						<span class="pdf-contact-sep">·</span>
-						<span class="pdf-contact-item">{personalInfo.phone}</span>
-					</div>
-					<div class="pdf-links-row">
-						<span class="pdf-link">{personalInfo.github}</span>
-						<span class="pdf-contact-sep">·</span>
-						<span class="pdf-link">{personalInfo.linkedin}</span>
-					</div>
-				</div>
-			</div>
-			<p class="pdf-bio">{personalInfo.bio}</p>
+	<!-- HEADER -->
+	<header class="header">
+		<h1 class="name">{personalInfo.name}</h1>
+		<p class="title">{personalInfo.title}</p>
+
+		<div class="contact-bar">
+			<span>{personalInfo.location}</span>
+			<span class="sep">·</span>
+			<span>{personalInfo.email}</span>
+			<span class="sep">·</span>
+			<span>{personalInfo.phone}</span>
+			<span class="sep">·</span>
+			<span>{personalInfo.linkedin}</span>
+			<span class="sep">·</span>
+			<span>{personalInfo.github}</span>
 		</div>
 	</header>
 
-	<!-- Experience -->
-	<section class="pdf-section">
-		<h2 class="pdf-section-title">Experience</h2>
-		{#each workExperience as exp (exp.id)}
-			<div class="pdf-card">
-				<div class="pdf-card-header">
-					{#if exp.companyLogo}
-						<img src={exp.companyLogo} alt={exp.company} class="pdf-logo" crossorigin="anonymous" />
-					{/if}
-					<div class="pdf-card-title-block">
-						<h3 class="pdf-card-title">{exp.position}</h3>
-						<p class="pdf-card-subtitle">
-							{exp.company} · {exp.duration} · {exp.location}
-						</p>
-					</div>
-				</div>
-				<ul class="pdf-list">
-					{#each exp.description as desc (desc)}
-						<li class="pdf-list-item">{desc}</li>
-					{/each}
-				</ul>
-				<div class="pdf-tags">
-					{#each exp.technologies as tech (tech)}
-						<span class="pdf-tag">{tech}</span>
-					{/each}
-				</div>
-			</div>
-		{/each}
+	<!-- PROFILE -->
+	<section class="section">
+		<p class="summary">
+			Senior software engineer focused on backend systems, product delivery, and pragmatic engineering
+			across Golang, Spring Boot, and mobile platforms. Comfortable moving between backend services,
+			APIs, payment infrastructure, and release workflows — with a preference for clean architecture
+			and reliable execution.
+		</p>
 	</section>
 
-	<!-- Projects -->
-	<section class="pdf-section">
-		<h2 class="pdf-section-title">Selected Projects</h2>
-		<div class="pdf-projects-grid">
-			{#each featuredProjects as project (project.id)}
-				<div class="pdf-card pdf-project-card">
-					<div class="pdf-card-header">
-						{#if project.logoUrl}
-							<img src={project.logoUrl} alt={project.title} class="pdf-logo" crossorigin="anonymous" />
-						{/if}
-						<div class="pdf-card-title-block">
-							<h3 class="pdf-card-title">{project.title}</h3>
-							{#if project.liveUrl}
-								<p class="pdf-link pdf-project-url">{project.liveUrl}</p>
-							{/if}
-						</div>
-					</div>
-					<p class="pdf-project-desc">{project.description}</p>
-					<div class="pdf-tags">
-						{#each project.technologies as tech (tech)}
-							<span class="pdf-tag">{tech}</span>
-						{/each}
-					</div>
-				</div>
-			{/each}
+	<!-- SKILLS -->
+	<section class="section compact">
+		<h2 class="section-heading">Technical Skills</h2>
+		<div class="skills-grid">
+			<div>
+				<span class="skill-label">Backend: </span><span class="skill-value">
+					Golang, Java, Spring Boot, PHP, gRPC, REST API Design
+				</span>
+			</div>
+			<div>
+				<span class="skill-label">Frontend & Mobile: </span><span class="skill-value">
+					SvelteKit, React, Angular, Next.js, Flutter, React Native, Ionic
+				</span>
+			</div>
+			<div>
+				<span class="skill-label">Database & DevOps: </span><span class="skill-value">
+					SQL, OpenSearch, Kubernetes, Git, CI/CD, Jenkins, Firebase, Containerization
+				</span>
+			</div>
+			<div>
+				<span class="skill-label">Languages: </span><span class="skill-value">
+					English, Chinese, Malay
+				</span>
+			</div>
 		</div>
 	</section>
 
-	<!-- Education -->
-	<section class="pdf-section">
-		<h2 class="pdf-section-title">Education</h2>
-		{#each education as edu (edu.id)}
-			<div class="pdf-card pdf-edu-card">
-				<div class="pdf-edu-row">
-					<div class="pdf-edu-main">
-						<h3 class="pdf-card-title">{edu.degree}</h3>
-						<p class="pdf-card-subtitle">{edu.institution} · {edu.location}</p>
-					</div>
-					<div class="pdf-edu-meta">
-						<span class="pdf-edu-duration">{edu.duration}</span>
-						{#if edu.gpa}
-							<span class="pdf-edu-gpa">{edu.gpa}</span>
-						{/if}
-					</div>
+	<!-- EXPERIENCE -->
+	<section class="section">
+		<h2 class="section-heading">Professional Experience</h2>
+
+		<div class="job">
+			<div class="job-header">
+				<div class="job-left">
+					<span class="job-title">Senior Software Engineer</span>
+					<span class="at"> — </span>
+					<span class="company">Mercedes-Benz Tech Innovation</span>
 				</div>
-				{#if edu.description}
-					<p class="pdf-edu-desc">{edu.description}</p>
-				{/if}
+				<span class="date">Jun 2024 – Present</span>
 			</div>
-		{/each}
+			<ul class="job-list">
+				<li>Built and maintained scalable Golang services with unit and integration testing.</li>
+				<li>Contributed to Data Registry and Data Access Manager within MB.OS, improving data governance and discoverability.</li>
+				<li>Designed APIs and metadata flows supporting EU Data Act compliance.</li>
+				<li>Optimized data-heavy workflows using OpenSearch and SQL, improving query performance.</li>
+			</ul>
+			<p class="tech-line">Golang · Kubernetes · OpenSearch · Azure EventHub · SQL · Hugo Docs</p>
+		</div>
+
+		<div class="job">
+			<div class="job-header">
+				<div class="job-left">
+					<span class="job-title">Senior Software Engineer</span>
+					<span class="at"> — </span>
+					<span class="company">Revenue Monster</span>
+				</div>
+				<span class="date">Sep 2023 – May 2024</span>
+			</div>
+			<ul class="job-list">
+				<li>Built and enhanced payment platform features using Golang and Echo, with Next.js frontend work.</li>
+				<li>Maintained merchant-facing and admin-facing portals, reporting, and Open API support.</li>
+				<li>Expanded gateway capabilities with Apple Pay, Google Pay, and wallet integrations.</li>
+				<li>Implemented a low-code checkout flow that reduced merchant integration effort.</li>
+			</ul>
+			<p class="tech-line">Golang · Echo · Next.js · Payment Gateway · Apple Pay · Google Pay</p>
+		</div>
+
+		<div class="job">
+			<div class="job-header">
+				<div class="job-left">
+					<span class="job-title">Senior / IT Specialist</span>
+					<span class="at"> — </span>
+					<span class="company">iFAST Capital Sdn Bhd</span>
+				</div>
+				<span class="date">2019 – 2023</span>
+			</div>
+			<ul class="job-list">
+				<li>Delivered fintech products across Flutter, React Native, React, Angular, and Java Spring Boot.</li>
+				<li>Worked on regional investment apps, backend APIs, CI/CD pipelines, and mobile release processes.</li>
+				<li>Modernized legacy applications, including Flutter version migrations and null safety upgrades.</li>
+				<li>Coordinated delivery with stakeholders and supported cross-platform app store submissions.</li>
+			</ul>
+			<p class="tech-line">Flutter · React Native · React · Angular · Spring Boot · Jenkins · Firebase</p>
+		</div>
 	</section>
 
-	<!-- Skills -->
-	<section class="pdf-section">
-		<h2 class="pdf-section-title">Skills & Technologies</h2>
-		<div class="pdf-skills-grid">
-			{#each skills as skillGroup (skillGroup.category)}
-				<div class="pdf-skill-category">
-					<h3 class="pdf-skill-cat-title">{skillGroup.category}</h3>
-					<div class="pdf-tags">
-						{#each skillGroup.skills as skill (skill)}
-							<span class="pdf-tag">{skill}</span>
-						{/each}
-					</div>
-				</div>
-			{/each}
+	<!-- EDUCATION -->
+	<section class="section compact">
+		<h2 class="section-heading">Education</h2>
+		<div class="edu-grid">
+			<div class="edu-item">
+				<span class="edu-degree">Bachelor (Hons) in Software Engineering — First Class Honours</span>
+				<span class="edu-school">Asia Pacific University, Malaysia</span>
+			</div>
+			<div class="edu-item">
+				<span class="edu-degree">Diploma in Information Technology (Software Engineering) — CGPA 3.85</span>
+				<span class="edu-school">Asia Pacific University, Malaysia</span>
+			</div>
 		</div>
 	</section>
 </div>
@@ -140,270 +144,180 @@
 <style>
 	.resume-pdf {
 		width: 210mm;
-		padding: 16mm;
-		background: #0b1220;
-		color: #e2e8f0;
-		font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif;
+		padding: 16mm 22mm;
+		background: #ffffff;
+		color: #1e293b;
+		font-family: 'Plus Jakarta Sans', 'Segoe UI', 'Helvetica Neue', sans-serif;
 		font-size: 9.5pt;
-		line-height: 1.55;
+		line-height: 1.45;
 		box-sizing: border-box;
+		-webkit-print-color-adjust: exact;
+		print-color-adjust: exact;
 	}
 
-	.pdf-header {
-		margin-bottom: 18px;
-		padding-bottom: 16px;
-		border-bottom: 1px solid rgba(100, 140, 200, 0.2);
+	/* Header */
+	.header {
+		text-align: center;
+		margin-bottom: 12px;
+		padding-bottom: 10px;
+		border-bottom: 1.5px solid #1e293b;
 	}
 
-	.pdf-header-inner {
-		display: flex;
-		flex-direction: column;
-		gap: 12px;
-	}
-
-	.pdf-profile {
-		display: flex;
-		align-items: center;
-		gap: 16px;
-	}
-
-	.pdf-avatar {
-		width: 56px;
-		height: 56px;
-		border-radius: 50%;
-		object-fit: cover;
-		border: 2px solid rgba(100, 140, 200, 0.3);
-		background: #1e293b;
-	}
-
-	.pdf-name-block {
-		flex: 1;
-	}
-
-	.pdf-name {
+	.name {
 		font-size: 20pt;
 		font-weight: 700;
-		margin: 0;
-		color: #f8fafc;
 		letter-spacing: -0.02em;
+		color: #0f172a;
+		margin: 0 0 3px 0;
 	}
 
-	.pdf-title {
-		font-size: 10.5pt;
-		color: #7dd3fc;
-		margin: 3px 0 6px 0;
+	.title {
+		font-size: 10pt;
 		font-weight: 500;
-	}
-
-	.pdf-contact-row {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 4px 10px;
-		font-size: 8.5pt;
-		color: #94a3b8;
-	}
-
-	.pdf-contact-item {
-		white-space: nowrap;
-	}
-
-	.pdf-contact-sep {
 		color: #475569;
+		margin: 0 0 8px 0;
+		letter-spacing: 0.02em;
 	}
 
-	.pdf-links-row {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 4px 10px;
-		font-size: 8pt;
-		color: #60a5fa;
-		margin-top: 2px;
-	}
-
-	.pdf-link {
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-		max-width: 200px;
-	}
-
-	.pdf-bio {
-		font-size: 9pt;
-		color: #cbd5e1;
-		margin: 0;
+	.contact-bar {
+		font-size: 8.5pt;
+		color: #475569;
 		line-height: 1.6;
 	}
 
-	.pdf-section {
-		margin-bottom: 18px;
-	}
-
-	.pdf-section-title {
-		font-size: 11pt;
-		font-weight: 700;
-		color: #f8fafc;
-		margin: 0 0 12px 0;
-		text-transform: uppercase;
-		letter-spacing: 0.12em;
-		border-bottom: 1px solid rgba(100, 140, 200, 0.15);
-		padding-bottom: 6px;
-	}
-
-	.pdf-card {
-		background: rgba(15, 23, 42, 0.55);
-		border: 0.5px solid rgba(100, 140, 200, 0.12);
-		border-radius: 10px;
-		padding: 12px 14px;
-		margin-bottom: 8px;
-	}
-
-	.pdf-card-header {
-		display: flex;
-		align-items: center;
-		gap: 10px;
-		margin-bottom: 8px;
-	}
-
-	.pdf-logo {
-		width: 28px;
-		height: 28px;
-		border-radius: 6px;
-		object-fit: contain;
-		background: rgba(255, 255, 255, 0.08);
-		padding: 2px;
-		flex-shrink: 0;
-	}
-
-	.pdf-card-title-block {
-		flex: 1;
-		min-width: 0;
-	}
-
-	.pdf-card-title {
-		font-size: 10pt;
-		font-weight: 600;
-		margin: 0;
-		color: #f8fafc;
-	}
-
-	.pdf-card-subtitle {
-		font-size: 8.5pt;
+	.contact-bar .sep {
 		color: #94a3b8;
-		margin: 2px 0 0 0;
+		margin: 0 5px;
 	}
 
-	.pdf-list {
+	/* Sections */
+	.section {
+		margin-bottom: 12px;
+	}
+
+	.section.compact {
+		margin-bottom: 8px;
+	}
+
+	.section-heading {
+		font-size: 10pt;
+		font-weight: 700;
+		color: #0f172a;
+		text-transform: uppercase;
+		letter-spacing: 0.1em;
+		border-bottom: 1px solid #cbd5e1;
+		padding-bottom: 3px;
 		margin: 0 0 8px 0;
-		padding-left: 14px;
 	}
 
-	.pdf-list-item {
+	.summary {
+		margin: 0 0 4px 0;
+		color: #334155;
+		font-size: 9.5pt;
+		line-height: 1.55;
+	}
+
+	/* Skills */
+	.skills-grid {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 3px 16px;
 		font-size: 8.5pt;
-		color: #cbd5e1;
-		margin-bottom: 3px;
-		line-height: 1.45;
+		color: #334155;
+		line-height: 1.5;
 	}
 
-	.pdf-tags {
+	.skill-label {
+		font-weight: 600;
+		color: #0f172a;
+	}
+
+	.skill-value {
+		color: #475569;
+	}
+
+	/* Jobs */
+	.job {
+		margin-bottom: 10px;
+	}
+
+	.job-header {
 		display: flex;
+		justify-content: space-between;
+		align-items: baseline;
+		gap: 8px;
 		flex-wrap: wrap;
-		gap: 5px;
+		margin-bottom: 4px;
 	}
 
-	.pdf-tag {
-		font-size: 7.5pt;
-		padding: 2px 7px;
-		border-radius: 5px;
-		background: rgba(56, 189, 248, 0.12);
-		color: #7dd3fc;
-		border: 0.5px solid rgba(56, 189, 248, 0.18);
+	.job-left {
+		font-size: 10pt;
+	}
+
+	.job-title {
+		font-weight: 700;
+		color: #0f172a;
+	}
+
+	.at {
+		color: #94a3b8;
+	}
+
+	.company {
+		font-weight: 500;
+		color: #475569;
+	}
+
+	.date {
+		font-size: 8.5pt;
+		color: #64748b;
+		font-weight: 500;
 		white-space: nowrap;
 	}
 
-	.pdf-projects-grid {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 8px;
-	}
-
-	.pdf-project-card {
-		margin-bottom: 0;
-	}
-
-	.pdf-project-desc {
-		font-size: 8.5pt;
-		color: #cbd5e1;
-		margin: 0 0 8px 0;
+	.job-list {
+		margin: 3px 0 4px 0;
+		padding-left: 16px;
+		color: #334155;
+		font-size: 9pt;
 		line-height: 1.45;
 	}
 
-	.pdf-project-url {
-		margin: 0;
-		font-size: 7.5pt;
+	.job-list li {
+		margin-bottom: 1px;
 	}
 
-	.pdf-edu-card {
-		margin-bottom: 6px;
-		padding: 10px 14px;
+	.tech-line {
+		margin: 3px 0 0 0;
+		font-size: 8.2pt;
+		color: #64748b;
+		font-style: italic;
 	}
 
-	.pdf-edu-row {
+	/* Education */
+	.edu-grid {
+		display: flex;
+		flex-direction: column;
+		gap: 3px;
+		font-size: 9pt;
+	}
+
+	.edu-item {
 		display: flex;
 		justify-content: space-between;
-		align-items: flex-start;
-		gap: 12px;
-	}
-
-	.pdf-edu-main {
-		flex: 1;
-		min-width: 0;
-	}
-
-	.pdf-edu-meta {
-		text-align: right;
-		flex-shrink: 0;
-	}
-
-	.pdf-edu-duration {
-		display: block;
-		font-size: 8pt;
-		color: #94a3b8;
-		font-weight: 500;
-	}
-
-	.pdf-edu-gpa {
-		display: block;
-		font-size: 8pt;
-		color: #7dd3fc;
-		margin-top: 2px;
-	}
-
-	.pdf-edu-desc {
-		font-size: 8.5pt;
-		color: #94a3b8;
-		margin: 6px 0 0 0;
-		line-height: 1.4;
-	}
-
-	.pdf-skills-grid {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
+		align-items: baseline;
 		gap: 8px;
+		flex-wrap: wrap;
 	}
 
-	.pdf-skill-category {
-		background: rgba(15, 23, 42, 0.4);
-		border: 0.5px solid rgba(100, 140, 200, 0.1);
-		border-radius: 8px;
-		padding: 10px 12px;
-	}
-
-	.pdf-skill-cat-title {
-		font-size: 8pt;
+	.edu-degree {
 		font-weight: 600;
-		color: #94a3b8;
-		margin: 0 0 6px 0;
-		text-transform: uppercase;
-		letter-spacing: 0.06em;
+		color: #0f172a;
+	}
+
+	.edu-school {
+		color: #64748b;
+		font-size: 8.5pt;
+		white-space: nowrap;
 	}
 </style>
