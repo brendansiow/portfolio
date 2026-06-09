@@ -46,7 +46,7 @@
 
 	// Update bubble position when active section changes
 	function updateBubble() {
-		if (!activeSection || !itemsContainerRef) {
+		if (!activeSection || !navContainerRef) {
 			bubbleStyle = 'opacity: 0;';
 			return;
 		}
@@ -57,7 +57,7 @@
 			return;
 		}
 
-		const container = itemsContainerRef.getBoundingClientRect();
+		const container = navContainerRef.getBoundingClientRect();
 		const button = buttonRefs[activeIndex]!.getBoundingClientRect();
 
 		const left = button.left - container.left;
