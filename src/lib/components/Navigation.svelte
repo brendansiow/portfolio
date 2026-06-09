@@ -57,15 +57,19 @@
 			return;
 		}
 
-		const container = navContainerRef.getBoundingClientRect();
-		const button = buttonRefs[activeIndex]!.getBoundingClientRect();
+		const btn = buttonRefs[activeIndex]!;
 
-		const left = button.left - container.left;
-		const width = button.width;
-		const height = button.height;
-		const top = button.top - container.top;
+		// Walk up offsetParent chain to accumulate position relative to navContainerRef
+		let el = btn as HTMLElement;
+		let left = el.offsetLeft;
+		let top = el.offsetTop;
+		while (el.offsetParent && el.offsetParent !== navContainerRef) {
+			el = el.offsetParent as HTMLElement;
+			left += el.offsetLeft;
+			top += el.offsetTop;
+		}
 
-		bubbleStyle = `transform: translate3d(${left}px, ${top}px, 0); width: ${width}px; height: ${height}px; opacity: 1;`;
+		bubbleStyle = `left: ${left}px; top: ${top}px; width: ${btn.offsetWidth}px; height: ${btn.offsetHeight}px; opacity: 1;`;
 	}
 
 	// Reactive: update bubble whenever activeSection or refs change
@@ -135,7 +139,7 @@
 		<!-- Active bubble pill -->
 		<div
 			bind:this={bubbleRef}
-			class="pointer-events-none absolute rounded-full bg-white/70 shadow-[0_2px_8px_rgba(15,23,42,0.1)] ring-1 ring-white/50 backdrop-blur-md transition-[transform,width,height,opacity] duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] dark:bg-slate-700/60 dark:ring-slate-500/30"
+			class="pointer-events-none absolute rounded-full bg-white/70 shadow-[0_2px_8px_rgba(15,23,42,0.1)] ring-1 ring-white/50 backdrop-blur-md transition-[left,top,width,height,opacity] duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] dark:bg-slate-700/60 dark:ring-slate-500/30"
 			style={bubbleStyle}
 		></div>
 
