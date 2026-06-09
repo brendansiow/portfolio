@@ -53,7 +53,7 @@
 <Footer />
 <DownloadButton />
 
-<!-- Off-screen PDF resume for html2pdf.js generation -->
-<div style="position: absolute; left: -9999px; top: 0;">
+<!-- Resume PDF — hidden on screen, shown when printing -->
+<div class="resume-offscreen">
 	<ResumePDF />
 </div>
