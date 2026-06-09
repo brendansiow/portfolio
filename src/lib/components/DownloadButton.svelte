@@ -1,9 +1,6 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import Button from '$lib/components/ui/button.svelte';
 	import { Download } from 'lucide-svelte';
-	import { toPng } from 'html-to-image';
-	import { jsPDF } from 'jspdf';
 
 	let isGenerating = $state(false);
 
@@ -11,149 +8,32 @@
 		isGenerating = true;
 
 		try {
-			const element = document.getElementById('portfolio-content');
+			const element = document.getElementById('resume-pdf');
 			if (!element) {
-				throw new Error('Portfolio content not found');
+				throw new Error('Resume PDF element not found');
 			}
 
-			const clonedElement = element.cloneNode(true) as HTMLElement;
+			const html2pdf = (await import('$lib/html2pdf-wrapper.js')).default;
 
-			// Strip interactive elements
-			clonedElement.querySelectorAll('nav, .fixed, button, [role="button"]').forEach((el) => el.remove());
-
-			// Inline computed styles and strip classes to avoid oklch parsing issues
-			const originalElements = element.querySelectorAll('*');
-			const cloneElements = clonedElement.querySelectorAll('*');
-			cloneElements.forEach((cloneEl, i) => {
-				const origEl = originalElements[i];
-				if (!origEl) return;
-				const computed = window.getComputedStyle(origEl);
-				const style = (cloneEl as HTMLElement).style;
-
-			// Inline key layout and visual properties
-			const props = [
-				'color',
-				'backgroundColor',
-				'backgroundImage',
-				'border',
-				'borderTop',
-				'borderRight',
-				'borderBottom',
-				'borderLeft',
-				'borderRadius',
-				'padding',
-				'paddingTop',
-				'paddingRight',
-				'paddingBottom',
-				'paddingLeft',
-				'margin',
-				'marginTop',
-				'marginRight',
-				'marginBottom',
-				'marginLeft',
-				'fontFamily',
-				'fontSize',
-				'fontWeight',
-				'lineHeight',
-				'textAlign',
-				'display',
-				'flexDirection',
-				'flexWrap',
-				'alignItems',
-				'justifyContent',
-				'gap',
-				'width',
-				'maxWidth',
-				'minHeight',
-				'height',
-				'position',
-				'top',
-				'left',
-				'right',
-				'bottom',
-				'boxShadow',
-				'gridTemplateColumns',
-				'gridTemplateRows',
-				'gridColumn',
-				'gridRow',
-				'objectFit',
-				'objectPosition',
-				'overflow',
-				'verticalAlign',
-				'opacity',
-				'borderWidth',
-				'borderColor',
-				'borderStyle'
-			];
-				props.forEach((prop) => {
-					const val = computed.getPropertyValue(prop);
-					if (val) {
-						try {
-							style.setProperty(prop, val, 'important');
-						} catch {
-							// ignore unsupported props
-						}
-					}
-				});
-
-				style.transform = 'none';
-				style.animation = 'none';
-				style.backdropFilter = 'none';
-				style.backgroundAttachment = 'scroll';
-				style.transition = 'none';
-
-				// Remove class names so html-to-image doesn't re-apply oklch styles
-				cloneEl.removeAttribute('class');
-			});
-
-			clonedElement.style.position = 'relative';
-			clonedElement.style.width = '794px';
-			clonedElement.style.margin = '0';
-			clonedElement.style.padding = '20px';
-			clonedElement.style.background = 'white';
-			clonedElement.style.color = '#0f172a';
-			clonedElement.style.fontFamily = "'Plus Jakarta Sans', sans-serif";
-			clonedElement.className = '';
-
-			// Force light mode BEFORE capturing styles and image
-			const wasDark = document.documentElement.classList.contains('dark');
-			if (wasDark) {
-				document.documentElement.classList.remove('dark');
-			}
-
-			document.body.appendChild(clonedElement);
-
-			// Capture as PNG using html-to-image (supports modern CSS natively)
-			const dataUrl = await toPng(clonedElement, {
-				pixelRatio: 2,
-				width: 794,
-				style: {
-					margin: '0',
-					padding: '20px'
+			const opt = {
+				margin: 0,
+				filename: 'brendan-siow-resume.pdf',
+				image: { type: 'jpeg', quality: 0.95 },
+				html2canvas: {
+					scale: 2,
+					useCORS: true,
+					backgroundColor: '#0b1220',
+					logging: false
+				},
+				jsPDF: {
+					unit: 'mm',
+					format: 'a4',
+					orientation: 'portrait',
+					putOnlyUsedFonts: true
 				}
-			});
+			};
 
-			// Restore dark mode
-			if (wasDark) {
-				document.documentElement.classList.add('dark');
-			}
-
-			document.body.removeChild(clonedElement);
-
-			// Create PDF from image
-			const img = new Image();
-			img.src = dataUrl;
-			await new Promise((resolve) => (img.onload = resolve));
-
-			const pdf = new jsPDF({
-				unit: 'px',
-				format: [794, img.height * (794 / img.width)],
-				orientation: 'portrait',
-				putOnlyUsedFonts: true
-			});
-
-			pdf.addImage(dataUrl, 'PNG', 0, 0, 794, img.height * (794 / img.width));
-			pdf.save('brendan-siow-resume.pdf');
+			await html2pdf().set(opt).from(element).save();
 		} catch (error) {
 			console.error('Error generating PDF:', error);
 			alert('Failed to generate PDF. Please try again.');
@@ -180,83 +60,3 @@
 		{/if}
 	</Button>
 </div>
-
-<style>
-	@media print {
-		:global(.fixed),
-		:global(nav),
-		:global(footer),
-		:global(button),
-		:global([role='button']) {
-			display: none !important;
-		}
-
-		:global(.page-break-before) {
-			page-break-before: always;
-		}
-
-		:global(.page-break-after) {
-			page-break-after: always;
-		}
-
-		:global(section) {
-			page-break-inside: avoid;
-			margin-bottom: 1.5rem !important;
-			padding: 0.5rem 0 !important;
-		}
-
-		:global(.py-20) {
-			padding-top: 1rem !important;
-			padding-bottom: 1rem !important;
-		}
-
-		:global(.text-white),
-		:global(.text-white\/80),
-		:global(.text-white\/70),
-		:global(.text-blue-200),
-		:global(.text-blue-300) {
-			color: #000 !important;
-		}
-
-		:global(.glass),
-		:global(.glass-strong) {
-			background: rgba(255, 255, 255, 0.9) !important;
-			border: 1px solid #e5e7eb !important;
-			backdrop-filter: none !important;
-		}
-
-		:global(body) {
-			background: white !important;
-			font-size: 12pt !important;
-			line-height: 1.4 !important;
-		}
-
-		:global(*) {
-			animation: none !important;
-			transform: none !important;
-			transition: none !important;
-		}
-
-		:global(img) {
-			max-width: 100% !important;
-			height: auto !important;
-		}
-
-		:global(ul),
-		:global(ol) {
-			page-break-inside: avoid;
-		}
-
-		:global(li) {
-			page-break-inside: avoid;
-			margin-bottom: 0.25rem !important;
-		}
-	}
-
-	:global(.pdf-optimized) {
-		font-size: 14px;
-		line-height: 1.5;
-		color: #000;
-		background: #fff;
-	}
-</style>

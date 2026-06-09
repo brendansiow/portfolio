@@ -11,6 +11,7 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import DownloadButton from '$lib/components/DownloadButton.svelte';
 	import Activity from '$lib/components/Activity.svelte';
+	import ResumePDF from '$lib/components/ResumePDF.svelte';
 </script>
 
 <Navigation />
@@ -51,3 +52,8 @@
 
 <Footer />
 <DownloadButton />
+
+<!-- Off-screen PDF resume for html2pdf.js generation -->
+<div style="position: absolute; left: -9999px; top: 0;">
+	<ResumePDF />
+</div>

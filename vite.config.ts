@@ -6,5 +6,11 @@ export default defineConfig({
 	server: {
 		host: '0.0.0.0',
 		allowedHosts: true
+	},
+	optimizeDeps: {
+		include: ['html2pdf.js']
+	},
+	define: {
+		self: 'globalThis'
 	}
 });
