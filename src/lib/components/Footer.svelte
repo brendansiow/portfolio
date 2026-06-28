@@ -33,6 +33,12 @@
 							{link.label}
 						</button>
 					{/each}
+					<a
+						href="/resume"
+						class="block text-sm font-semibold text-sky-700 transition hover:text-sky-900 dark:text-sky-300 dark:hover:text-sky-100"
+					>
+						Résumé →
+					</a>
 				</div>
 			</div>
 

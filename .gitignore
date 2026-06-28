@@ -25,3 +25,6 @@ vite.config.ts.timestamp-*
 # Testing
 playwright-screenshots/
 tmp-*.mjs
+
+# Playwright MCP session artifacts
+.playwright-mcp/
