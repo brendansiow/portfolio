@@ -28,3 +28,18 @@ tmp-*.mjs
 
 # Playwright MCP session artifacts
 .playwright-mcp/
+
+# Generated resume and visual QA
+/static/resume.pdf
+/static/resume-dark.pdf
+/tmp/
+
+# Browser tests and PDF export surfaces
+/.resume-artifacts/
+/test-results/
+/playwright-report/
+
+# Local resume files and reports must never be published
+/private/output/
+/private/test-results/
+/private/test-report/

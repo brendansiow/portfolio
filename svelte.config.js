@@ -9,7 +9,8 @@ const config = {
 	kit: {
 		adapter: adapter(),
 		paths: {
-			relative: true
+			relative: true,
+			base: process.env.BASE_PATH || ''
 		}
 	}
 };

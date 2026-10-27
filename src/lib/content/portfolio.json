@@ -1,0 +1,293 @@
+{
+	"personalInfo": {
+		"name": "Brendan Siow",
+		"title": "Senior Software Engineer",
+		"location": "Cheras, Kuala Lumpur, Malaysia",
+		"email": "brendansiowx96@gmail.com",
+		"phone": "+6010-931 9264",
+		"linkedin": "https://www.linkedin.com/in/brendan-siow/",
+		"github": "https://github.com/brendansiow",
+		"website": "https://github.com/brendansiow",
+		"bio": "I’m a software engineer based in Kuala Lumpur. My work spans payment platforms, automotive data services, and investment apps. I focus on clear interfaces, dependable services, and the details that make software easier to use and maintain.",
+		"profileImage": "https://avatars.githubusercontent.com/u/20613633?v=4",
+		"headline": "Built with intention.",
+		"focus": ["Golang", "Flutter", "React"],
+		"availability": "Open to opportunities",
+		"headlineLead": "Built with",
+		"headlineAccent": "intention.",
+		"shortLocation": "Kuala Lumpur, Malaysia",
+		"initials": "b/s",
+		"heroSummary": "I build reliable payment systems and backend services, with a focus on clear APIs and maintainable software.",
+		"aboutSummary": "Based in Kuala Lumpur, with experience across fintech, automotive data services, and mobile apps."
+	},
+	"workExperience": [
+		{
+			"id": "feedme",
+			"company": "FeedMe",
+			"position": "Senior Software Engineer",
+			"duration": "Nov 2025 - Present",
+			"location": "Kuala Lumpur, Malaysia",
+			"companyUrl": "https://www.feedme.ai/",
+			"companyLogo": "assets/logos/feedme.png",
+			"earlyCareer": false,
+			"technologies": ["Golang", "Redis", "MongoDB", "OpenTelemetry"],
+			"description": [
+				"Build payment systems for F&B merchants in Malaysia, Singapore, Thailand, Indonesia, and Australia.",
+				"Integrated more than 12 payment acquirers across QR payments, online checkout, card terminals, and SoftPOS.",
+				"Designed a unified checkout model across point-of-sale systems, kiosks, and online ordering.",
+				"Automated merchant onboarding with dynamic forms, e-signatures, document checks, and PDF agreements.",
+				"Built a merchant financing platform covering ledgers, repayments, settlement, and AI underwriting; the platform is pre-launch."
+			]
+		},
+		{
+			"id": "1",
+			"company": "Mercedes-Benz Malaysia",
+			"position": "Full-stack Developer",
+			"duration": "Jun 2024 - Oct 2025",
+			"location": "Malaysia · global engineering collaboration",
+			"companyUrl": "https://www.mercedes-benz.com.my/",
+			"companyLogo": "assets/logos/mercedes-benz-symbol.png",
+			"description": [
+				"Developed and maintained Data Registry and Data Access Manager services for MB.OS.",
+				"Contributed to EU Data Act compliance through legal metadata and data classification.",
+				"Maintained OpenSearch and search services supporting more than 100 million data records.",
+				"Used Azure Event Hubs for event-driven messaging and collaborated across teams using Scrum."
+			],
+			"technologies": ["Golang", "Kubernetes", "OpenSearch", "Azure EventHub", "SQL", "Hugo Docs"],
+			"earlyCareer": false
+		},
+		{
+			"id": "2",
+			"company": "Revenue Monster",
+			"position": "Senior Software Engineer",
+			"duration": "Jul 2023 - Jun 2024",
+			"location": "Malaysia",
+			"companyUrl": "https://www.revenuemonster.my/",
+			"companyLogo": "assets/logos/revenue-monster.png",
+			"description": [
+				"Maintained and enhanced merchant and administration portals for the payment gateway.",
+				"Integrated e-wallets, Google Pay, and Apple Pay into the payment platform.",
+				"Maintained the Open API and integration documentation, and supported merchants with technical issues.",
+				"Built a low-code checkout button to simplify payment integration."
+			],
+			"technologies": ["Golang", "Echo", "Next.js"],
+			"earlyCareer": false,
+			"companyLogoDark": "assets/logos/revenue-monster-dark.png"
+		},
+		{
+			"id": "3",
+			"company": "iFAST Corporation Ltd.",
+			"position": "IT Specialist → Senior IT Specialist",
+			"duration": "May 2019 - Jun 2023",
+			"location": "Malaysia",
+			"companyUrl": "https://www.ifastcorp.com/",
+			"companyLogo": "assets/logos/ifast-wordmark-sharp.png",
+			"description": [
+				"Developed and maintained investment apps using Flutter and React Native.",
+				"Led the iFAST Singapore mobile app revamp and maintained its subsequent releases.",
+				"Built internal Angular applications and mobile APIs with Java Spring Boot.",
+				"Promoted to Senior IT Specialist in April 2023."
+			],
+			"technologies": [
+				"Flutter",
+				"React Native",
+				"React",
+				"Angular",
+				"Spring Boot",
+				"Jenkins",
+				"Firebase"
+			],
+			"earlyCareer": false
+		},
+		{
+			"id": "tmt360",
+			"company": "TIPTECH 360",
+			"position": "Software Developer Intern",
+			"duration": "Aug 2017 - Nov 2017",
+			"location": "Malaysia",
+			"description": [
+				"Developed an e-commerce website with Magento and a mobile application with Ionic.",
+				"Integrated Magento v2 APIs for the mobile application."
+			],
+			"technologies": ["Magento", "Ionic"],
+			"earlyCareer": true
+		},
+		{
+			"id": "astro",
+			"company": "Astro",
+			"position": "Intern",
+			"duration": "Jul 2017 - Aug 2017",
+			"location": "Malaysia",
+			"description": [],
+			"technologies": [],
+			"earlyCareer": true
+		},
+		{
+			"id": "harvest-camasu",
+			"company": "Harvest Camasu",
+			"position": "Software Developer Intern",
+			"duration": "Jul 2016 - Sep 2016",
+			"location": "Malaysia",
+			"description": ["Developed PHP websites with HTML, CSS, JavaScript, AJAX, and APIs."],
+			"technologies": ["PHP", "JavaScript", "HTML", "CSS"],
+			"earlyCareer": true
+		}
+	],
+	"projects": [
+		{
+			"id": "feedme-payments",
+			"title": "Payments for everyday commerce",
+			"description": "Built a unified payment checkout for POS, kiosks, and online ordering across five markets, integrating more than 12 acquirers and simplifying merchant onboarding.",
+			"technologies": ["Golang"],
+			"liveUrl": "https://www.feedme.ai/",
+			"logoUrl": "assets/logos/feedme.png",
+			"featured": true,
+			"includeInResume": true
+		},
+		{
+			"id": "1",
+			"title": "Data Registry & Data Access Manager",
+			"description": "Developed MB.OS services for data discovery, legal metadata, and controlled access, with a focus on search performance and EU Data Act compliance.",
+			"technologies": ["Golang", "OpenSearch", "SQL", "Kubernetes"],
+			"liveUrl": "https://www.mercedes-benz.com.my/",
+			"logoUrl": "assets/logos/mercedes-benz-symbol.png",
+			"featured": true,
+			"includeInResume": true
+		},
+		{
+			"id": "2",
+			"title": "Revenue Monster Payment Platform",
+			"description": "Enhanced merchant tools and gateway integrations, including e-wallets, Apple Pay, Google Pay, reporting, and a low-code checkout flow.",
+			"technologies": ["Golang", "Echo", "Next.js"],
+			"liveUrl": "https://www.revenuemonster.my/",
+			"storeUrl": "https://play.google.com/store/apps/details?id=my.revenuemonster.merchant",
+			"logoUrl": "assets/logos/revenue-monster.png",
+			"featured": true,
+			"includeInResume": true,
+			"logoDarkUrl": "assets/logos/revenue-monster-dark.png"
+		},
+		{
+			"id": "3",
+			"title": "iFAST Global Markets (IGM)",
+			"description": "Delivered regional investment apps with Flutter, Spring Boot APIs, automated builds, and release workflows for the App Store, Google Play, and Huawei AppGallery.",
+			"technologies": ["Flutter", "Spring Boot", "Hibernate", "Jenkins", "CI/CD"],
+			"liveUrl": "https://www.ifastcorp.com/",
+			"storeUrl": "https://play.google.com/store/apps/details?id=com.igmnew",
+			"logoUrl": "assets/logos/ifast-wordmark-sharp.png",
+			"featured": false,
+			"includeInResume": true
+		},
+		{
+			"id": "4",
+			"title": "FSMOne",
+			"description": "Helped migrate a wealth management app to Flutter, building reusable UI components and moving existing application logic to the new platform.",
+			"technologies": ["Flutter", "Provider"],
+			"liveUrl": "https://www.ifastcorp.com/",
+			"storeUrl": "https://play.google.com/store/apps/details?id=com.ifast.fsm",
+			"logoUrl": "assets/logos/ifast-wordmark-sharp.png",
+			"featured": false,
+			"includeInResume": true
+		},
+		{
+			"id": "5",
+			"title": "Project Management System",
+			"description": "Built an internal project management application with Angular, Java Spring, Ng-Zorro, and NGXS.",
+			"technologies": ["Angular 8", "Java Spring", "Ng-Zorro", "NGXS"],
+			"featured": false,
+			"includeInResume": true
+		},
+		{
+			"id": "6",
+			"title": "Personal Portfolio",
+			"description": "A monochrome SvelteKit portfolio with glass surfaces, accessible navigation, and shared content for the website and local resume.",
+			"technologies": ["SvelteKit", "TypeScript", "Tailwind CSS"],
+			"githubUrl": "https://github.com/brendansiow/portfolio",
+			"logoUrl": "assets/logos/github.svg",
+			"featured": false,
+			"includeInResume": true
+		},
+		{
+			"id": "merchant-financing",
+			"title": "Merchant financing platform",
+			"description": "Built a financing platform covering ledgers, repayments, settlement, and AI underwriting. The platform is pre-launch.",
+			"technologies": [],
+			"logoUrl": "assets/logos/feedme.png",
+			"featured": false,
+			"includeInResume": true
+		}
+	],
+	"education": [
+		{
+			"id": "1",
+			"institution": "Asia Pacific University of Technology & Innovation",
+			"degree": "BSc (Hons) in Software Engineering",
+			"duration": "Sep 2016 - Nov 2018",
+			"location": "Malaysia",
+			"gpa": "First Class Honours",
+			"description": "Graduated with First Class Honours."
+		},
+		{
+			"id": "2",
+			"institution": "Asia Pacific University of Technology & Innovation",
+			"degree": "Diploma in Information & Communications Technology (Software Engineering)",
+			"duration": "May 2014 - May 2016",
+			"location": "Malaysia",
+			"gpa": "CGPA 3.85",
+			"description": "Graduated with a CGPA of 3.85."
+		},
+		{
+			"id": "3",
+			"institution": "SMK Taman Connaught",
+			"degree": "Secondary School",
+			"duration": "2008 - 2013",
+			"location": "Malaysia",
+			"gpa": "Achieved 7A in SPM",
+			"description": "Completed secondary education with strong academic performance."
+		}
+	],
+	"certificates": [
+		{
+			"id": "azure",
+			"name": "Microsoft Azure Cloud",
+			"issuer": "Microsoft",
+			"date": ""
+		}
+	],
+	"skills": [
+		{
+			"category": "Backend & APIs",
+			"skills": ["Golang", "Node.js", "Java", "Spring Boot", "gRPC", "REST APIs"]
+		},
+		{
+			"category": "Data & Observability",
+			"skills": ["SQL", "MongoDB", "Redis", "OpenSearch", "OpenTelemetry"]
+		},
+		{
+			"category": "Frontend & Mobile",
+			"skills": ["Flutter", "React Native", "React", "Vue", "Next.js", "SvelteKit"]
+		},
+		{
+			"category": "Infrastructure & Delivery",
+			"skills": ["Kubernetes", "Azure Event Hubs", "CI/CD", "Jenkins", "Git", "Firebase"]
+		},
+		{
+			"category": "Languages",
+			"skills": ["English", "Chinese", "Malay"]
+		}
+	],
+	"resume": {
+		"filename": "brendan-siow-resume.pdf"
+	},
+	"activities": [
+		{
+			"id": "vhack-2025",
+			"title": "Vibathon / VHACK 2025",
+			"category": "Hackathon",
+			"achievement": "Top 6 finalist",
+			"description": "Built an AI-powered interview practice application at Vibathon / VHACK 2025. The team placed among the top six finalists.",
+			"context": "Interview practice with AI-generated feedback",
+			"highlights": ["AI / NLP", "Interview practice", "Team collaboration"],
+			"url": "https://www.linkedin.com/posts/brendan-siow_vibathon-vibathon-vhack-ugcPost-7373208270867456000-REQn"
+		}
+	]
+}
