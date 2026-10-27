@@ -13,10 +13,12 @@
 <Navigation />
 <div class="page-main">
 	<Hero data={portfolioData.personalInfo} experience={portfolioData.workExperience} />
-	<section id="projects"><Projects data={portfolioData.projects} /></section>
-	<section id="experience"><Experience data={portfolioData.workExperience} /></section>
-	<section id="skills"><Skills data={portfolioData.skills} /></section>
-	<section id="activity"><Activity /></section>
-	<section id="contact"><Contact data={portfolioData.personalInfo} /></section>
+	<section id="projects" tabindex="-1"><Projects data={portfolioData.projects} /></section>
+	<section id="experience" tabindex="-1">
+		<Experience data={portfolioData.workExperience} />
+	</section>
+	<section id="skills" tabindex="-1"><Skills data={portfolioData.skills} /></section>
+	<section id="activity" tabindex="-1"><Activity /></section>
+	<section id="contact" tabindex="-1"><Contact data={portfolioData.personalInfo} /></section>
 	<Footer />
 </div>

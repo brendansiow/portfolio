@@ -13,7 +13,6 @@
 	{#each portfolioData.activities as activity (activity.id)}<article class="activity-card glass">
 			<div class="activity-award">{activity.achievement}<span>{activity.category}</span></div>
 			<div>
-				<span class="eyebrow">{activity.category}</span>
 				<h3>{activity.title}</h3>
 				<p>{activity.description}</p>
 				<a class="work-visit" href={activity.url} target="_blank" rel="noopener noreferrer"

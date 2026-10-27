@@ -3,6 +3,18 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<script>
+			// Apply the saved theme before paint; content remains available without JavaScript.
+			try {
+				const savedTheme = localStorage.getItem('theme');
+				const dark =
+					savedTheme === 'dark' ||
+					(savedTheme !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches);
+				document.documentElement.classList.toggle('dark', dark);
+			} catch {
+				/* Storage may be unavailable; retain the default theme. */
+			}
+		</script>
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">

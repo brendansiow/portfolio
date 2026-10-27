@@ -123,3 +123,10 @@ Edit `personalInfo.aboutSummary` for the card and `heroSummary` for the headline
 GitHub Pages deploys from the public `main` branch. The workflow tests the public
 website, then rebuilds with `BASE_PATH=/portfolio` for project hosting. Generated
 resume PDFs and private test reports are never committed or uploaded.
+
+### UI design and accessibility
+
+The visual rules are documented in [docs/design-system.md](docs/design-system.md).
+Public tests include axe accessibility scans in both themes, keyboard-operated
+project disclosure, mobile menu dismissal and focus, touch target dimensions,
+reduced motion, and portrait/landscape layouts.

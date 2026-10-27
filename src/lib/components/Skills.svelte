@@ -13,9 +13,9 @@
 	<div class="toolkit">
 		{#each data.filter((group) => group.category !== 'Languages') as group (group.category)}<div>
 				<h3>{group.category}</h3>
-				<p>
-					{#each group.skills as skill (skill)}{skill}<br />{/each}
-				</p>
+				<ul class="skill-list">
+					{#each group.skills as skill (skill)}<li>{skill}</li>{/each}
+				</ul>
 			</div>{/each}
 	</div>
 	{#each data.filter((group) => group.category === 'Languages') as group (group.category)}<div

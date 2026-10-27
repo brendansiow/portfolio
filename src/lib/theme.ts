@@ -22,7 +22,7 @@ function createThemeStore() {
 			set(theme);
 		},
 		toggle: () => {
-			update(theme => {
+			update((theme) => {
 				const newTheme = theme === 'light' ? 'dark' : 'light';
 				if (browser) {
 					if (newTheme === 'dark') {
@@ -39,14 +39,16 @@ function createThemeStore() {
 			if (browser) {
 				const stored = localStorage.getItem('theme') as Theme | null;
 				const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-				const initialTheme = stored || (prefersDark ? 'dark' : 'light');
-				
+				const initialTheme =
+					(stored === 'light' || stored === 'dark' ? stored : null) ||
+					(prefersDark ? 'dark' : 'light');
+
 				if (initialTheme === 'dark') {
 					document.documentElement.classList.add('dark');
 				} else {
 					document.documentElement.classList.remove('dark');
 				}
-				
+
 				set(initialTheme);
 			}
 		}

@@ -16,7 +16,7 @@
 		"headlineLead": "Built with",
 		"headlineAccent": "intention.",
 		"shortLocation": "Kuala Lumpur, Malaysia",
-		"initials": "b/s",
+		"initials": "BS",
 		"heroSummary": "I build reliable payment systems and backend services, with a focus on clear APIs and maintainable software.",
 		"aboutSummary": "Based in Kuala Lumpur, with experience across fintech, automotive data services, and mobile apps."
 	},
@@ -256,7 +256,7 @@
 	"skills": [
 		{
 			"category": "Backend & APIs",
-			"skills": ["Golang", "Node.js", "Java", "Spring Boot", "gRPC", "REST APIs"]
+			"skills": ["Golang", "Node.js", "Java", "Spring Boot", "gRPC"]
 		},
 		{
 			"category": "Data & Observability",
@@ -264,11 +264,18 @@
 		},
 		{
 			"category": "Frontend & Mobile",
-			"skills": ["Flutter", "React Native", "React", "Vue", "Next.js", "SvelteKit"]
+			"skills": ["Flutter", "React Native", "React", "Vue", "Svelte"]
 		},
 		{
 			"category": "Infrastructure & Delivery",
-			"skills": ["Kubernetes", "Azure Event Hubs", "CI/CD", "Jenkins", "Git", "Firebase"]
+			"skills": [
+				"Kubernetes",
+				"Azure Event Hubs",
+				"CI/CD",
+				"Jenkins",
+				"Containerization",
+				"Firebase"
+			]
 		},
 		{
 			"category": "Languages",

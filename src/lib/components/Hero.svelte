@@ -6,7 +6,7 @@
 </script>
 
 <div class="shell" id="top">
-	<section class="hero" id="about">
+	<section class="hero" id="about" tabindex="-1">
 		<div class="hero-copy">
 			<p class="eyebrow"><span class="dot"></span>{data.title} · Kuala Lumpur</p>
 			<h1>{data.headlineLead} <span class="faint">{data.headlineAccent}</span></h1>

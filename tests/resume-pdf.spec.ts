@@ -39,7 +39,7 @@ for (const theme of ['light']) {
 				const geometry = metadata[number - 1];
 				expect(geometry.paper).toBe(theme === 'dark' ? '#111' : '#f2f2f2');
 				expect(geometry.bodyFont).toContain('Helvetica');
-				expect(geometry.headingFont).toContain('Menlo');
+				expect(geometry.headingFont).toContain('Maple Mono');
 				const reference = await readFile(`.resume-artifacts/${geometry.background}`);
 				const background = PNG.sync.read(reference);
 				for (let offset = 3; offset < background.data.length; offset += 4) {

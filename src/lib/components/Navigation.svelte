@@ -31,6 +31,13 @@
 		menuOpen = false;
 		if (menu) menu.open = false;
 	}
+	function dismissMenu(event: PointerEvent) {
+		if (menu?.open && event.target instanceof Node && !menu.contains(event.target)) closeMenu();
+	}
+	function selectSection(id: string) {
+		closeMenu();
+		document.getElementById(id)?.focus({ preventScroll: true });
+	}
 	function escapeMenu(event: KeyboardEvent) {
 		if (event.key === 'Escape' && menu?.open) {
 			closeMenu();
@@ -40,13 +47,12 @@
 	}
 </script>
 
-<svelte:window onkeydown={escapeMenu} />
+<svelte:window onkeydown={escapeMenu} onpointerdown={dismissMenu} />
 <header class="floating-header glass">
-	<a class="brand" href="#top" aria-label={`${portfolioData.personalInfo.name} home`}
-		><span class="brand-symbol">{portfolioData.personalInfo.initials}</span><span
-			>{portfolioData.personalInfo.name}</span
-		></a
-	>
+	<a class="brand" href="#top" aria-label={`${portfolioData.personalInfo.name} home`}>
+		<span class="brand-avatar" aria-hidden="true">{portfolioData.personalInfo.initials}</span>
+		<span class="brand-name">{portfolioData.personalInfo.name}</span>
+	</a>
 	<nav class="nav-links" aria-label="Main navigation">
 		{#each links as link (link.id)}<a
 				href={`#${link.id}`}
@@ -59,7 +65,7 @@
 			<nav class="mobile-links" aria-label="Mobile navigation">
 				{#each links as link (link.id)}<a
 						href={`#${link.id}`}
-						onclick={closeMenu}
+						onclick={() => selectSection(link.id)}
 						aria-current={active === link.id ? 'location' : undefined}>{link.label}</a
 					>{/each}
 			</nav>

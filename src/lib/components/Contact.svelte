@@ -17,9 +17,10 @@
 					rel="noopener noreferrer">GitHub ↗</a
 				>
 			</div>
+			<span class="contact-email">{data.email}</span>
 		</div>
 		<a class="button primary" href={`mailto:${data.email}`}
-			>Say hello <ArrowUpRight size={18} aria-hidden="true" /></a
+			>Email me <ArrowUpRight size={18} aria-hidden="true" /></a
 		>
 	</div>
 </div>

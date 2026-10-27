@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 import { readdir } from 'node:fs/promises';
 import content from '../src/lib/content/portfolio.json' with { type: 'json' };
 
@@ -7,7 +8,10 @@ for (const theme of ['light', 'dark'] as const) {
 		{ width: 320, height: 844 },
 		{ width: 768, height: 1000 },
 		{ width: 1440, height: 1000 },
-		{ width: 390, height: 844 }
+		{ width: 390, height: 844 },
+		{ width: 375, height: 812 },
+		{ width: 1024, height: 900 },
+		{ width: 844, height: 390 }
 	]) {
 		test(`${theme} public portfolio at ${viewport.width}px`, async ({ browser, baseURL }) => {
 			const context = await browser.newContext({ colorScheme: theme, viewport, baseURL });
@@ -162,14 +166,101 @@ test('company logos load and typography follows the monochrome design', async ({
 		expect(appearance).toEqual({ border: '0px', shadow: 'none', background: 'rgba(0, 0, 0, 0)' });
 	}
 
+	await page.evaluate(() => document.fonts.ready);
 	const fonts = await page.evaluate(() => ({
+		loaded: document.fonts.check('400 32px "Maple Mono"'),
 		title: getComputedStyle(document.querySelector('h1')!).fontFamily,
 		body: getComputedStyle(document.body).fontFamily,
 		root: getComputedStyle(document.documentElement).backgroundColor
 	}));
-	expect(fonts.title).toMatch(/mono|Menlo/i);
+	expect(fonts.title).toContain('Maple Mono');
+	expect(fonts.loaded).toBe(true);
 	expect(fonts.body).toMatch(/Helvetica/);
 	const channels = fonts.root.match(/\d+/g)!.map(Number);
 	expect(channels[0]).toBe(channels[1]);
 	expect(channels[1]).toBe(channels[2]);
+});
+
+for (const theme of ['light', 'dark']) {
+	for (const width of [390, 1440]) {
+		test(`${theme} accessibility scan at ${width}px`, async ({ page }) => {
+			await page.setViewportSize({ width, height: 1000 });
+			await page.addInitScript((value) => localStorage.setItem('theme', value), theme);
+			await page.goto('/');
+			await page.locator('.more-work-disclosure > summary').click();
+			const results = await new AxeBuilder({ page })
+				.withTags(['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'])
+				.analyze();
+			expect(
+				results.violations.map((rule) => ({
+					id: rule.id,
+					nodes: rule.nodes.map((node) => ({ target: node.target, reason: node.failureSummary }))
+				}))
+			).toEqual([]);
+		});
+	}
+}
+
+test('more projects expand with the keyboard and work without JavaScript', async ({
+	browser,
+	baseURL
+}) => {
+	const context = await browser.newContext({ baseURL, javaScriptEnabled: false });
+	const page = await context.newPage();
+	await page.goto('/');
+	const disclosure = page.locator('.more-work-disclosure');
+	const summary = disclosure.locator('summary');
+	await expect(summary).toContainText(
+		String(content.projects.filter((project) => !project.featured).length)
+	);
+	const additional = page.locator('.project-note').first();
+	await expect(additional).toBeHidden();
+	await summary.focus();
+	await page.keyboard.press('Enter');
+	await expect(additional).toBeVisible();
+	for (const project of content.projects.filter((project) => !project.featured))
+		await expect(
+			disclosure.getByRole('heading', { name: project.title, exact: true })
+		).toBeVisible();
+	await page.keyboard.press('Enter');
+	await expect(additional).toBeHidden();
+	await context.close();
+});
+
+test('mobile controls have comfortable targets and menu dismisses outside', async ({ page }) => {
+	await page.setViewportSize({ width: 375, height: 812 });
+	await page.goto('/');
+	for (const control of [
+		page.getByRole('button', { name: 'Toggle theme' }),
+		page.getByLabel('Navigation menu')
+	]) {
+		const box = (await control.boundingBox())!;
+		expect(box.width).toBeGreaterThanOrEqual(44);
+		expect(box.height).toBeGreaterThanOrEqual(44);
+	}
+	await page.getByLabel('Navigation menu').click();
+	await page.locator('.intro').click();
+	await expect(page.locator('.mobile-nav')).not.toHaveAttribute('open', '');
+	await page.getByLabel('Navigation menu').click();
+	await page
+		.getByRole('navigation', { name: 'Mobile navigation' })
+		.getByRole('link', { name: 'Work', exact: true })
+		.click();
+	await expect(page.locator('#projects')).toBeFocused();
+});
+
+test('reduced motion disables scrolling and interface transitions', async ({ page }) => {
+	await page.emulateMedia({ reducedMotion: 'reduce' });
+	await page.goto('/');
+	const motion = await page.evaluate(() => ({
+		scroll: getComputedStyle(document.documentElement).scrollBehavior,
+		transition: getComputedStyle(document.querySelector('.button')!).transitionDuration,
+		animation: getComputedStyle(document.querySelector('.button')!).animationName
+	}));
+	expect(motion).toEqual({ scroll: 'auto', transition: '0s', animation: 'none' });
+	await page.getByRole('link', { name: 'Skip to content' }).focus();
+	const skip = (await page.getByRole('link', { name: 'Skip to content' }).boundingBox())!;
+	expect(skip.y).toBeGreaterThanOrEqual(0);
+	await page.keyboard.press('Enter');
+	await expect(page.locator('#content')).toBeFocused();
 });
