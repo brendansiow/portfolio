@@ -38,14 +38,31 @@
 			if (requestedSection) return;
 			const headerBottom = header.getBoundingClientRect().bottom;
 			const remaining = Math.max(0, document.documentElement.scrollHeight - innerHeight - scrollY);
+			if (scrollY <= 0) {
+				active = sections[0]?.id || '';
+				return;
+			}
+			if (remaining <= 1) {
+				active = sections.at(-1)?.id || '';
+				return;
+			}
+			const positions = sections.map((section) => ({
+				id: section.id,
+				bounds: section.getBoundingClientRect()
+			}));
 			const startLine = Math.max(headerBottom + 24, innerHeight * 0.3);
-			// Advance the reading line near the bottom so short final sections are reachable
-			// even when the browser cannot scroll their headings up to the floating header.
+			// On tall screens, the penultimate section cannot reach the header. Let the
+			// reading line approach its midpoint, while reserving Contact for the bottom.
+			const penultimate = positions.at(-2)?.bounds;
+			const endLine = Math.max(
+				startLine,
+				penultimate ? penultimate.top + penultimate.height / 2 - remaining : startLine
+			);
 			const endProgress = Math.max(0, 1 - remaining / innerHeight);
-			const readingLine = startLine + endProgress * (innerHeight - startLine);
+			const readingLine = startLine + endProgress * (endLine - startLine);
 			let current = sections[0]?.id || '';
-			for (const section of sections) {
-				if (section.getBoundingClientRect().top <= readingLine + 1) current = section.id;
+			for (const { id, bounds } of positions) {
+				if (bounds.top <= readingLine + 1) current = id;
 			}
 			active = current;
 		}

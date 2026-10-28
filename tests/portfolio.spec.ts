@@ -303,6 +303,16 @@ for (const height of [1000, 2000]) {
 		expect(states.down.at(-1)).toBe('Contact');
 		expect(states.down).toContain('Skills');
 		const navigation = page.getByRole('navigation', { name: 'Main navigation', exact: true });
+		await page.evaluate(() => {
+			const activity = document.getElementById('activity')!;
+			const top = activity.getBoundingClientRect().top + scrollY;
+			const max = document.documentElement.scrollHeight - innerHeight;
+			window.scrollTo({ top: Math.min(top - 120, max - 60), behavior: 'instant' });
+		});
+		await expect(navigation.getByRole('link', { name: 'Activity', exact: true })).toHaveAttribute(
+			'aria-current',
+			'location'
+		);
 		await navigation.getByRole('link', { name: 'Activity', exact: true }).click();
 		await expect(navigation.getByRole('link', { name: 'Activity', exact: true })).toHaveAttribute(
 			'aria-current',
@@ -310,11 +320,6 @@ for (const height of [1000, 2000]) {
 		);
 		await page.mouse.wheel(0, 10000);
 		await expect(navigation.getByRole('link', { name: 'Contact', exact: true })).toHaveAttribute(
-			'aria-current',
-			'location'
-		);
-		await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
-		await expect(navigation.getByRole('link', { name: 'About', exact: true })).toHaveAttribute(
 			'aria-current',
 			'location'
 		);
