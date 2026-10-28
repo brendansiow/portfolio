@@ -108,7 +108,7 @@ test('floating desktop navigation reaches every section and tracks the active se
 	);
 	const scrolled = (await header.boundingBox())!;
 	expect(Math.abs(initial.y - scrolled.y)).toBeLessThan(1);
-	expect(await page.evaluate(() => scrollY)).toBeGreaterThan(500);
+	await expect.poll(() => page.evaluate(() => scrollY)).toBeGreaterThan(500);
 	for (const link of await navigation.getByRole('link').all()) {
 		const href = (await link.getAttribute('href'))!;
 		await expect(page.locator(href)).toHaveCount(1);
@@ -264,3 +264,59 @@ test('reduced motion disables scrolling and interface transitions', async ({ pag
 	await page.keyboard.press('Enter');
 	await expect(page.locator('#content')).toBeFocused();
 });
+
+for (const height of [1000, 2000]) {
+	test(`scroll navigation includes Activity and Contact in both directions at ${height}px`, async ({
+		page
+	}) => {
+		await page.setViewportSize({ width: 1440, height });
+		await page.emulateMedia({ reducedMotion: 'reduce' });
+		await page.goto('/');
+		await page.evaluate(() => document.fonts.ready);
+		const states = await page.evaluate(async () => {
+			const max = document.documentElement.scrollHeight - innerHeight;
+			const start = Math.max(
+				0,
+				document.getElementById('skills')!.getBoundingClientRect().top + scrollY - innerHeight
+			);
+			const positions = [];
+			for (let y = start; y < max; y += 60) positions.push(y);
+			positions.push(max);
+			const sample = async (values: number[]) => {
+				const selected = [];
+				for (const top of values) {
+					window.scrollTo({ top, behavior: 'instant' });
+					await new Promise(requestAnimationFrame);
+					await new Promise(requestAnimationFrame);
+					selected.push(
+						document.querySelector('.nav-links [aria-current="location"]')?.textContent?.trim()
+					);
+				}
+				return selected;
+			};
+			const down = await sample(positions);
+			const up = await sample([...positions].reverse());
+			return { down, up };
+		});
+		expect(states.down).toContain('Activity');
+		expect(states.up).toContain('Activity');
+		expect(states.down.at(-1)).toBe('Contact');
+		expect(states.down).toContain('Skills');
+		const navigation = page.getByRole('navigation', { name: 'Main navigation', exact: true });
+		await navigation.getByRole('link', { name: 'Activity', exact: true }).click();
+		await expect(navigation.getByRole('link', { name: 'Activity', exact: true })).toHaveAttribute(
+			'aria-current',
+			'location'
+		);
+		await page.mouse.wheel(0, 10000);
+		await expect(navigation.getByRole('link', { name: 'Contact', exact: true })).toHaveAttribute(
+			'aria-current',
+			'location'
+		);
+		await page.evaluate(() => window.scrollTo({ top: 0, behavior: 'instant' }));
+		await expect(navigation.getByRole('link', { name: 'About', exact: true })).toHaveAttribute(
+			'aria-current',
+			'location'
+		);
+	});
+}
