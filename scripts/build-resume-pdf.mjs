@@ -31,6 +31,7 @@ try {
 			{ stdio: ['ignore', 'pipe', 'inherit'] }
 		);
 		await new Promise((ready, reject) => {
+			let startupOutput = '';
 			const timeout = setTimeout(() => reject(new Error('Preview startup timed out')), 30000);
 			const fail = (error) => {
 				clearTimeout(timeout);
@@ -40,7 +41,10 @@ try {
 			server.once('exit', (code) => fail(new Error(`Preview exited (${code}); check RESUME_PORT`)));
 			server.stdout.on('data', (chunk) => {
 				process.stdout.write(chunk);
-				if (chunk.toString().includes('Local:')) {
+				// CI enables ANSI colors, and a startup line can span multiple chunks.
+				startupOutput += chunk.toString();
+				const plainOutput = startupOutput.replace(/\u001b\[[0-9;]*m/g, '');
+				if (plainOutput.includes('Local:')) {
 					clearTimeout(timeout);
 					ready();
 				}
