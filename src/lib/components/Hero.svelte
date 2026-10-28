@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { PersonalInfo, WorkExperience } from '$lib/types';
-	import { ArrowUpRight, Building2 } from 'lucide-svelte';
+	import { ArrowUpRight, Building2, MapPin } from 'lucide-svelte';
 	let { data, experience }: { data: PersonalInfo; experience: WorkExperience[] } = $props();
 	const current = experience.find((job) => !job.earlyCareer);
 </script>
@@ -20,28 +20,32 @@
 			</div>
 		</div>
 		<div class="hero-art">
-			<div class="art-grid" aria-hidden="true"></div>
-			<div class="orb" aria-hidden="true"></div>
 			<aside class="identity-card glass" aria-label={`About ${data.name}`}>
-				<div class="card-top">
-					<span class="eyebrow">A little about me</span>
-					<div class="card-dots" aria-hidden="true"><i></i><i></i><i></i></div>
+				<div class="identity-top">
+					<span class="identity-avatar" aria-hidden="true">{data.initials}</span>
+					<span class="identity-location"
+						><MapPin size={14} aria-hidden="true" />{data.shortLocation}</span
+					>
 				</div>
-				<h2 class="identity-name" aria-label={data.name}>
-					{#each data.name.split(' ') as part (part)}<span>{part}</span>{/each}
-				</h2>
+				<h2 class="identity-name">{data.name}</h2>
 				<p class="identity-role">{data.title}</p>
 				<p class="identity-bio">{data.aboutSummary}</p>
-				<div class="card-bottom"><span>{data.focus.join(' / ').toUpperCase()}</span></div>
+				{#if current}
+					<a
+						class="identity-current"
+						href="#experience"
+						aria-label={`View experience at ${current.company}`}
+					>
+						<Building2 size={18} aria-hidden="true" />
+						<span
+							><span class="identity-current-company">Currently at {current.company}</span><span
+								class="identity-current-date">{current.duration}</span
+							></span
+						>
+						<ArrowUpRight class="identity-current-arrow" size={16} aria-hidden="true" />
+					</a>
+				{/if}
 			</aside>
-			{#if current}
-				<div class="floating-tag glass">
-					<div class="tag-icon" aria-hidden="true"><Building2 size={17} /></div>
-					<div>
-						<b>Currently at {current.company}</b><small>{current.duration.toUpperCase()}</small>
-					</div>
-				</div>
-			{/if}
 		</div>
 	</section>
 </div>

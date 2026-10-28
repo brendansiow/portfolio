@@ -14,7 +14,9 @@ The owner's visual preferences take precedence over generated presets.
   wrapping it on very narrow screens. No photo or boxed logo tile is needed.
 - Use glass for the floating navigation, identity card, featured work and contact.
   Keep the career history and toolkit plain for easier reading.
-- Preserve the tilted identity card and sphere. No continuous motion or scroll effects.
+- Hero graphic: a gently tilted profile card, a circular BS monogram, and a
+  subtle second glass pane. Integrate the current role as a link to Experience.
+  No decorative sphere, floating badges, fake controls, or continuous motion.
 - Use the tokens in `src/app.css` for all themes and the private PDF renderer.
   Avoid adding another set of colors or component overrides at the end of the stylesheet.
 

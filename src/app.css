@@ -358,138 +358,123 @@ p {
 	}
 }
 .hero-art {
-	height: 470px;
+	min-height: 500px;
 	position: relative;
 	display: grid;
 	place-items: center;
+	padding: 24px 20px;
 	isolation: isolate;
 }
-.orb {
-	position: absolute;
-	z-index: -2;
-	width: 350px;
-	height: 350px;
-	right: 20px;
-	top: 28px;
-	border-radius: 50%;
-	background: radial-gradient(circle at 26% 23%, #fff, #c5c5c5 44%, #717171 75%, #aaa);
-	box-shadow:
-		inset -20px -20px 60px #0002,
-		0 30px 70px #0001;
-}
-.dark .orb {
-	background: radial-gradient(circle at 26% 23%, #999, #424242 44%, #181818 75%, #444);
-	box-shadow:
-		inset -20px -20px 60px #0007,
-		0 30px 70px #0004;
-}
-.art-grid {
+/* A quiet second pane gives the glass depth without an unrelated object. */
+.hero-art::before {
+	content: '';
 	position: absolute;
 	z-index: -1;
-	inset: 32px 0;
-	background-image:
-		linear-gradient(var(--line) 1px, transparent 1px),
-		linear-gradient(90deg, var(--line) 1px, transparent 1px);
-	background-size: 44px 44px;
-	mask-image: radial-gradient(ellipse, #0006, transparent 66%);
+	inset: 32px 48px;
+	border: 1px solid var(--line);
+	border-radius: 32px;
+	background: linear-gradient(155deg, var(--glass), transparent 75%);
+	transform: rotate(4deg) translate(14px, -4px);
 }
 .identity-card {
-	width: 350px;
+	width: min(100%, 380px);
 	padding: 28px;
 	border-radius: 28px;
-	margin-top: 20px;
-	transform: rotate(-6deg);
+	transform: rotate(-3deg);
 	position: relative;
 	backdrop-filter: blur(20px);
 	-webkit-backdrop-filter: blur(20px);
 	box-shadow:
-		0 28px 64px var(--shadow),
+		0 24px 56px var(--shadow),
 		inset 0 1px 0 var(--highlight);
 }
-.card-top {
+.identity-top {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	gap: 12px;
-	padding-bottom: 24px;
+	gap: 16px;
+	margin-bottom: 28px;
 }
-.card-top .eyebrow {
-	font-size: 10px;
-}
-.card-dots {
-	display: flex;
-	gap: 4px;
-}
-.card-dots i {
-	width: 4px;
-	height: 4px;
+.identity-avatar {
+	display: grid;
+	place-items: center;
+	width: 60px;
+	height: 60px;
+	flex-shrink: 0;
 	border-radius: 50%;
-	background: var(--muted);
+	border: 4px solid var(--tile);
+	background: linear-gradient(145deg, var(--avatar-top), var(--avatar-bottom));
+	box-shadow:
+		0 0 0 1px var(--line),
+		inset 0 1px 1px rgb(255 255 255 / 16%);
+	color: var(--avatar-ink);
+	font:
+		500 23px/1 'Helvetica Neue',
+		Helvetica,
+		Arial,
+		sans-serif;
+	letter-spacing: -0.04em;
+}
+.identity-location {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 12px;
+	line-height: 1.5;
+	color: var(--muted);
+}
+.identity-location svg {
+	flex-shrink: 0;
 }
 .identity-name {
 	margin: 0;
-	font: 400 44px/1.06 var(--mono);
+	font: 400 36px/1.2 var(--mono);
 	letter-spacing: -0.055em;
-}
-.identity-name span {
-	display: block;
 }
 .identity-card p {
 	margin: 0;
 	color: var(--muted);
 }
 .identity-card .identity-role {
-	font-size: 14px;
+	font-size: 16px;
 	color: var(--ink);
-	margin-top: 14px;
+	margin-top: 8px;
 }
 .identity-card .identity-bio {
-	font-size: 14px;
-	line-height: 1.65;
-	margin-top: 16px;
-	max-width: 32ch;
+	font-size: 15px;
+	line-height: 1.7;
+	margin-top: 20px;
 }
-.card-bottom {
-	border-top: 1px solid var(--line);
-	padding-top: 18px;
-	margin-top: 24px;
-}
-.card-bottom span {
-	font: 11px var(--mono);
-	color: var(--muted);
-}
-.floating-tag {
-	position: absolute;
-	right: 0;
-	bottom: 8px;
-	padding: 16px 20px;
-	border-radius: 20px;
+.identity-current {
 	display: flex;
-	gap: 16px;
 	align-items: center;
-	transform: rotate(4deg);
-	backdrop-filter: blur(16px);
-	-webkit-backdrop-filter: blur(16px);
+	gap: 14px;
+	border-top: 1px solid var(--line);
+	padding-top: 22px;
+	margin-top: 26px;
+	min-height: 66px;
 }
-.tag-icon {
-	display: grid;
-	place-items: center;
-	width: 36px;
-	height: 36px;
-	background: var(--ink);
-	color: var(--paper);
-	border-radius: 11px;
+.identity-current > svg {
+	flex-shrink: 0;
 }
-.floating-tag b {
+.identity-current-company {
 	display: block;
-	font-size: 13px;
+	font-size: 14px;
 	font-weight: 500;
+	line-height: 1.5;
 }
-.floating-tag small {
+.identity-current-date {
 	display: block;
-	font: 10px var(--mono);
+	font-size: 12px;
 	color: var(--muted);
-	margin-top: 6px;
+	margin-top: 4px;
+}
+.identity-current-arrow {
+	margin-left: auto;
+}
+.identity-current:hover .identity-current-company {
+	text-decoration: underline;
+	text-underline-offset: 4px;
 }
 
 /* Section rhythm and project hierarchy. */
@@ -1087,38 +1072,20 @@ footer a {
 		gap: 18px;
 	}
 	.hero-art {
-		height: 440px;
+		min-height: 450px;
 		width: 100%;
-	}
-	.orb {
-		width: 280px;
-		height: 280px;
-		right: 0;
-		top: 40px;
+		padding: 20px 6px;
 	}
 	.identity-card {
-		width: min(310px, calc(100% - 24px));
+		width: min(100%, 360px);
 		padding: 24px;
-		transform: rotate(-4deg);
+		transform: rotate(-2deg);
 	}
 	.identity-name {
-		font-size: 40px;
+		font-size: 32px;
 	}
 	.identity-card .identity-bio {
 		font-size: 14px;
-	}
-	.floating-tag {
-		right: 0;
-		bottom: 4px;
-		padding: 14px 16px;
-		gap: 12px;
-		transform: rotate(3deg);
-	}
-	.floating-tag b {
-		font-size: 12px;
-	}
-	.floating-tag small {
-		font-size: 9px;
 	}
 	.section {
 		padding-top: 72px;
@@ -1208,22 +1175,14 @@ footer a {
 		line-height: 1.35;
 	}
 	.hero-art {
-		height: 440px;
+		min-height: 440px;
 	}
 	.identity-card {
-		width: calc(100% - 12px);
+		width: 100%;
 		padding: 22px;
 	}
 	.identity-name {
-		font-size: 36px;
-	}
-	.floating-tag {
-		padding: 12px;
-		gap: 10px;
-	}
-	.tag-icon {
-		width: 30px;
-		height: 30px;
+		font-size: 29px;
 	}
 	.hero .eyebrow {
 		letter-spacing: 0;
@@ -1252,8 +1211,7 @@ footer a {
 		padding-top: 0;
 	}
 	.glass,
-	.identity-card,
-	.floating-tag {
+	.identity-card {
 		backdrop-filter: none;
 		-webkit-backdrop-filter: none;
 		box-shadow: none;
