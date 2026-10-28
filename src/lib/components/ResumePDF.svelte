@@ -4,8 +4,8 @@
 	import { MapPin, Mail, Phone, Linkedin, Github, ArrowUpRight } from 'lucide-svelte';
 	const { personalInfo, workExperience, education, skills, activities } = portfolioData;
 	const career = workExperience.filter((job) => !job.earlyCareer);
-	const projectPages = Array.from({ length: Math.ceil(resumeProjects.length / 4) }, (_, index) =>
-		resumeProjects.slice(index * 4, index * 4 + 4)
+	const projectPages = Array.from({ length: Math.ceil(resumeProjects.length / 8) }, (_, index) =>
+		resumeProjects.slice(index * 8, index * 8 + 8)
 	);
 	const totalPages = 3 + projectPages.length;
 	const earlyCareer = workExperience.filter((job) => job.earlyCareer);

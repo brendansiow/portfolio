@@ -75,7 +75,7 @@ The content is arranged for A4 rather than copying the scrolling web layout.
 `projects[].includeInResume` selects projects independently of `featured`;
 `workExperience[].earlyCareer` groups earlier roles. Decoration is flattened to
 avoid PDF transparency seams; text stays selectable and links stay clickable.
-The export includes projects with `includeInResume: true` and currently contains five A4 pages.
+The export includes projects with `includeInResume: true` and currently contains four A4 pages, with eight project cards on the final page.
 Website-only project additions use `includeInResume: false`.
 Export stops with a page overflow error if
 content no longer fits; adjust the page grouping in

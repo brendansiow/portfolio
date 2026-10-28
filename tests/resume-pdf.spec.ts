@@ -16,7 +16,7 @@ for (const theme of ['light']) {
 		try {
 			const metadata = JSON.parse(await readFile(`.resume-artifacts/${theme}.json`, 'utf8'));
 			expect(doc.numPages, 'Each designed sheet must fit one A4 page').toBe(metadata.length);
-			expect(doc.numPages).toBe(3 + Math.ceil(resumeProjects.length / 4));
+			expect(doc.numPages).toBe(3 + Math.ceil(resumeProjects.length / 8));
 			const texts: string[] = [];
 			const links: string[] = [];
 			for (let number = 1; number <= doc.numPages; number++) {
@@ -26,6 +26,24 @@ for (const theme of ['light']) {
 				expect(viewport.height).toBeCloseTo(842, 0);
 				const text = await page.getTextContent();
 				texts.push(text.items.map((item) => ('str' in item ? item.str : '')).join(' '));
+				if (number >= 4) {
+					const projects = resumeProjects.slice((number - 4) * 8, (number - 3) * 8);
+					for (const project of projects)
+						expect(normalize(texts[number - 1]), 'Projects must share their assigned page').toContain(
+							normalize(project.title)
+						);
+					if (projects.length === 8) {
+						const lastTitle = text.items.find(
+							(item) => 'str' in item && normalize(item.str) === normalize(projects[7].title)
+						);
+						expect(lastTitle, 'The final row must remain visible').toBeDefined();
+						if (lastTitle && 'transform' in lastTitle)
+							expect(
+								viewport.height - lastTitle.transform[5],
+								'A full project page should use its lower half rather than leave it empty'
+							).toBeGreaterThan(viewport.height * 0.65);
+					}
+				}
 				links.push(
 					...(await page.getAnnotations()).map((annotation) => annotation.url).filter(Boolean)
 				);
