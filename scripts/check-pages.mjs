@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
 import { preview } from 'vite';
 import { chromium } from 'playwright';
 
 // Exercise the deployed subdirectory as well as the root-path portfolio suite.
+const content = JSON.parse(await readFile('src/lib/content/portfolio.json', 'utf8'));
 const base = process.env.BASE_PATH || '';
 const origin = 'http://127.0.0.1:4400';
 const server = await preview({ preview: { host: '127.0.0.1', port: 4400, strictPort: true } });
@@ -26,11 +28,18 @@ try {
 		}
 	});
 	assert.deepEqual(failures, []);
+	const downloadLink = page.getByRole('link', { name: 'Download resume (PDF)', exact: true });
+	assert.equal(await downloadLink.getAttribute('href'), `${base}/${content.resume.filename}`);
+	const pdf = await page.request.get(`${origin}${base}/${content.resume.filename}`);
+	assert.equal(pdf.status(), 200);
+	assert((await pdf.body()).subarray(0, 5).toString() === '%PDF-');
 	for (const path of ['/resume', '/resume.pdf', '/private/output/resume.pdf']) {
 		const response = await page.request.get(`${origin}${base}${path}`);
 		assert.equal(response.status(), 404, `Private resume exposed: ${path}`);
 	}
-	console.log(`GitHub Pages path verified: ${base || '/'}, including logos and resume privacy.`);
+	console.log(
+		`GitHub Pages path verified: ${base || '/'}, including app screenshots, PDF download and private route isolation.`
+	);
 } finally {
 	await browser?.close();
 	await new Promise((resolve, reject) =>

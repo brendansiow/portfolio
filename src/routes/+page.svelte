@@ -12,7 +12,11 @@
 
 <Navigation />
 <div class="page-main">
-	<Hero data={portfolioData.personalInfo} experience={portfolioData.workExperience} />
+	<Hero
+		data={portfolioData.personalInfo}
+		experience={portfolioData.workExperience}
+		resumeFilename={portfolioData.resume.filename}
+	/>
 	<section id="projects" tabindex="-1"><Projects data={portfolioData.projects} /></section>
 	<section id="experience" tabindex="-1">
 		<Experience data={portfolioData.workExperience} />

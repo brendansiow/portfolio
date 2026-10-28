@@ -4,6 +4,7 @@ import { PNG } from 'pngjs';
 import content from '../src/lib/content/portfolio.json' with { type: 'json' };
 import { readPdf, renderPdfPage, compareSurfaces, OPS } from './pdf-utils';
 
+const resumeProjects = content.projects.filter((project) => project.includeInResume);
 const normalize = (text: string) => text.replace(/\s+/g, '');
 
 for (const theme of ['light']) {
@@ -15,7 +16,7 @@ for (const theme of ['light']) {
 		try {
 			const metadata = JSON.parse(await readFile(`.resume-artifacts/${theme}.json`, 'utf8'));
 			expect(doc.numPages, 'Each designed sheet must fit one A4 page').toBe(metadata.length);
-			expect(doc.numPages).toBe(3 + Math.ceil(content.projects.length / 4));
+			expect(doc.numPages).toBe(3 + Math.ceil(resumeProjects.length / 4));
 			const texts: string[] = [];
 			const links: string[] = [];
 			for (let number = 1; number <= doc.numPages; number++) {
@@ -57,9 +58,14 @@ for (const theme of ['light']) {
 				expect(text).toContain(normalize(job.company));
 				for (const line of job.description) expect(text).toContain(normalize(line));
 			}
-			for (const project of content.projects) {
+			for (const project of resumeProjects) {
 				expect(text).toContain(normalize(project.title));
 				expect(text).toContain(normalize(project.description));
+			}
+			for (const project of content.projects.filter((project) => !project.includeInResume)) {
+				expect(text, 'Website-only project must not change the resume').not.toContain(
+					normalize(project.title)
+				);
 			}
 			for (const education of content.education)
 				expect(text).toContain(normalize(education.degree));

@@ -30,8 +30,7 @@ tmp-*.mjs
 .playwright-mcp/
 
 # Generated resume and visual QA
-/static/resume.pdf
-/static/resume-dark.pdf
+/static/*.pdf
 /tmp/
 
 # Browser tests and PDF export surfaces
@@ -39,7 +38,7 @@ tmp-*.mjs
 /test-results/
 /playwright-report/
 
-# Local resume files and reports must never be published
+# Local renderer intermediates and reports stay out of Git
 /private/output/
 /private/test-results/
 /private/test-report/

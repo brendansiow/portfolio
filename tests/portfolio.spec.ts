@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
-import { readdir } from 'node:fs/promises';
+import { readdir, readFile } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import content from '../src/lib/content/portfolio.json' with { type: 'json' };
 
 for (const theme of ['light', 'dark'] as const) {
@@ -33,7 +34,9 @@ for (const theme of ['light', 'dark'] as const) {
 				await expect(page.locator('#experience')).toContainText(job.company);
 			for (const project of content.projects)
 				await expect(page.locator('#projects')).toContainText(project.title);
-			await expect(page.locator('a[href*="resume"], a[download]')).toHaveCount(0);
+			await expect(
+				page.getByRole('link', { name: 'Download resume (PDF)', exact: true })
+			).toHaveAttribute('download', content.resume.filename);
 			await expect(page.locator('#resume-pdf')).toHaveCount(0);
 			await expect(page.locator('#education, a[href="#education"]')).toHaveCount(0);
 			expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
@@ -46,7 +49,9 @@ for (const theme of ['light', 'dark'] as const) {
 	}
 }
 
-test('resume files and source routes are absent from public hosting', async ({ request }) => {
+test('only the configured PDF is public; renderer and private files remain isolated', async ({
+	request
+}) => {
 	for (const path of [
 		'/resume',
 		'/resume/',
@@ -61,9 +66,8 @@ test('resume files and source routes are absent from public hosting', async ({ r
 		expect(response.status(), `${path} must not be accessible`).toBe(404);
 	}
 	const files = await readdir('build', { recursive: true });
-	expect(files.filter((file) => /\.pdf$/i.test(file) || /(^|\/)private(\/|$)/.test(file))).toEqual(
-		[]
-	);
+	expect(files.filter((file) => /\.pdf$/i.test(file))).toEqual([content.resume.filename]);
+	expect(files.filter((file) => /(^|\/)private(\/|$)/.test(file))).toEqual([]);
 });
 
 test('theme toggle persists after reload', async ({ page }) => {
@@ -87,7 +91,12 @@ test('public content and contact work without JavaScript', async ({ browser, bas
 	await page.goto('/');
 	await expect(page.locator('h1')).toHaveText(content.personalInfo.headline);
 	await expect(page.locator('#contact a[href^="mailto:"]')).toBeVisible();
-	await expect(page.locator('a[href*="resume"], a[download]')).toHaveCount(0);
+	await expect(
+		page.getByRole('link', { name: 'Say hello on LinkedIn (opens in a new tab)', exact: true })
+	).toHaveAttribute('href', content.personalInfo.linkedin);
+	await expect(
+		page.getByRole('link', { name: 'Download resume (PDF)', exact: true })
+	).toHaveAttribute('download', content.resume.filename);
 	await context.close();
 });
 
@@ -211,14 +220,16 @@ test('more projects expand with the keyboard and work without JavaScript', async
 	const disclosure = page.locator('.more-work-disclosure');
 	const summary = disclosure.locator('summary');
 	await expect(summary).toContainText(
-		String(content.projects.filter((project) => !project.featured).length)
+		String(content.projects.filter((project) => !project.featured && !project.apps?.length).length)
 	);
 	const additional = page.locator('.project-note').first();
 	await expect(additional).toBeHidden();
 	await summary.focus();
 	await page.keyboard.press('Enter');
 	await expect(additional).toBeVisible();
-	for (const project of content.projects.filter((project) => !project.featured))
+	for (const project of content.projects.filter(
+		(project) => !project.featured && !project.apps?.length
+	))
 		await expect(
 			disclosure.getByRole('heading', { name: project.title, exact: true })
 		).toBeVisible();
@@ -325,3 +336,107 @@ for (const height of [1000, 2000]) {
 		);
 	});
 }
+
+test('mobile projects show both Flutter flavors and real store screenshots', async ({ page }) => {
+	await page.goto('/');
+	const showcases = page.locator('.app-project');
+	await expect(showcases).toHaveCount(3);
+	const sideProject = page.getByRole('article', {
+		name: 'Bisync Operator & Pasar AI',
+		exact: true
+	});
+	await expect(sideProject).toBeVisible();
+	await expect(sideProject.locator('.screenshot-gallery')).toHaveCount(2);
+	for (const project of content.projects.filter((project) => project.apps?.length)) {
+		const card = page.getByRole('article', { name: project.title, exact: true });
+		for (const app of project.apps || []) {
+			const gallery = card.getByRole('region', { name: `${app.name} app preview`, exact: true });
+			await expect(
+				gallery.getByRole('link', {
+					name: `${app.name} on Google Play (opens in a new tab)`,
+					exact: true
+				})
+			).toHaveAttribute('href', app.storeUrl);
+			await expect(gallery.getByRole('img')).toHaveCount(app.screenshots.length);
+			for (const screen of app.screenshots) {
+				const image = gallery.getByAltText(screen.alt, { exact: true });
+				await image.scrollIntoViewIfNeeded();
+				await image.evaluate((element: HTMLImageElement) => element.decode());
+				expect(
+					await image.evaluate((element: HTMLImageElement) => ({
+						width: element.naturalWidth,
+						height: element.naturalHeight
+					}))
+				).toEqual({ width: screen.width, height: screen.height });
+			}
+		}
+	}
+});
+
+test('screenshot gallery supports keyboard controls and full-size previews', async ({ page }) => {
+	await page.setViewportSize({ width: 390, height: 844 });
+	await page.emulateMedia({ reducedMotion: 'reduce' });
+	await page.goto('/');
+	const gallery = page.getByRole('region', { name: 'Bisync Operator app preview', exact: true });
+	await gallery.scrollIntoViewIfNeeded();
+	const strip = gallery.locator('.app-screenshots');
+	const next = gallery.getByRole('button', {
+		name: 'Next screenshots for Bisync Operator',
+		exact: true
+	});
+	await next.focus();
+	await page.keyboard.press('Enter');
+	await expect.poll(() => strip.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0);
+	const previous = gallery.getByRole('button', {
+		name: 'Previous screenshots for Bisync Operator',
+		exact: true
+	});
+	await previous.focus();
+	await page.keyboard.press('Enter');
+	await expect.poll(() => strip.evaluate((element) => element.scrollLeft)).toBeLessThanOrEqual(2);
+	const popupPromise = page.waitForEvent('popup');
+	await gallery.locator('.app-screenshot').first().click();
+	const popup = await popupPromise;
+	await popup.waitForLoadState();
+	expect(popup.url()).toContain('/assets/projects/bisync/');
+	await popup.close();
+});
+
+test('app previews and store links remain available without JavaScript', async ({
+	browser,
+	baseURL
+}) => {
+	const context = await browser.newContext({
+		baseURL,
+		javaScriptEnabled: false,
+		viewport: { width: 390, height: 844 }
+	});
+	const page = await context.newPage();
+	await page.goto('/');
+	const gallery = page.getByRole('region', { name: 'Pasar AI app preview', exact: true });
+	await gallery.scrollIntoViewIfNeeded();
+	await expect(gallery.getByRole('img')).toHaveCount(2);
+	await expect(
+		gallery.getByRole('link', { name: 'Pasar AI on Google Play (opens in a new tab)', exact: true })
+	).toBeVisible();
+	await expect(gallery.getByRole('button')).toHaveCount(0);
+	await context.close();
+});
+
+test('resume button downloads the generated light PDF directly', async ({ page, request }) => {
+	const response = await request.get(`/${content.resume.filename}`);
+	expect(response.status()).toBe(200);
+	expect(response.headers()['content-type']).toContain('application/pdf');
+	const published = await response.body();
+	expect(published.subarray(0, 5).toString()).toBe('%PDF-');
+	const original = await readFile(`build/${content.resume.filename}`);
+	const hash = (bytes: Buffer) => createHash('sha256').update(bytes).digest('hex');
+	expect(hash(published)).toBe(hash(original));
+	await page.goto('/');
+	const downloadPromise = page.waitForEvent('download');
+	await page.getByRole('link', { name: 'Download resume (PDF)', exact: true }).click();
+	const download = await downloadPromise;
+	expect(download.suggestedFilename()).toBe(content.resume.filename);
+	expect(await download.failure()).toBeNull();
+	expect(hash(await readFile((await download.path())!))).toBe(hash(published));
+});

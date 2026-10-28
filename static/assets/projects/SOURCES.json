@@ -1,0 +1,70 @@
+[
+  {
+    "app": "Bisync Operator",
+    "listing": "https://play.google.com/store/apps/details?id=com.cubevalue.bisync&hl=en",
+    "retrieved": "2026-10-28",
+    "images": [
+      {
+        "file": "assets/projects/bisync/screen-3.jpg",
+        "source": "https://play-lh.googleusercontent.com/7k2sbsDR5JCL1-FV8qUOp1Vp9tTgj20E24QMAajnadnpU23hPdSBNb3Au3okcf7xocrgVb3A5LwyEPF0afmR=w720-h1440"
+      },
+      {
+        "file": "assets/projects/bisync/screen-4.jpg",
+        "source": "https://play-lh.googleusercontent.com/2bq-FlUbXPvmy0wV69cd303vOHJUXSRfo1rGj-6SH0J0ONVqGGcBNSCoAGQNm3XPNZ5LmZD9w6vVF4Lde26njQ=w720-h1440"
+      },
+      {
+        "file": "assets/projects/bisync/screen-5.jpg",
+        "source": "https://play-lh.googleusercontent.com/iSFIz9JwbY3O4m1qg2VjyUr1ujNLPCPdWjMuJzj3f-fWWM5lHyjKX9C6mIEhHfJD0BetYdk4xpUGFZNb_5NOy5U=w720-h1440"
+      }
+    ]
+  },
+  {
+    "app": "Pasar AI",
+    "listing": "https://play.google.com/store/apps/details?id=com.cubevalue.pasar&hl=en",
+    "retrieved": "2026-10-28",
+    "images": [
+      {
+        "file": "assets/projects/pasar/screen-1.png",
+        "source": "https://play-lh.googleusercontent.com/BeI8b444NPzNzddQ1czT1r0a_5ka_aIJw31L4S3IgPGoNROS93ylDOg_lwbkL7YfOeRpT9eZDNWYUkc3pKzu9Wk=w720-h1440"
+      },
+      {
+        "file": "assets/projects/pasar/screen-2.png",
+        "source": "https://play-lh.googleusercontent.com/nc06M1k2I-GrCj0hoINhaLrDh8okUSM5hambrwnSShUXu7jDCDQ8QcuQtPhqUcsHCLfKbBCLNY6AVNe_gaWLxA=w720-h1440"
+      }
+    ]
+  },
+  {
+    "app": "iGM",
+    "listing": "https://play.google.com/store/apps/details?id=com.igmnew&hl=en",
+    "retrieved": "2026-10-28",
+    "images": [
+      {
+        "file": "assets/projects/igm/screen-1.png",
+        "source": "https://play-lh.googleusercontent.com/LhybgG3sypn-mNQi3Le2UF_ECQubvi56BVIJTaLwnMD9MNkdqMOWvgwB3xK-4EAsQ9LroPB1LShdzAIXrw5-cBM=w720-h1440"
+      },
+      {
+        "file": "assets/projects/igm/screen-2.png",
+        "source": "https://play-lh.googleusercontent.com/dWInaoUvSm67gVMAlH5LxjNPU-hqi7TDNmTWt2uQo7jdTXVH7grqyLUsIBu2elVjlLxnJUDg05hj8TaZQ541=w720-h1440"
+      },
+      {
+        "file": "assets/projects/igm/screen-3.png",
+        "source": "https://play-lh.googleusercontent.com/NOmp2o-68sTtTp2GJjqLV9rpdSuT622d0PqYRkYTn31b6z1OkNElrtOHPcLmYj1YSQkbPgPFsz7WW2tbM31VZQ=w720-h1440"
+      }
+    ]
+  },
+  {
+    "app": "FSMOne",
+    "listing": "https://play.google.com/store/apps/details?id=com.ifast.fsm&hl=en",
+    "retrieved": "2026-10-28",
+    "images": [
+      {
+        "file": "assets/projects/fsmone/screen-1.png",
+        "source": "https://play-lh.googleusercontent.com/uYvTHAS4mO38V_RZ1S9LvcAFlYUYInE8I_zniHiHO-DxzB4Vi8Ptc2G56t910GtAki3GANLc4zoiVBCvykRA3W0=w720-h1440"
+      },
+      {
+        "file": "assets/projects/fsmone/screen-5.png",
+        "source": "https://play-lh.googleusercontent.com/cvvFTh73__bM_PufxP5PwlCrBlNhhJUQF8NJIfkPiDjfxVzEkFDUU1EKdPH5aEG3n15ty112uGQ0VCPzk9VO=w720-h1440"
+      }
+    ]
+  }
+]

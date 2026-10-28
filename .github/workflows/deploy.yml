@@ -34,13 +34,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install browser for portfolio tests
+      - name: Install browser for PDF export and portfolio tests
         run: npx playwright install --with-deps chromium
 
-      - name: Build
+      - name: Build website and public resume
         run: npm run build
 
-      - name: Test portfolio and resume privacy
+      - name: Test portfolio, PDF download and private route isolation
         run: npm run test:e2e
 
       - name: Upload test report

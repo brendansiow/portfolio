@@ -34,6 +34,19 @@ export interface WorkExperience {
 	earlyCareer?: boolean;
 }
 
+export interface ProjectScreenshot {
+	src: string;
+	alt: string;
+	width: number;
+	height: number;
+}
+
+export interface ProjectApp {
+	name: string;
+	storeUrl: string;
+	screenshots: ProjectScreenshot[];
+}
+
 export interface Project {
 	id: string;
 	title: string;
@@ -46,6 +59,7 @@ export interface Project {
 	logoDarkUrl?: string;
 	storeUrl?: string;
 	appStoreUrl?: string;
+	apps?: ProjectApp[];
 	featured: boolean;
 	includeInResume: boolean;
 }

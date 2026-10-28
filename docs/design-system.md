@@ -27,10 +27,15 @@ The owner's visual preferences take precedence over generated presets.
 - Labels and technical pills: 11–12px; use them only for useful context.
 - Sections: 72px mobile / 96px desktop vertical spacing.
 - Featured work: three equal cards on desktop; one column below 900px.
+- Mobile projects: visible app showcases with original Google Play screenshots.
+  Use neutral containers; retain artwork colors and proportions. Provide native
+  horizontal scrolling, keyboard access, optional arrow controls, and full-size
+  image links. Group multiple Flutter flavors under one project.
 - Other projects: native expandable disclosure with a visible project count.
   Every project remains in the HTML and can be opened without JavaScript.
 - All content comes from `src/lib/content/portfolio.json`. Resume inclusion is
-  separate from website prominence; the private light resume includes all projects.
+  separate from website prominence; the light resume uses only entries with `includeInResume: true`.
+  Screenshot galleries and the Bisync / Pasar showcase are website-only.
 
 ## Interaction and accessibility
 
@@ -48,5 +53,6 @@ The owner's visual preferences take precedence over generated presets.
 
 `npm test` covers mobile/desktop layouts, themes, keyboard interactions, text
 content, company assets, privacy and automated accessibility checks.
-`npm run test:resume` validates the private light PDF separately.
-`BASE_PATH=/portfolio node scripts/check-pages.mjs` checks a Pages-path build.
+`npm run test:resume` validates the light PDF separately.
+`BASE_PATH=/portfolio node scripts/check-pages.mjs` checks a Pages-path build,
+including the public PDF download. The renderer and temporary reports stay private.

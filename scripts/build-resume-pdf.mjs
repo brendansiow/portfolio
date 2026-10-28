@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Local-only resume export. Neither this renderer nor its files are part of the website.
+// Separate light resume renderer. prepare:resume publishes only the finished PDF.
 import { spawn } from 'node:child_process';
 import { mkdir, rename, rm } from 'node:fs/promises';
 import { resolve } from 'node:path';

@@ -1,7 +1,12 @@
 <script lang="ts">
+	import { base } from '$app/paths';
 	import type { PersonalInfo, WorkExperience } from '$lib/types';
-	import { ArrowUpRight, Building2, MapPin } from 'lucide-svelte';
-	let { data, experience }: { data: PersonalInfo; experience: WorkExperience[] } = $props();
+	import { ArrowUpRight, Building2, MapPin, Linkedin, Download } from 'lucide-svelte';
+	let {
+		data,
+		experience,
+		resumeFilename
+	}: { data: PersonalInfo; experience: WorkExperience[]; resumeFilename: string } = $props();
 	const current = experience.find((job) => !job.earlyCareer);
 </script>
 
@@ -14,8 +19,20 @@
 			<div class="actions">
 				<a class="button primary" href="#projects"
 					>Explore my work <ArrowUpRight size={18} aria-hidden="true" /></a
-				><a class="button secondary" href={`mailto:${data.email}`}
-					>Say hello <ArrowUpRight size={18} aria-hidden="true" /></a
+				><a
+					class="button secondary resume-download"
+					href={`${base}/${resumeFilename}`}
+					download={resumeFilename}
+					type="application/pdf"
+					aria-label="Download resume (PDF)"
+					>Resume (PDF) <Download size={18} aria-hidden="true" /></a
+				><a
+					class="button secondary"
+					href={data.linkedin}
+					target="_blank"
+					rel="noopener noreferrer"
+					aria-label="Say hello on LinkedIn (opens in a new tab)"
+					>Say hello <Linkedin size={18} aria-hidden="true" /></a
 				>
 			</div>
 		</div>

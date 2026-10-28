@@ -4,8 +4,8 @@
 	"version": "0.0.1",
 	"type": "module",
 	"scripts": {
-		"dev": "vite dev",
-		"build": "npm run check && vite build",
+		"dev": "npm run prepare:resume && vite dev",
+		"build": "npm run check && npm run prepare:resume && vite build",
 		"build:pdf": "node scripts/build-resume-pdf.mjs",
 		"preview": "vite preview",
 		"prepare": "svelte-kit sync || echo ''",
@@ -18,7 +18,8 @@
 		"test:e2e": "playwright test",
 		"test:report": "playwright show-report",
 		"test:resume": "npm run build:pdf && playwright test --config playwright.resume.config.ts",
-		"test:resume:report": "playwright show-report private/test-report"
+		"test:resume:report": "playwright show-report private/test-report",
+		"prepare:resume": "npm run build:pdf && node scripts/publish-resume.mjs"
 	},
 	"devDependencies": {
 		"@axe-core/playwright": "^4.14.0",

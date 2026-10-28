@@ -167,15 +167,92 @@
 			"logoDarkUrl": "assets/logos/revenue-monster-dark.png"
 		},
 		{
+			"id": "bisync-pasar",
+			"title": "Bisync Operator & Pasar AI",
+			"description": "A Flutter side project released in two flavors, Bisync Operator and Pasar AI, for restaurant operations, procurement, and supply-chain workflows.",
+			"technologies": ["Flutter"],
+			"apps": [
+				{
+					"name": "Bisync Operator",
+					"storeUrl": "https://play.google.com/store/apps/details?id=com.cubevalue.bisync&hl=en",
+					"screenshots": [
+						{
+							"src": "assets/projects/bisync/screen-3.jpg",
+							"alt": "Bisync Operator purchase-order dashboard",
+							"width": 350,
+							"height": 779
+						},
+						{
+							"src": "assets/projects/bisync/screen-4.jpg",
+							"alt": "Bisync Operator purchase review and delivery details",
+							"width": 350,
+							"height": 779
+						},
+						{
+							"src": "assets/projects/bisync/screen-5.jpg",
+							"alt": "Bisync Operator received-order list",
+							"width": 350,
+							"height": 779
+						}
+					]
+				},
+				{
+					"name": "Pasar AI",
+					"storeUrl": "https://play.google.com/store/apps/details?id=com.cubevalue.pasar&hl=en",
+					"screenshots": [
+						{
+							"src": "assets/projects/pasar/screen-1.png",
+							"alt": "Pasar AI sign-in screen",
+							"width": 716,
+							"height": 1440
+						},
+						{
+							"src": "assets/projects/pasar/screen-2.png",
+							"alt": "Pasar AI product catalogue and new-order workflow",
+							"width": 716,
+							"height": 1440
+						}
+					]
+				}
+			],
+			"featured": false,
+			"includeInResume": false
+		},
+		{
 			"id": "3",
 			"title": "iFAST Global Markets (IGM)",
 			"description": "Delivered regional investment apps with Flutter, Spring Boot APIs, automated builds, and release workflows for the App Store, Google Play, and Huawei AppGallery.",
 			"technologies": ["Flutter", "Spring Boot", "Hibernate", "Jenkins", "CI/CD"],
 			"liveUrl": "https://www.ifastcorp.com/",
-			"storeUrl": "https://play.google.com/store/apps/details?id=com.igmnew",
 			"logoUrl": "assets/logos/ifast-wordmark-sharp.png",
 			"featured": false,
-			"includeInResume": true
+			"includeInResume": true,
+			"apps": [
+				{
+					"name": "iGM",
+					"storeUrl": "https://play.google.com/store/apps/details?id=com.igmnew&hl=en",
+					"screenshots": [
+						{
+							"src": "assets/projects/igm/screen-1.png",
+							"alt": "iGM investment dashboard and services",
+							"width": 720,
+							"height": 1280
+						},
+						{
+							"src": "assets/projects/igm/screen-2.png",
+							"alt": "iGM digital-token authentication screen",
+							"width": 720,
+							"height": 1280
+						},
+						{
+							"src": "assets/projects/igm/screen-3.png",
+							"alt": "iGM trading and cash-solution menus",
+							"width": 720,
+							"height": 1280
+						}
+					]
+				}
+			]
 		},
 		{
 			"id": "4",
@@ -183,10 +260,29 @@
 			"description": "Helped migrate a wealth management app to Flutter, building reusable UI components and moving existing application logic to the new platform.",
 			"technologies": ["Flutter", "Provider"],
 			"liveUrl": "https://www.ifastcorp.com/",
-			"storeUrl": "https://play.google.com/store/apps/details?id=com.ifast.fsm",
 			"logoUrl": "assets/logos/ifast-wordmark-sharp.png",
 			"featured": false,
-			"includeInResume": true
+			"includeInResume": true,
+			"apps": [
+				{
+					"name": "FSMOne",
+					"storeUrl": "https://play.google.com/store/apps/details?id=com.ifast.fsm&hl=en",
+					"screenshots": [
+						{
+							"src": "assets/projects/fsmone/screen-1.png",
+							"alt": "FSMOne investment discovery screen",
+							"width": 720,
+							"height": 1280
+						},
+						{
+							"src": "assets/projects/fsmone/screen-5.png",
+							"alt": "FSMOne investment goals and portfolio options",
+							"width": 720,
+							"height": 1280
+						}
+					]
+				}
+			]
 		},
 		{
 			"id": "5",

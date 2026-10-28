@@ -1,10 +1,12 @@
 <script lang="ts">
+	import AppProject from '$lib/components/AppProject.svelte';
 	import CompanyLogo from '$lib/components/CompanyLogo.svelte';
 	import type { Project } from '$lib/types';
 	import { ArrowUpRight, ChevronDown } from 'lucide-svelte';
 	let { data }: { data: Project[] } = $props();
 	const featured = $derived(data.filter((project) => project.featured));
-	const others = $derived(data.filter((project) => !project.featured));
+	const mobileProjects = $derived(data.filter((project) => project.apps?.length));
+	const others = $derived(data.filter((project) => !project.featured && !project.apps?.length));
 </script>
 
 <div class="shell section">
@@ -49,6 +51,12 @@
 			</article>
 		{/each}
 	</div>
+
+	{#if mobileProjects.length}
+		<div class="mobile-projects">
+			{#each mobileProjects as project (project.id)}<AppProject {project} />{/each}
+		</div>
+	{/if}
 
 	{#if others.length}
 		<details class="more-work-disclosure">
