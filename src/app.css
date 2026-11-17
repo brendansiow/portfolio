@@ -178,8 +178,9 @@ p {
 	align-items: center;
 	justify-content: space-between;
 	gap: 20px;
-	backdrop-filter: blur(20px);
-	-webkit-backdrop-filter: blur(20px);
+	background-color: color-mix(in srgb, var(--paper) 50%, transparent);
+	-webkit-backdrop-filter: blur(26px) saturate(0.65);
+	backdrop-filter: blur(26px) saturate(0.65);
 }
 .brand {
 	display: inline-flex;
