@@ -15,12 +15,9 @@ NGXS are brightened on dark surfaces for visibility.
   `https://raw.githubusercontent.com/simple-icons/simple-icons/develop/data/simple-icons.json`.
 - Flutter, Kubernetes, Hibernate, Jenkins, Angular, Spring, Svelte, and TypeScript
   reuse the existing full-color SVG assets under `static/assets/skills/`.
-- Echo uses the symbol from the official light logo. The wordmark group was removed
-  and its viewBox fitted to the symbol.
-  https://raw.githubusercontent.com/labstack/echo/master/.github/assets/echo-logo-light.svg
 - NGXS uses its official SVG wordmark.
   https://raw.githubusercontent.com/ngxs/store/master/docs/assets/ngxs-horizontal.svg
 - NG-ZORRO uses its official mark.
   https://ng.ant.design/assets/img/logo.svg
 
-SQL, CI/CD, and Provider use Lucide database, workflow, and package symbols.
+Echo, SQL, CI/CD, and Provider have no displayed logo. Unmapped technologies are omitted.

@@ -152,10 +152,15 @@ test('company logos load and typography follows the monochrome design', async ({
 			has: page.getByRole('heading', { name: project.title, exact: true })
 		});
 		const logos = card.locator('.technology-logos');
-		await expect(logos).toHaveCount(project.technologies.length ? 1 : 0);
-		if (project.technologies.length) await expect(logos).toHaveText('');
+		const visibleTechnologies = project.technologies.filter(
+			(technology) => !['Echo', 'SQL', 'CI/CD', 'Provider'].includes(technology)
+		);
+		await expect(logos).toHaveCount(visibleTechnologies.length ? 1 : 0);
+		if (visibleTechnologies.length) await expect(logos).toHaveText('');
 		for (const technology of project.technologies)
-			await expect(logos.getByRole('img', { name: technology, exact: true })).toHaveCount(1);
+			await expect(logos.getByRole('img', { name: technology, exact: true })).toHaveCount(
+				visibleTechnologies.includes(technology) ? 1 : 0
+			);
 	}
 	for (const image of await page.locator('img').all()) {
 		await image.scrollIntoViewIfNeeded();

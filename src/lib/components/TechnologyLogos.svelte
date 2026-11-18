@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import { Database, Package, Workflow } from 'lucide-svelte';
 
 	let { technologies }: { technologies: string[] } = $props();
 
@@ -9,7 +8,6 @@
 		Flutter: 'skills/flutter',
 		OpenSearch: 'technologies/opensearch',
 		Kubernetes: 'skills/kubernetes',
-		Echo: 'technologies/echo',
 		'Next.js': 'technologies/nextdotjs',
 		'Spring Boot': 'technologies/springboot',
 		Hibernate: 'skills/hibernate',
@@ -26,30 +24,23 @@
 		'Jetpack Compose': 'technologies/jetpackcompose',
 		Supabase: 'technologies/supabase'
 	};
+	const visibleTechnologies = $derived(technologies.filter((technology) => logos[technology]));
 </script>
 
-{#if technologies.length}
+{#if visibleTechnologies.length}
 	<ul class="technology-logos" aria-label="Project technologies">
-		{#each technologies as technology (technology)}
+		{#each visibleTechnologies as technology (technology)}
 			<li title={technology}>
-				{#if logos[technology]}
-					<img
-						class:monochrome={technology === 'Next.js'}
-						class:muted-brand={technology === 'NGXS' || technology === 'OpenSearch'}
-						src={`${base}/assets/${logos[technology]}.svg`}
-						alt={technology}
-						width={technology === 'NGXS' ? 40 : 20}
-						height="20"
-						loading="lazy"
-						decoding="async"
-					/>
-				{:else if technology === 'SQL'}
-					<Database size={20} role="img" aria-label={technology} />
-				{:else if technology === 'CI/CD'}
-					<Workflow size={20} role="img" aria-label={technology} />
-				{:else}
-					<Package size={20} role="img" aria-label={technology} />
-				{/if}
+				<img
+					class:monochrome={technology === 'Next.js'}
+					class:muted-brand={technology === 'NGXS' || technology === 'OpenSearch'}
+					src={`${base}/assets/${logos[technology]}.svg`}
+					alt={technology}
+					width={technology === 'NGXS' ? 40 : 20}
+					height="20"
+					loading="lazy"
+					decoding="async"
+				/>
 			</li>
 		{/each}
 	</ul>
