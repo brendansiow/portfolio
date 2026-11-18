@@ -25,6 +25,8 @@ The owner's visual preferences take precedence over generated presets.
 - Maximum reading container: 1200px, with 20px mobile and 48px desktop gutters.
 - Main body text: 16px minimum; 1.6–1.7 line height.
 - Labels and technical pills: 11–12px; use them only for useful context.
+- Project technology lists use monochrome logos with accessible names and hover titles.
+  Use neutral symbols for SQL, CI/CD, and Provider.
 - Sections: 72px mobile / 96px desktop vertical spacing.
 - Featured work: three equal cards on desktop; one column below 900px.
 - Mobile projects: visible app showcases with original Google Play screenshots.

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import AppProject from '$lib/components/AppProject.svelte';
 	import CompanyLogo from '$lib/components/CompanyLogo.svelte';
+	import TechnologyLogos from '$lib/components/TechnologyLogos.svelte';
 	import type { Project } from '$lib/types';
 	import { ArrowUpRight, ChevronDown } from 'lucide-svelte';
 	let { data }: { data: Project[] } = $props();
@@ -29,9 +30,7 @@
 				<h3>{project.title}</h3>
 				<p class="case-description">{project.description}</p>
 				<div class="case-bottom">
-					{#if project.technologies.length}<div class="work-tags">
-							{#each project.technologies as tech (tech)}<span>{tech}</span>{/each}
-						</div>{/if}
+					<TechnologyLogos technologies={project.technologies} />
 					{#if project.liveUrl}<a
 							class="case-link"
 							aria-label={`${project.title}: company website (opens in a new tab)`}
@@ -70,9 +69,7 @@
 				{#each others as project (project.id)}<article class="project-note">
 						<h3>{project.title}</h3>
 						<p>{project.description}</p>
-						{#if project.technologies.length}<div class="work-tags">
-								{#each project.technologies as tech (tech)}<span>{tech}</span>{/each}
-							</div>{/if}
+						<TechnologyLogos technologies={project.technologies} />
 						<div class="project-links">
 							{#if project.liveUrl}<a
 									href={project.liveUrl}

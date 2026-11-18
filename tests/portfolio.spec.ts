@@ -146,6 +146,17 @@ test('mobile navigation exposes all sections, closes after selection, and suppor
 
 test('company logos load and typography follows the monochrome design', async ({ page }) => {
 	await page.goto('/');
+	await page.locator('.more-work-disclosure summary').click();
+	for (const project of content.projects) {
+		const card = page.locator('#projects article').filter({
+			has: page.getByRole('heading', { name: project.title, exact: true })
+		});
+		const logos = card.locator('.technology-logos');
+		await expect(logos).toHaveCount(project.technologies.length ? 1 : 0);
+		if (project.technologies.length) await expect(logos).toHaveText('');
+		for (const technology of project.technologies)
+			await expect(logos.getByRole('img', { name: technology, exact: true })).toHaveCount(1);
+	}
 	for (const image of await page.locator('img').all()) {
 		await image.scrollIntoViewIfNeeded();
 		await expect

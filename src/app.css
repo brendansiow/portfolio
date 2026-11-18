@@ -562,9 +562,6 @@ p {
 	color: var(--muted);
 	overflow-wrap: anywhere;
 }
-.case-bottom .work-tags {
-	margin-top: 0;
-}
 .case-link {
 	display: flex;
 	align-items: center;
