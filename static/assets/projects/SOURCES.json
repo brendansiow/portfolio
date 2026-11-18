@@ -66,5 +66,31 @@
         "source": "https://play-lh.googleusercontent.com/cvvFTh73__bM_PufxP5PwlCrBlNhhJUQF8NJIfkPiDjfxVzEkFDUU1EKdPH5aEG3n15ty112uGQ0VCPzk9VO=w720-h1440"
       }
     ]
+  },
+  {
+    "app": "Topdeck web",
+    "listing": "https://topdeck.wtf",
+    "retrieved": "2026-11-18",
+    "notes": "Captured from the live web app in a fresh browser with a local sample journal. Mobile web screenshots, 390 x 844 CSS pixels at 2x resolution.",
+    "images": [
+      {
+        "file": "assets/projects/topdeck/home.jpg",
+        "source": "https://topdeck.wtf/"
+      },
+      {
+        "file": "assets/projects/topdeck/decks.jpg",
+        "source": "https://topdeck.wtf/deck"
+      },
+      {
+        "file": "assets/projects/topdeck/rounds.jpg",
+        "source": "https://topdeck.wtf/matches",
+        "notes": "Local sample Weekend League tournament with four rounds."
+      },
+      {
+        "file": "assets/projects/topdeck/recap.jpg",
+        "source": "https://topdeck.wtf/matches",
+        "notes": "Share recap dialog for the local sample tournament."
+      }
+    ]
   }
 ]

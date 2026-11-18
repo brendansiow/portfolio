@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Separate light resume renderer. prepare:resume publishes only the finished PDF.
+// Separate dark resume renderer. prepare:resume publishes only the finished PDF.
 import { spawn } from 'node:child_process';
 import { mkdir, rename, rm } from 'node:fs/promises';
 import { resolve } from 'node:path';
@@ -55,7 +55,7 @@ try {
 
 	await mkdir(resolve('private/output'), { recursive: true });
 	{
-		const theme = 'light';
+		const theme = 'dark';
 		const filename = 'resume.pdf';
 		const output = resolve('private/output', filename);
 		const context = await browser.newContext({

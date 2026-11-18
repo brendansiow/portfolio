@@ -13,6 +13,8 @@
 		</div>
 	</div>
 	<div class="app-project-galleries" class:multiple-apps={(project.apps?.length || 0) > 1}>
-		{#each project.apps || [] as app (app.storeUrl)}<ScreenshotGallery {app} />{/each}
+		{#each project.apps || [] as app (app.storeUrl || app.liveUrl)}<ScreenshotGallery
+				{app}
+			/>{/each}
 	</div>
 </article>

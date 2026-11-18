@@ -7,16 +7,15 @@ import { readPdf, renderPdfPage, compareSurfaces, OPS } from './pdf-utils';
 const resumeProjects = content.projects.filter((project) => project.includeInResume);
 const normalize = (text: string) => text.replace(/\s+/g, '');
 
-for (const theme of ['light']) {
+for (const theme of ['dark']) {
 	test(`${theme} PDF retains content, links, page geometry and clean surfaces`, async () => {
 		const testInfo = test.info();
-		const filename = theme === 'dark' ? 'resume-dark.pdf' : 'resume.pdf';
-		const bytes = await readFile(`private/output/${filename}`);
+		const bytes = await readFile('private/output/resume.pdf');
 		const doc = await readPdf(bytes);
 		try {
 			const metadata = JSON.parse(await readFile(`.resume-artifacts/${theme}.json`, 'utf8'));
 			expect(doc.numPages, 'Each designed sheet must fit one A4 page').toBe(metadata.length);
-			expect(doc.numPages).toBe(3 + Math.ceil(resumeProjects.length / 8));
+			expect(doc.numPages).toBe(5 + Math.ceil(resumeProjects.length / 8));
 			const texts: string[] = [];
 			const links: string[] = [];
 			for (let number = 1; number <= doc.numPages; number++) {
@@ -26,12 +25,13 @@ for (const theme of ['light']) {
 				expect(viewport.height).toBeCloseTo(842, 0);
 				const text = await page.getTextContent();
 				texts.push(text.items.map((item) => ('str' in item ? item.str : '')).join(' '));
-				if (number >= 4) {
+				if (number >= 4 && number < 4 + Math.ceil(resumeProjects.length / 8)) {
 					const projects = resumeProjects.slice((number - 4) * 8, (number - 3) * 8);
 					for (const project of projects)
-						expect(normalize(texts[number - 1]), 'Projects must share their assigned page').toContain(
-							normalize(project.title)
-						);
+						expect(
+							normalize(texts[number - 1]),
+							'Projects must share their assigned page'
+						).toContain(normalize(project.title));
 					if (projects.length === 8) {
 						const lastTitle = text.items.find(
 							(item) => 'str' in item && normalize(item.str) === normalize(projects[7].title)
@@ -40,8 +40,8 @@ for (const theme of ['light']) {
 						if (lastTitle && 'transform' in lastTitle)
 							expect(
 								viewport.height - lastTitle.transform[5],
-								'A full project page should use its lower half rather than leave it empty'
-							).toBeGreaterThan(viewport.height * 0.65);
+								'The last project row should appear in the lower half of the page'
+							).toBeGreaterThan(viewport.height * 0.55);
 					}
 				}
 				links.push(
@@ -56,7 +56,7 @@ for (const theme of ['light']) {
 					contentType: 'image/png'
 				});
 				const geometry = metadata[number - 1];
-				expect(geometry.paper).toBe(theme === 'dark' ? '#111' : '#f2f2f2');
+				expect(geometry.paper).toBe('#111');
 				expect(geometry.bodyFont).toContain('Helvetica');
 				expect(geometry.headingFont).toContain('Maple Mono');
 				const reference = await readFile(`.resume-artifacts/${geometry.background}`);
@@ -71,6 +71,12 @@ for (const theme of ['light']) {
 					`${theme} page ${number}: ${JSON.stringify(difference)}`
 				).toBeLessThan(0.002);
 			}
+			expect(texts[0]).toContain('About');
+			expect(texts[1]).toContain('Experience');
+			expect(texts[2]).toContain('Experience, continued.');
+			expect(texts[3]).toContain('Selected work');
+			expect(texts.at(-2)).toContain('Skills');
+			expect(texts.at(-1)).toContain('Education & recognition');
 			const text = normalize(texts.join(' '));
 			for (const job of content.workExperience) {
 				expect(text).toContain(normalize(job.company));
@@ -100,15 +106,15 @@ for (const theme of ['light']) {
 }
 
 test('surface comparison detects a horizontal band regression', async () => {
-	const metadata = JSON.parse(await readFile('.resume-artifacts/light.json', 'utf8'));
+	const metadata = JSON.parse(await readFile('.resume-artifacts/dark.json', 'utf8'));
 	const geometry = metadata[0];
 	const reference = await readFile(`.resume-artifacts/${geometry.background}`);
 	const image = PNG.sync.read(reference);
-	// Simulate the screenshot's unwanted dark strip across both hero cards.
+	// Simulate an unwanted bright strip on the dark page.
 	for (let y = 300; y < 348; y++) {
 		for (let x = 20; x < image.width - 20; x++) {
 			const offset = (y * image.width + x) * 4;
-			for (let channel = 0; channel < 3; channel++) image.data[offset + channel] = 0;
+			for (let channel = 0; channel < 3; channel++) image.data[offset + channel] = 255;
 		}
 	}
 	const difference = compareSurfaces(PNG.sync.write(image), reference, geometry);

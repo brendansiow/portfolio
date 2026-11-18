@@ -33,9 +33,10 @@ The owner's visual preferences take precedence over generated presets.
   image links. Group multiple Flutter flavors under one project.
 - Other projects: native expandable disclosure with a visible project count.
   Every project remains in the HTML and can be opened without JavaScript.
-- All content comes from `src/lib/content/portfolio.json`. Resume inclusion is
-  separate from website prominence; the light resume uses only entries with `includeInResume: true`.
-  Screenshot galleries and the Bisync / Pasar showcase are website-only.
+- All content comes from `src/lib/content/portfolio.json`. The resume follows
+  the website's glass cards with separate A4 sections for About, Experience,
+  Selected Work, Skills, and Education & recognition. Projects use
+  `includeInResume: true`; screenshot galleries remain on the website.
 
 ## Interaction and accessibility
 
@@ -53,6 +54,6 @@ The owner's visual preferences take precedence over generated presets.
 
 `npm test` covers mobile/desktop layouts, themes, keyboard interactions, text
 content, company assets, privacy and automated accessibility checks.
-`npm run test:resume` validates the light PDF separately.
+`npm run test:resume` validates the dark PDF separately.
 `BASE_PATH=/portfolio node scripts/check-pages.mjs` checks a Pages-path build,
 including the public PDF download. The renderer and temporary reports stay private.

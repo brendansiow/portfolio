@@ -337,10 +337,12 @@ for (const height of [1000, 2000]) {
 	});
 }
 
-test('mobile projects show both Flutter flavors and real store screenshots', async ({ page }) => {
+test('mobile and web projects show their screenshots and destination links', async ({ page }) => {
 	await page.goto('/');
 	const showcases = page.locator('.app-project');
-	await expect(showcases).toHaveCount(3);
+	await expect(showcases).toHaveCount(
+		content.projects.filter((project) => project.apps?.length).length
+	);
 	const sideProject = page.getByRole('article', {
 		name: 'Bisync Operator & Pasar AI',
 		exact: true
@@ -353,10 +355,10 @@ test('mobile projects show both Flutter flavors and real store screenshots', asy
 			const gallery = card.getByRole('region', { name: `${app.name} app preview`, exact: true });
 			await expect(
 				gallery.getByRole('link', {
-					name: `${app.name} on Google Play (opens in a new tab)`,
+					name: `${app.name}${'liveUrl' in app ? ': live site' : ' on Google Play'} (opens in a new tab)`,
 					exact: true
 				})
-			).toHaveAttribute('href', app.storeUrl);
+			).toHaveAttribute('href', 'liveUrl' in app ? app.liveUrl : app.storeUrl);
 			await expect(gallery.getByRole('img')).toHaveCount(app.screenshots.length);
 			for (const screen of app.screenshots) {
 				const image = gallery.getByAltText(screen.alt, { exact: true });
@@ -423,7 +425,7 @@ test('app previews and store links remain available without JavaScript', async (
 	await context.close();
 });
 
-test('resume button downloads the generated light PDF directly', async ({ page, request }) => {
+test('resume button downloads the generated dark PDF directly', async ({ page, request }) => {
 	const response = await request.get(`/${content.resume.filename}`);
 	expect(response.status()).toBe(200);
 	expect(response.headers()['content-type']).toContain('application/pdf');

@@ -4,6 +4,7 @@
 	import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-svelte';
 	import type { ProjectApp } from '$lib/types';
 	let { app }: { app: ProjectApp } = $props();
+	const linkLabel = $derived(app.liveUrl ? 'Live site' : 'Google Play');
 	let strip: HTMLUListElement;
 	let hasOverflow = $state(false);
 	let atStart = $state(true);
@@ -31,11 +32,11 @@
 	<div class="app-gallery-heading">
 		<h4>{app.name}</h4>
 		<a
-			href={app.storeUrl}
+			href={app.liveUrl || app.storeUrl}
 			target="_blank"
 			rel="noopener noreferrer"
-			aria-label={`${app.name} on Google Play (opens in a new tab)`}
-			>Google Play <ArrowUpRight size={16} aria-hidden="true" /></a
+			aria-label={`${app.name}${app.liveUrl ? ': live site' : ' on Google Play'} (opens in a new tab)`}
+			>{linkLabel} <ArrowUpRight size={16} aria-hidden="true" /></a
 		>
 	</div>
 	<ul
@@ -67,7 +68,7 @@
 		{/each}
 	</ul>
 	<div class="app-gallery-footer">
-		<p>Current Google Play previews</p>
+		<p>{app.liveUrl ? 'Web app previews · sample journal' : 'Current Google Play previews'}</p>
 		{#if hasOverflow}
 			<div class="gallery-controls">
 				<button

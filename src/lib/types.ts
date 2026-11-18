@@ -43,7 +43,8 @@ export interface ProjectScreenshot {
 
 export interface ProjectApp {
 	name: string;
-	storeUrl: string;
+	storeUrl?: string;
+	liveUrl?: string;
 	screenshots: ProjectScreenshot[];
 }
 

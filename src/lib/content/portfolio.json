@@ -135,6 +135,53 @@
 	],
 	"projects": [
 		{
+			"id": "topdeck",
+			"title": "Topdeck",
+			"description": "An offline-first Pokémon TCG tournament journal for iOS, Android, and web. Track decks and round results, export shareable recap images, and optionally sync journals across iOS and web.",
+			"technologies": [
+				"Kotlin Multiplatform",
+				"SwiftUI",
+				"Jetpack Compose",
+				"SvelteKit",
+				"Supabase"
+			],
+			"liveUrl": "https://topdeck.wtf",
+			"apps": [
+				{
+					"name": "Topdeck web",
+					"liveUrl": "https://topdeck.wtf",
+					"screenshots": [
+						{
+							"src": "assets/projects/topdeck/home.jpg",
+							"alt": "Topdeck dashboard with sample tournament statistics and recent results",
+							"width": 780,
+							"height": 1688
+						},
+						{
+							"src": "assets/projects/topdeck/decks.jpg",
+							"alt": "Topdeck deck collection showing Dragapult and Gardevoir decks",
+							"width": 780,
+							"height": 1688
+						},
+						{
+							"src": "assets/projects/topdeck/rounds.jpg",
+							"alt": "Topdeck sample tournament showing round results and opponent deck icons",
+							"width": 780,
+							"height": 1688
+						},
+						{
+							"src": "assets/projects/topdeck/recap.jpg",
+							"alt": "Topdeck shareable recap preview for a sample three-win tournament",
+							"width": 780,
+							"height": 1688
+						}
+					]
+				}
+			],
+			"featured": false,
+			"includeInResume": false
+		},
+		{
 			"id": "feedme-payments",
 			"title": "Payments for everyday commerce",
 			"description": "Built a unified payment checkout for POS, kiosks, and online ordering across five markets, integrating more than 12 acquirers and simplifying merchant onboarding.",

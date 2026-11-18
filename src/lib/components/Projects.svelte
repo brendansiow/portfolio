@@ -74,6 +74,13 @@
 								{#each project.technologies as tech (tech)}<span>{tech}</span>{/each}
 							</div>{/if}
 						<div class="project-links">
+							{#if project.liveUrl}<a
+									href={project.liveUrl}
+									target="_blank"
+									rel="noopener noreferrer"
+									aria-label={`${project.title}: live site (opens in a new tab)`}
+									>Live site <ArrowUpRight size={16} aria-hidden="true" /></a
+								>{/if}
 							{#if project.githubUrl}<a
 									href={project.githubUrl}
 									target="_blank"
